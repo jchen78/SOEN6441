@@ -9,17 +9,17 @@ import org.junit.Test;
 public class EngineTests {
 	private final static int BANK_INITIAL_AMOUNT = 120;
 	
-	private Bank _testBank;
+	private Bank testBank;
 	
 	@Before
 	public void InitializeBank()
 	{
-		_testBank = new Bank(BANK_INITIAL_AMOUNT);
+		testBank = new Bank(BANK_INITIAL_AMOUNT);
 	}
 	
 	@Test
 	public void GivenNoTransactionsWhenQueryingBankShouldReturnInitialValue() {
-		assertEquals(BANK_INITIAL_AMOUNT, _testBank.getBalance());
+		assertEquals(BANK_INITIAL_AMOUNT, testBank.getBalance());
 	}
 	
 	@Test
@@ -29,9 +29,9 @@ public class EngineTests {
 		int newBalance = BANK_INITIAL_AMOUNT - someAmount;
 		
 		// Act
-		_testBank.withdraw(someAmount);
+		testBank.withdraw(someAmount);
 		
 		// Assert
-		assertEquals(newBalance, _testBank.getBalance());
+		assertEquals(newBalance, testBank.getBalance());
 	}
 }

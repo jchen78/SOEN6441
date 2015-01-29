@@ -3,35 +3,25 @@ package tests;
 import static org.junit.Assert.*;
 import game.engine.Bank;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class EngineTests {
 	private final static int BANK_INITIAL_AMOUNT = 120;
 	
-	private Bank _testBank;
-	
-	@Before
-	public void InitializeBank()
-	{
-		_testBank = new Bank(BANK_INITIAL_AMOUNT);
-	}
-	
 	@Test
 	public void GivenNoTransactionsWhenQueryingBankShouldReturnInitialValue() {
-		assertEquals(BANK_INITIAL_AMOUNT, _testBank.getBalance());
+		Bank newBank = new Bank(BANK_INITIAL_AMOUNT);
+		assertEquals(BANK_INITIAL_AMOUNT, newBank.getBalance());
 	}
 	
 	@Test
 	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() {
-		// Arrange
 		int someAmount = 6;
 		int newBalance = BANK_INITIAL_AMOUNT - someAmount;
+		Bank newBank = new Bank(BANK_INITIAL_AMOUNT);
 		
-		// Act
-		_testBank.withdraw(someAmount);
+		newBank.withdraw(someAmount);
 		
-		// Assert
-		assertEquals(newBalance, _testBank.getBalance());
+		assertEquals(newBalance, newBank.getBalance());
 	}
 }

@@ -13,5 +13,15 @@ public class EngineTests {
 		Bank newBank = new Bank(BANK_INITIAL_AMOUNT);
 		assertEquals(BANK_INITIAL_AMOUNT, newBank.getBalance());
 	}
-
+	
+	@Test
+	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() {
+		int someAmount = 6;
+		int newBalance = BANK_INITIAL_AMOUNT - someAmount;
+		Bank newBank = new Bank(BANK_INITIAL_AMOUNT);
+		
+		newBank.withdraw(someAmount);
+		
+		assertEquals(newBalance, newBank.getBalance());
+	}
 }

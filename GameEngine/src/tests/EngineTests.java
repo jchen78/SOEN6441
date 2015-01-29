@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 import game.engine.Bank;
+import game.engine.Bank.BankWithdrawalException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class EngineTests {
 	}
 	
 	@Test
-	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() {
+	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() throws BankWithdrawalException {
 		// Arrange
 		int someAmount = 6;
 		int newBalance = BANK_INITIAL_AMOUNT - someAmount;
@@ -33,5 +34,19 @@ public class EngineTests {
 		
 		// Assert
 		assertEquals(newBalance, _testBank.getBalance());
+	}
+	
+	@Test
+	public void WhenWithdrawingTooMuchMoneyShouldThrowException() {
+		BankWithdrawalException expectedException = null;
+		try { _testBank.withdraw(BANK_INITIAL_AMOUNT + 1); } catch (BankWithdrawalException e) { expectedException = e; }
+		assertEquals("Withdrawal exceeds current balance.", expectedException.getMessage());
+	}
+	
+	@Test
+	public void WhenWithdrawingNegativeAmountShouldThrowException() {
+		BankWithdrawalException expectedException = null;
+		try { _testBank.withdraw(-1); } catch (BankWithdrawalException e) { expectedException = e; }
+		assertEquals("Withdrawal must have a positive value.", expectedException.getMessage());
 	}
 }

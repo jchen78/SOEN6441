@@ -2,7 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 import game.engine.Bank;
-import game.engine.Bank.BankWithdrawalException;
+import game.engine.Bank.BankException;
+import game.engine.BankError;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +14,16 @@ public class BankTests {
 	private Bank _testBank;
 	
 	@Before
-	public void Initialize()
+	public void Initialize() throws BankException
 	{
 		_testBank = new Bank(BANK_INITIAL_AMOUNT);
+	}
+	
+	@Test
+	public void WhenInitializingGreaterThanMaximumShouldThrowException() {
+		BankException expectedException = null;
+		try { _testBank = new Bank(BANK_INITIAL_AMOUNT + 1); } catch (BankException e) { expectedException = e; }
+		assertEquals(BankError.InitialAmountExceedsLimit, expectedException.getDetails());
 	}
 	
 	@Test
@@ -24,7 +32,7 @@ public class BankTests {
 	}
 	
 	@Test
-	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() throws BankWithdrawalException {
+	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() throws BankException {
 		// Arrange
 		int someAmount = 6;
 		int newBalance = BANK_INITIAL_AMOUNT - someAmount;
@@ -38,15 +46,15 @@ public class BankTests {
 	
 	@Test
 	public void WhenWithdrawingTooMuchMoneyShouldThrowException() {
-		BankWithdrawalException expectedException = null;
-		try { _testBank.withdraw(BANK_INITIAL_AMOUNT + 1); } catch (BankWithdrawalException e) { expectedException = e; }
-		assertEquals("Withdrawal exceeds current balance.", expectedException.getMessage());
+		BankException expectedException = null;
+		try { _testBank.withdraw(BANK_INITIAL_AMOUNT + 1); } catch (BankException e) { expectedException = e; }
+		assertEquals(BankError.WithdrawalExceedsLimit, expectedException.getDetails());
 	}
 	
 	@Test
 	public void WhenWithdrawingNegativeAmountShouldThrowException() {
-		BankWithdrawalException expectedException = null;
-		try { _testBank.withdraw(-1); } catch (BankWithdrawalException e) { expectedException = e; }
-		assertEquals("Withdrawal must have a positive value.", expectedException.getMessage());
+		BankException expectedException = null;
+		try { _testBank.withdraw(-1); } catch (BankException e) { expectedException = e; }
+		assertEquals(BankError.WithdrawalMustBePositive, expectedException.getDetails());
 	}
 }

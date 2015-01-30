@@ -2,17 +2,21 @@ package game.engine;
 
 public class Bank {
 	private int _currentBalance;
+	private static final int MAXIMUM_AMOUNT = 120;
 	
-	public Bank(int initialAmount) {
-		_currentBalance = initialAmount;
+	public Bank(int initialAmount) throws BankException {
+		if (initialAmount > MAXIMUM_AMOUNT)
+			throw new BankException(BankError.InitialAmountExceedsLimit);
+		
+		_currentBalance = MAXIMUM_AMOUNT;
 	}
 	
-	public void withdraw(int amount) throws BankWithdrawalException {
+	public void withdraw(int amount) throws BankException {
 		if (amount > _currentBalance)
-			throw new BankWithdrawalException("Withdrawal exceeds current balance.");
+			throw new BankException(BankError.WithdrawalExceedsLimit);
 		
 		if (amount < 0)
-			throw new BankWithdrawalException("Withdrawal must have a positive value.");
+			throw new BankException(BankError.WithdrawalMustBePositive);
 		
 		_currentBalance -= amount;
 	}
@@ -21,11 +25,16 @@ public class Bank {
 		return _currentBalance;
 	}
 	
-	public class BankWithdrawalException extends Exception {
+	public class BankException extends Exception {
 		private static final long serialVersionUID = 1L;
+		private BankError _error;
 		
-		public BankWithdrawalException(String message) {
-			super(message);
+		public BankException(BankError error) {
+			_error = error;
+		}
+		
+		public BankError getDetails() {
+			return _error;
 		}
 	}
 }

@@ -8,7 +8,7 @@ public class Bank {
 		if (initialAmount > MAXIMUM_AMOUNT)
 			throw new BankException(BankError.InitialAmountExceedsLimit);
 		
-		_currentBalance = MAXIMUM_AMOUNT;
+		_currentBalance = initialAmount;
 	}
 	
 	public void withdraw(int amount) throws BankException {

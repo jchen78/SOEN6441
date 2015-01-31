@@ -17,27 +17,29 @@ public class BankTests {
 	private int _bankInitialAmount;
 	private Bank _testBank;
 	
-	@Before
-	public void Initialize() throws BankException
+	@Before public void Initialize() throws BankException
 	{
 		_bankInitialAmount = BANK_MAXIMUM_AMOUNT - new Random().nextInt(BANK_MAXIMUM_AMOUNT - 7);
 		_testBank = new Bank(_bankInitialAmount);
 	}
 	
-	@Test
-	public void WhenInitializingGreaterThanMaximumShouldThrowException() {
+	@Test public void WhenInitializingGreaterThanMaximumShouldThrowException() {
 		BankException expectedException = null;
 		try { _testBank = new Bank(BANK_MAXIMUM_AMOUNT + 1); } catch (BankException e) { expectedException = e; }
-		assertEquals(BankError.InitialAmountExceedsLimit, expectedException.getDetails());
+		assertEquals(BankError.AMOUNT_EXCEEDS_LIMIT, expectedException.getDetails());
 	}
 	
-	@Test
-	public void GivenNoTransactionsWhenQueryingBankShouldReturnInitialValue() {
+	@Test public void WhenInitializingNegativeAmountShouldThrowException() {
+		BankException expectedException = null;
+		try { _testBank = new Bank(-1); } catch (BankException e) { expectedException = e; }
+		assertEquals(BankError.AMOUNT_MUST_BE_POSITIVE, expectedException.getDetails());
+	}
+	
+	@Test public void GivenNoTransactionsWhenQueryingBankShouldReturnInitialValue() {
 		assertEquals(_bankInitialAmount, _testBank.getBalance());
 	}
 	
-	@Test
-	public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() throws BankException {
+	@Test public void GivenDebitTransactionWhenQueryingBankShouldReturnCorrectAmount() throws BankException {
 		// Arrange
 		int someAmount = 6;
 		int newBalance = _bankInitialAmount - someAmount;
@@ -49,17 +51,15 @@ public class BankTests {
 		assertEquals(newBalance, _testBank.getBalance());
 	}
 	
-	@Test
-	public void WhenWithdrawingTooMuchMoneyShouldThrowException() {
+	@Test public void WhenWithdrawingTooMuchMoneyShouldThrowException() {
 		BankException expectedException = null;
 		try { _testBank.withdraw(_bankInitialAmount + 1); } catch (BankException e) { expectedException = e; }
-		assertEquals(BankError.WithdrawalExceedsLimit, expectedException.getDetails());
+		assertEquals(BankError.AMOUNT_EXCEEDS_LIMIT, expectedException.getDetails());
 	}
 	
-	@Test
-	public void WhenWithdrawingNegativeAmountShouldThrowException() {
+	@Test public void WhenWithdrawingNegativeAmountShouldThrowException() {
 		BankException expectedException = null;
 		try { _testBank.withdraw(-1); } catch (BankException e) { expectedException = e; }
-		assertEquals(BankError.WithdrawalMustBePositive, expectedException.getDetails());
+		assertEquals(BankError.AMOUNT_MUST_BE_POSITIVE, expectedException.getDetails());
 	}
 }

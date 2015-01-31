@@ -1,7 +1,6 @@
 package game.engine;
 
 public enum BankError {
-	WithdrawalExceedsLimit,
-	WithdrawalMustBePositive,
-	InitialAmountExceedsLimit
+	AMOUNT_EXCEEDS_LIMIT,
+	AMOUNT_MUST_BE_POSITIVE
 }

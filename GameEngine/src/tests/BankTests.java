@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Random;
 
 import game.engine.Bank;
-import game.engine.Bank.BankException;
-import game.engine.BankError;
+import game.error.BankException;
+import game.error.code.BankError;
 
 import org.junit.Before;
 import org.junit.Test;

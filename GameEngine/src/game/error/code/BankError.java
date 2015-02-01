@@ -1,4 +1,4 @@
-package game.engine;
+package game.error.code;
 
 public enum BankError {
 	AMOUNT_EXCEEDS_LIMIT,

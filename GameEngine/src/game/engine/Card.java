@@ -6,7 +6,7 @@ import game.error.InvalidEntityNameException;
  * This class will be marked <span class="font-style: italics;">abstract</span> when
  * every card type has a specific implementation.
  */
-public class Card {
+public class Card implements IEntity {
 	private String _cardName;
 	
 	/**

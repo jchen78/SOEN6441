@@ -45,7 +45,7 @@ public class PlayerCardTests {
 		List<PlayerCard> greenBorderedCards = new LinkedList<PlayerCard>();
 		PlayerCard currentCard;
 		
-		for (String cardName : PlayerCard.greenBorderedCardNames) {
+		for (String cardName : PlayerCard.getGreenBorderedCardNames()) {
 			currentCard = new PlayerCard();
 			currentCard.setEntity(cardName);
 			greenBorderedCards.add(currentCard);
@@ -61,7 +61,7 @@ public class PlayerCardTests {
 		List<PlayerCard> brownBorderedCards = new LinkedList<PlayerCard>();
 		PlayerCard currentCard;
 		
-		for (String cardName : PlayerCard.brownBorderedCardNames) {
+		for (String cardName : PlayerCard.getBrownBorderedCardNames()) {
 			currentCard = new PlayerCard();
 			currentCard.setEntity(cardName);
 			brownBorderedCards.add(currentCard);

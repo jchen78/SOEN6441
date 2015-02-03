@@ -9,7 +9,7 @@ import game.error.InvalidEntityNameException;
  * This class represents the green- or brown-bordered player cards. It is yet incomplete: only arbitrary (temporary) names and border color are stored.
  */
 public class PlayerCard extends Card {
-	public static final String[] greenBorderedCardNames = {
+	private static final String[] greenBorderedCardNames = {
 		"MrBoggis",
 		"MrBent",
 		"TheBeggarsGuild",
@@ -60,7 +60,7 @@ public class PlayerCard extends Card {
 		"Green47"
 	};
 	
-	public static final String[] brownBorderedCardNames = {
+	private static final String[] brownBorderedCardNames = {
 		"SergeantCheeryLittlebottom",
 		"OttoChriek",
 		"TheClacks",
@@ -115,6 +115,14 @@ public class PlayerCard extends Card {
 		"Gargoyles",
 		"Brown52"
 	};
+
+	public static String[] getGreenBorderedCardNames() {
+		return greenBorderedCardNames;
+	}
+	
+	public static String[] getBrownBorderedCardNames() {
+		return brownBorderedCardNames;
+	}
 	
 	private String _borderColor = null;
 	

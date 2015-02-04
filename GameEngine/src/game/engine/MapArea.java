@@ -5,6 +5,9 @@ import game.error.InvalidOperationException;
 
 import java.util.HashMap;
 
+/**
+ * This class represents the entity of a game board area.
+ */
 public class MapArea implements IEntity {
 	private static HashMap<String, Integer> INTERNAL_MAPAREA_NAMES = new HashMap<String, Integer>();
 	private static String[] DISPLAY_NAMES = new String[12];
@@ -51,59 +54,105 @@ public class MapArea implements IEntity {
 		BUILDING_COSTS[11] = 12;
 	}
 	
+	/**
+	 * Gets the set of all valid entity names for the game board.
+	 * @return An array of gameboard area entity names, in no particular order.
+	 */
 	public static String[] getInternalNames() {
-		return (String[])INTERNAL_MAPAREA_NAMES.keySet().toArray();
+		return INTERNAL_MAPAREA_NAMES.keySet().toArray(new String[12]);
 	}
 	
 	private int _number;
 	private Integer _buildingOwner;
 	private boolean _isTroubleMarkerSet;
-	private int _bankBal=10;
 	private int _numberDemons;
 	private int _numberTrolls;
 	private int[] _minions = new int[4]; //indicates how many minions each player has in that area
 	
+	/**
+	 * Constructor: Initializes data structures for loading.
+	 */
 	public MapArea() {
 		this._buildingOwner = null;
 	}
     
+	/**
+	 * User-friendly name of the gameboard area represented by the current instance.
+	 * @return User-friendly name (not the entity name).
+	 */
 	public String getName() {
 		return DISPLAY_NAMES[_number - 1];
 	}
-
+	
+	/**
+	 * Identifies the gameboard area by number.
+	 * @return Gameboard area number.
+	 */
 	public int getNumber() {
 		return _number;
 	}
-
+	
+	/**
+	 * Represents the cost of a building.
+	 * @return Cost for constructing a building on the gameboard area represented by this instance.
+	 */
 	public int getBuildingCost() {
 		return BUILDING_COSTS[_number - 1];
 	}
-
+	
+	/**
+	 * Represents whether a trouble marker is currently set on the gameboard area represented by this instance.
+	 * @return True if a trouble marker is currently set, false otherwise.
+	 */
 	public boolean hasTroubleMarker() {
 		return _isTroubleMarkerSet;
 	}
-
+	
+	/**
+	 * Modifies the status of the trouble marker flag for the gameboard area represented by this instance.
+	 * @see hasTroubleMarker
+	 * @param troubleMarker Value to which the trouble marker flag should be set.
+	 * @throws InvalidOperationException Thrown when an attempt to set the trouble marker to "True" is made while a building is constructed.
+	 */
 	public void setTroubleMarker(boolean troubleMarker) throws InvalidOperationException {
 		if (_buildingOwner != null && troubleMarker)
 			throw new InvalidOperationException("Cannot set trouble marker when a building is constructed.");
 		
 		this._isTroubleMarkerSet = troubleMarker;
 	}
-
+	
+	/**
+	 * Gets the number of demons on the gameboard area represented by this instance.
+	 * @return The number of demons in the current gameboard area.
+	 */
 	public int getNumberDemons() {
 		return _numberDemons;
 	}
-
+	
+	/**
+	 * Modifies the number of demons on the gameboard area represented by this instance.
+	 * @param numberDemons The total number of demons on this board area after the operation. 
+	 * @throws InvalidOperationException Thrown when the number of demons placed exceeds the total number of demon pieces in the game or is otherwise invalid (negative).
+	 */
 	public void setNumberDemons(int numberDemons) throws InvalidOperationException {
 		if (numberDemons < 0 || numberDemons > 4)
 			throw new InvalidOperationException("The number of demons must be valid.");
 		this._numberDemons = numberDemons;
 	}
-
+	
+	/**
+	 * Gets the number of trolls on the gameboard area represented by this instance.
+	 * @return The number of trolls in the current gameboard area.
+	 */
 	public int getNumberTrolls() {
 		return _numberTrolls;
 	}
-
+	
+	/**
+	 * Modifies the number of trolls on the gameboard area represented by this instance.
+	 * @param numberTrolls The total number of trolls on this board area after the operation.
+	 * @throws InvalidOperationException Thrown when the number of trolls exceeds the total number of troll pieces in the game or is otherwise invalid (negative).
+	 */
 	public void setNumberTrolls(int numberTrolls) throws InvalidOperationException {
 		if (numberTrolls < 0 || numberTrolls > 3)
 			throw new InvalidOperationException("The number of trolls must be valid.");
@@ -111,17 +160,20 @@ public class MapArea implements IEntity {
 		this._numberTrolls = numberTrolls;
 	}
 	
-	public int getBankBal() {
-		return _bankBal;
-	}
-
-	public void setBankBal(int bankBal) {
-		_bankBal = bankBal;
-	}
+	/**
+	 * Gets the number of minions for each player.
+	 * @return An array containing the number of minions by player, where the player index corresponds to the array index.
+	 */
 	public int[] getMinions() {
 		return _minions;
 	}
 
+	/**
+	 * Adds the specified number of minions for the player identified.
+	 * @param playerID Index of the player (0-3, inclusive).
+	 * @param count Number of minions to add (0-12, inclusive).
+	 * @throws InvalidOperationException Thrown when the playerID or the count is invalid.
+	 */
 	public void addMinions(int playerID, int count) throws InvalidOperationException {
 		performValidationForPlayerID(playerID);
 		if (count < 0 || count > 12)
@@ -135,8 +187,10 @@ public class MapArea implements IEntity {
 			throw new InvalidOperationException("Player ID must be valid.");
 	}
 	
-	/*
-	 * Add and Remove Building for a particular playerID in a area
+	/**
+	 * Add and Remove Building for a particular playerID in a area.
+	 * @playerID Index of the player (0-3, inclusive).
+	 * @throws InvalidOperationException Thrown when the player ID is invalid or when a trouble marker is already set.
 	 */
 	public void addBuilding (int playerID) throws InvalidOperationException {
 		performValidationForPlayerID(playerID);
@@ -145,7 +199,11 @@ public class MapArea implements IEntity {
 		
 		_buildingOwner = playerID;
 	}
-
+	
+	/**
+	 * Gets the ID of the player owning the building, if any.
+	 * @return null if no building is constructed, or the index of the owning player otherwise.
+	 */
 	public Integer getBuildingOwner() {
 		// TODO Auto-generated method stub
 		return _buildingOwner;
@@ -159,6 +217,11 @@ public class MapArea implements IEntity {
 		_number = INTERNAL_MAPAREA_NAMES.get(entityName);
 	}
 	
+	/**
+	 * Represents the dynamic data of the current instance.
+	 * @see setCurrentState
+	 * @return Serializes the mutable data as a String.
+	 */
 	public String getCurrentState() {
 		String serializedData = "";
 		if (_isTroubleMarkerSet)
@@ -173,6 +236,12 @@ public class MapArea implements IEntity {
 		return serializedData;
 	}
 	
+	/**
+	 * Sets the instance to the data specified by the string, as retrieved via getCurrentState.
+	 * @see getCurrentState
+	 * @param serializedData String representing the saved state of a gameboard area instance.
+	 * @throws InvalidOperationException Thrown when the serialized data is in an invalid format or contains invalid data.
+	 */
 	public void setCurrentState(String serializedData) throws InvalidOperationException {
 		if (serializedData == null)
 			throw new InvalidOperationException("Serialized data must be valid.");

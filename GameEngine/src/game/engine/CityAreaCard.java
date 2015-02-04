@@ -4,6 +4,9 @@ import game.error.InvalidEntityNameException;
 
 import java.util.HashMap;
 
+/**
+ * This class represents entities from the City Area card deck.
+ */
 public class CityAreaCard extends Card {
 	private static final HashMap<String, String> CITY_AREA_CARD_NAMES = new HashMap<String, String>();
 	
@@ -22,8 +25,12 @@ public class CityAreaCard extends Card {
 		CITY_AREA_CARD_NAMES.put("NapHill", "Nap Hill");
 	}
 	
+	/**
+	 * Gets the list of all valid entity names for the CIty Area card deck.
+	 * @return An array of valid names, with no guarantees on order.
+	 */
 	public static String[] getCityAreaCardNames() {
-		return (String[])CITY_AREA_CARD_NAMES.keySet().toArray();
+		return CITY_AREA_CARD_NAMES.keySet().toArray(new String[12]);
 	}
 	
 	@Override

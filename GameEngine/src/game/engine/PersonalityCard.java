@@ -4,6 +4,9 @@ import game.error.InvalidEntityNameException;
 
 import java.util.HashMap;
 
+/**
+ * This class represents an entity from the Personality card deck.
+ */
 public class PersonalityCard extends Card {
 	private static final HashMap<String, String> PERSONALITY_CARD_NAMES = new HashMap<String, String>();
 	
@@ -17,8 +20,12 @@ public class PersonalityCard extends Card {
 		PERSONALITY_CARD_NAMES.put("Chrysoprase", "Chrysoprase");
 	}
 	
+	/**
+	 * Gets all valid entity names for the Personality card deck.
+	 * @return An array of valid names in no particular order.
+	 */
 	public static String[] getPersonalityCardNames() {
-		return (String[])PERSONALITY_CARD_NAMES.keySet().toArray();
+		return PERSONALITY_CARD_NAMES.keySet().toArray(new String[7]);
 	}
 	
 	@Override

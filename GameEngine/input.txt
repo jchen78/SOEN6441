@@ -1,0 +1,142 @@
+Number of players: 3
+
+Player 1:
+	red
+	Lord Selachii
+	
+Player 2:
+ 	yellow
+	Dragon King of Arms
+
+Player 3:
+	green
+	Commander Vimes
+
+Current state of the game board:
+
+Dolly Sisters
+	minions: R,Y
+	Trouble: 1
+	Building: 0
+	Demons: 0
+	Trolls: 0
+
+Unreal Estate
+	minions: R
+	Trouble: 0
+	Building: 0
+	Demons: 0
+	Trolls: 0
+
+Dragon's Landing
+	minions: none
+	Trouble: 0
+	Building: 1
+	Demons: 1
+	Trolls: 0
+
+Small Gods
+	minions: Y,G
+	Trouble: 0
+	Building: 1
+	Demons: 0
+	Trolls: 1
+	
+The Scours
+	minions: R,Y,G
+	Trouble: 1
+	Building: 0
+	Demons: 0
+	Trolls: 0
+	
+The Hippo
+	minions: Y
+	Trouble: 0
+	Building: 1
+	Demons: 0
+	Trolls: 0
+	
+The Shades
+	minions: R,G
+	Trouble: 1
+	Building: 0
+	Demons: 0
+	Trolls: 0
+	
+Dimwell
+	minions: R,Y,G
+	Trouble: 1
+	Building: 0
+	Demons: 0
+	Trolls: 0
+	
+Longwall
+	minions: R,G,G
+	Trouble: 1
+	Building: 0
+	Demons: 0
+	Trolls: 0
+	
+Isle of Gods
+	minions: R,G
+	Trouble: 0
+	Building: 1
+	Demons: 0
+	Trolls: 0
+	
+Seven Sleepers
+	minions: G
+	Trouble: 0
+	Building: 1
+	Demons: 0
+	Trolls: 0
+	
+Nap Hill
+	minions: none
+	Trouble: 0
+	Building: 0
+	Demons: 1
+	Trolls: 0
+
+Players Status:
+	
+Player 1:
+	5 minions
+	3 buildings
+	15 $
+
+	City Area cards:
+		Dolly Sisters
+		Dragon's Landing
+		Isle of Gods
+
+	Player cards:
+		Green 16, 33, 40
+		Brown 19, 22
+
+Player 2:
+	7 minions
+	1 building
+	13 $
+
+	City Area cards:
+		The Hippo
+
+	Player cards:
+		Green 8, 10, 20, 37
+		Brown 47
+
+Player 3:
+	4 minions
+	2 buildings
+	18 $
+
+	City Area cards:
+		Small Gods
+		Seven Sleepers
+
+	Player cards:
+		Green 13, 46
+		Brown 13, 21, 27
+
+Bank: 74 $

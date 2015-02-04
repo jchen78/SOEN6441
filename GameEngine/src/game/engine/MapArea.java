@@ -4,7 +4,6 @@ import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class MapArea implements IEntity {
 	private static HashMap<String, Integer> INTERNAL_MAPAREA_NAMES = new HashMap<String, Integer>();

@@ -5,7 +5,6 @@ import game.engine.MapArea;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.junit.Before;

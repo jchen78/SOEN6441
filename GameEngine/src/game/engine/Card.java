@@ -3,11 +3,10 @@ package game.engine;
 import game.error.InvalidEntityNameException;
 
 /**
- * This class will be marked <span class="font-style: italics;">abstract</span> when
- * every card type has a specific implementation.
+ * This class represents card-type entities.
  */
-public class Card implements IEntity {
-	private String _cardName;
+public abstract class Card implements IEntity {
+	protected String _cardName;
 	
 	/**
 	 * The specifics of the card properties will be hard-coded in this file;

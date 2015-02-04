@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.error.BankException;
 import game.error.InvalidOperationException;
 
 import java.util.*;
@@ -104,7 +105,7 @@ public class GameManager
 			System.out.printf("%d starts the game!\n\n", beginner+1);
 	}
 
-	public void printMenu() throws IOException, InvalidOperationException
+	public void printMenu() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
 		int n;
 		Scanner input = new Scanner(System.in);
@@ -140,7 +141,7 @@ public class GameManager
 		}
 	}
 
-	public void loadGame() throws IOException, InvalidOperationException
+	public void loadGame() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
 	
 		Scanner console = new Scanner(System.in);

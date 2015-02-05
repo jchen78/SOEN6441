@@ -178,7 +178,7 @@ public class Player {
 	 * @throws NumberFormatException Thrown when the serialized data is invalid.
 	 * @throws InvalidOperationException Thrown when the serialized data is invalid.
 	 */
-	public void loadCurrentState(String serializedData) throws NumberFormatException, InvalidOperationException {
+	public void setCurrentState(String serializedData) throws NumberFormatException, InvalidOperationException {
 		if (serializedData == null)
 			throw new InvalidOperationException("Serialized data cannot be null.");
 		

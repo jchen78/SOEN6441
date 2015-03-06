@@ -36,7 +36,7 @@ public class GameManager
 	private boolean[] brownCard = new boolean[100];
 
 	Bank gameBank;
-
+	AreaGraph map;
 
 	private Random randNum = new Random();
 	private String tmpStr;
@@ -53,6 +53,35 @@ public class GameManager
 			all[i] = new Player();
 
 		gameBank = new Bank();
+		
+		map = new AreaGraph(12);
+		
+		map.addEdge(1, 2);
+		map.addEdge(1, 3);
+		map.addEdge(1, 12);
+		map.addEdge(2, 3);
+		map.addEdge(2, 10);
+		map.addEdge(2, 11);
+		map.addEdge(2, 12);
+		map.addEdge(3, 4);
+		map.addEdge(3, 5);
+		map.addEdge(3, 10);
+		map.addEdge(4, 5);
+		map.addEdge(4, 6);
+		map.addEdge(5, 6);
+		map.addEdge(5, 7);
+		map.addEdge(5, 8);
+		map.addEdge(5, 10);
+		map.addEdge(6, 7);
+		map.addEdge(7, 8);
+		map.addEdge(7, 10);
+		map.addEdge(8, 9);
+		map.addEdge(8, 10);
+		map.addEdge(9, 10);
+		map.addEdge(9, 11);
+		map.addEdge(10, 11);
+		map.addEdge(10, 12);
+		map.addEdge(11, 12);
 	}
 
 	private int getPlayerIndex(char ch)
@@ -147,8 +176,10 @@ public class GameManager
 		Scanner console = new Scanner(System.in);
 		String loadFileName;
 
-		//System.out.println("Enter file name for loading:");
-		loadFileName = "input.txt";
+		System.out.println("Enter file name for loading:");
+		
+		loadFileName = console.nextLine();
+	//loadFileName = "input.txt";
 		File inputFile = new File(loadFileName);
 		Scanner inFile = new Scanner(inputFile);
 

@@ -1,6 +1,9 @@
-package tests;
+package Test_Cases;
 
 import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 
 import java.util.Random;
 
@@ -20,18 +23,19 @@ public class BankTests {
 	@Before public void Initialize() throws BankException
 	{
 		_bankInitialAmount = BANK_MAXIMUM_AMOUNT - new Random().nextInt(BANK_MAXIMUM_AMOUNT - 7);
-		_testBank = new Bank(_bankInitialAmount);
+		_testBank = new Bank();
+		_testBank.setBalance(_bankInitialAmount);
 	}
 	
 	@Test public void WhenInitializingGreaterThanMaximumShouldThrowException() {
 		BankException expectedException = null;
-		try { _testBank = new Bank(BANK_MAXIMUM_AMOUNT + 1); } catch (BankException e) { expectedException = e; }
+		try { _testBank.setBalance(BANK_MAXIMUM_AMOUNT + 1); } catch (BankException e) { expectedException = e; }
 		assertEquals(BankError.AMOUNT_EXCEEDS_LIMIT, expectedException.getDetails());
 	}
 	
 	@Test public void WhenInitializingNegativeAmountShouldThrowException() {
 		BankException expectedException = null;
-		try { _testBank = new Bank(-1); } catch (BankException e) { expectedException = e; }
+		try { _testBank.setBalance(-1); } catch (BankException e) { expectedException = e; }
 		assertEquals(BankError.AMOUNT_MUST_BE_POSITIVE, expectedException.getDetails());
 	}
 	

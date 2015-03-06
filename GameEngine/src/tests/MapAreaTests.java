@@ -1,6 +1,9 @@
-package tests;
+package Test_Cases;
 
 import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import game.engine.MapArea;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;

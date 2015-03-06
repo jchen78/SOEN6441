@@ -1,21 +1,20 @@
 package game.engine;
 
+import game.error.BankException;
 import game.error.InvalidOperationException;
 
 import java.util.*;
 import java.io.*;
 
+/**
+ * This class represents the GameManager. It include number of players. An array of Player color, player personality and the game board area. It has initialized the name of the twelve area
+ . Also it has information about players minion, building, money and cards*/
 public class GameManager
 {
 	private int numberOfPlayers;
-	//private Player[] all = new Player[numberOfPlayers];
-
-	private char[] color= new char[4];
-	private String[] personality = new String[7];
-
+	private Player[] all = new Player[4];
 
 	private MapArea[] cityArea = new MapArea[12];
-	//	private String[] area = MapArea.getInternalNames();
 	private String[] area = {
 			"Dolly Sisters", 
 			"Unreal Estate", 
@@ -31,33 +30,28 @@ public class GameManager
 			"Nap Hill"
 	};
 
-	private int[] playerMinion = new int[4];
-	private int[] playerBuilding = new int[4];
-	private int[] playerMoney = new int[4];
 	private String[] playerCard = new String[4];
-	private String[] playerAreaCard = new String[4];
 
 	private boolean[] greenCard = new boolean[100];
 	private boolean[] brownCard = new boolean[100];
 
 	Bank gameBank;
 
-	//private Bank gameBank;
-	//private Area[] cityArea;
-	//private Card[] personalityCards;
-	//private Card[] cityAreaCards;
-	//private Card[] eventsCards;
-	//private PlayerCard[] playerCards;
 
 	private Random randNum = new Random();
-	//private String fileName;
 	private String tmpStr;
 
+	
 	GameManager()
 	{
 		cityArea = new MapArea[12];
 		for(int i = 0; i < 12; i ++)
 			cityArea[i] = new MapArea();
+
+		all = new Player[4];
+		for(int i = 0; i < 4; i++)
+			all[i] = new Player();
+
 		gameBank = new Bank();
 	}
 
@@ -65,7 +59,8 @@ public class GameManager
 	{
 		for(int i = 0; i < numberOfPlayers; i++)
 		{
-			if(ch == color[i])
+			if(ch == all[i].getplayercolor().toLowerCase().charAt(0) || 
+					ch == all[i].getplayercolor().toUpperCase().charAt(0))
 				return i;
 		}
 		return -1;
@@ -88,6 +83,9 @@ public class GameManager
 		return "ERROR";
 	}
 
+	/**
+	 * It ask for a random number in order to select one of game save, load, show, start or exit the game
+	 */
 	public void start()
 	{
 
@@ -104,7 +102,7 @@ public class GameManager
 			System.out.printf("%d starts the game!\n\n", beginner+1);
 	}
 
-	public void printMenu() throws IOException, InvalidOperationException
+	public void printMenu() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
 		int n;
 		Scanner input = new Scanner(System.in);
@@ -140,14 +138,16 @@ public class GameManager
 		}
 	}
 
-	public void loadGame() throws IOException, InvalidOperationException
+	/**
+	 * It reads the last status file of the game and it fulfills the data structure by those information.
+	 */
+	public void loadGame() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
-	
+
 		Scanner console = new Scanner(System.in);
 		String loadFileName;
 
-		System.out.println("Enter file name for loading:");
-		//loadFileName = console.nextLine();
+		//System.out.println("Enter file name for loading:");
 		loadFileName = "input.txt";
 		File inputFile = new File(loadFileName);
 		Scanner inFile = new Scanner(inputFile);
@@ -163,13 +163,11 @@ public class GameManager
 
 			String str = inFile.nextLine();
 			str = str.replaceAll("\\s+","");
-			str = str.toUpperCase();
-			color[i] = str.charAt(0);
+			all[i].setplayercolor(str);
 
 			str = inFile.nextLine();
 			str = str.replaceAll("\\s+","");
-			personality[i] = str;
-			//System.out.printf("Personality of Player %d: %s\n\n", i+1, personality[i]);
+			all[i].setPersonality(str);
 		}
 
 		tmpStr = inFile.nextLine();
@@ -258,41 +256,49 @@ public class GameManager
 
 			str = str.replaceAll("\\D+", "");
 			int numberOfMinion = Integer.parseInt(str);
-			playerMinion[i] = numberOfMinion;
+			all[i].setMinion(numberOfMinion);
 
 			str = inFile.nextLine();
 			str = str.replaceAll("\\D+", "");
 			int numberOfBuild = Integer.parseInt(str);
-			playerBuilding[i] = numberOfBuild;
+			all[i].setNumberBuildings(numberOfBuild);
 
 			str = inFile.nextLine();
 			str = str.replaceAll("\\D+", "");
 			int dlr = Integer.parseInt(str);
-			playerMoney[i] = dlr;
+			all[i].setPlayerMoney(dlr);
 
 			//ignore 2 lines
 			tmpStr = inFile.nextLine();
 			tmpStr = inFile.nextLine();
 
-
+			ArrayList<String> areaCardsTmp = new ArrayList<String>();
 			while(true)
 			{
 				String areaCard = inFile.nextLine();
 
 				if(areaCard.equals(""))
+				{
+					all[i].setAreaCards(areaCardsTmp);
 					break;
+				}
 				else
-					playerAreaCard[i] += areaCard;
+				{
+					areaCard = areaCard.replaceAll("\\s+","");
+					areaCardsTmp.add(areaCard);
+				}
+
 			}
 
 			//ignore following line
 			tmpStr = inFile.nextLine();
 
 			//Green Card
+			ArrayList<String> playerCardsTmp = new ArrayList<String>();
 			str = inFile.nextLine();
 			str = str.replaceAll("\\s+", "");
 			str += ',';
-			String cardNum = "";
+			String cardNum = "G";
 			for(int j = 0; j < str.length(); j++)
 			{
 				if(Character.isDigit(str.charAt(j)))
@@ -301,20 +307,22 @@ public class GameManager
 				}
 				else if(str.charAt(j) == ',')
 				{
-					int ind = Integer.parseInt(cardNum);
-					greenCard[ind] = true;
-					cardNum = "";
+					//int ind = Integer.parseInt(cardNum);
+					//greenCard[ind] = true;
+					playerCardsTmp.add(cardNum);
+					cardNum = "G";
 				}
 				else
 					continue;
 			}
-
+			
+			all[i].setPlayerCards(playerCardsTmp);
 
 			//Brown Card
 			str = inFile.nextLine();
 			str = str.replaceAll("\\s+", "");
 			str += ',';
-			cardNum = "";
+			cardNum = "B";
 			for(int j = 0; j < str.length(); j++)
 			{
 				if(Character.isDigit(str.charAt(j)))
@@ -323,9 +331,8 @@ public class GameManager
 				}
 				else if(str.charAt(j) == ',')
 				{
-					int ind = Integer.parseInt(cardNum);
-					brownCard[ind] = true;
-					cardNum = "";
+					playerCardsTmp.add(cardNum);
+					cardNum = "B";
 				}
 				else
 					continue;
@@ -337,22 +344,21 @@ public class GameManager
 		String str = inFile.nextLine();
 		str = str.replaceAll("\\D+", "");
 		gameBank.setBalance(Integer.parseInt(str));
-		//bank = Integer.parseInt(str);
 	}
 
+	/**
+	 * It saves all last informations about the game from the data structure into a file.
+	 */
 	public void saveGame() throws IOException
 	{
 		String saveFileName;
 		Scanner console = new Scanner(System.in);
 
-		//saveFileName = console.nextLine();
 		saveFileName = "output.txt";
 
 		File outFile = new File(saveFileName);
 		FileWriter out = new FileWriter(outFile);
-		//Scanner coin = new Scanner(System.in);
 
-		//Clear previous data????
 		out.flush();
 
 		out.write("Number of players: " + (numberOfPlayers));
@@ -363,10 +369,10 @@ public class GameManager
 			out.write("Player " + (pid+1) + ":\n");
 
 			out.write("\t");
-			out.write(whatColorIsThis(color[pid]) + "\n");
+			out.write(whatColorIsThis(all[pid].getplayercolor().charAt(0)) + "\n");
 
 			out.write("\t");
-			out.write( personality[pid] + "\n\n" );
+			out.write( all[pid].getPersonality() + "\n\n" );
 		}
 
 		out.write("Current state of the game board:\n\n");
@@ -385,7 +391,7 @@ public class GameManager
 				{
 					out.write(separator);
 					separator = ',';
-					out.write( color[pid] );
+					out.write( all[pid].getplayercolor().toUpperCase().charAt(0) );
 				}
 			}
 			if(separator == ' ')
@@ -407,6 +413,7 @@ public class GameManager
 
 			out.write("\t" + "Trolls: " + cityArea[aid].getNumberTrolls() + "\n\n");
 		}
+
 		// Player Status......
 		out.write("Players Status:\n\n");
 		for(int pid = 0; pid < numberOfPlayers; pid++)
@@ -414,18 +421,74 @@ public class GameManager
 			out.write("Player " + (pid+1) + ":\n");
 
 			out.write("\t");
-			out.write(playerMinion[pid] + " minions\n");
+			out.write(all[pid].getNumberOfMinionsInHand() + " minions\n");
 
 			out.write("\t");
-			out.write(playerBuilding[pid] + " buildings\n");
+			out.write(all[pid].getNumberOfBuildingsInHand() + " buildings\n");
 
 			out.write("\t");
-			out.write(playerMoney[pid] + " $\n\n");
+			out.write(all[pid].getPlayerMoney() + " $\n\n");
 
 			out.write("\tCity Area cards:\n");
-			//////////
+			for(int ind = 0; ind < all[pid].getAreaCards().size(); ind++)
+				out.write("\t\t" + all[pid].getAreaCards().get(ind) + "\n");
+			out.write("\n");
+
 			out.write("\tPlayer cards:\n");
-			//////////
+            //////////            
+            boolean[] brown = new boolean[128];
+            boolean[] green = new boolean[128];
+            for(int p = 0; p < 128; p ++)
+                    brown[p] = green[p] = false;
+            
+            for(int p = 0; p < all[pid].getPlayerCards().size(); p ++)
+            {
+                    String myCard = all[pid].getPlayerCards().get(p);
+                    char cl = myCard.charAt(0);
+                    
+                    // remove the first Character
+                    myCard = myCard.substring(1);
+                    
+                    if(cl == 'B')
+                    {
+                            brown[ Integer.valueOf(myCard) ] = true;
+                    }
+                    else if(cl == 'G')
+                    {
+                            green[ Integer.valueOf(myCard) ] = true;
+                    }
+                    else
+                    {
+                            System.out.println("&&&&&&&&&&&&&&");
+                    }
+            }
+            
+            String separator = " ";
+            out.write("\t\tGreen");
+            for(int p = 0; p < 128; p ++)
+            {
+                    if(green[p] == true)
+                    {
+                            out.write(separator);
+                            separator = ", ";
+                            out.write(""+p);
+                    }
+            }
+            
+            out.write("\n");
+            
+            separator = " ";
+            out.write("\t\tBrown");
+            for(int p = 0; p < 128; p ++)
+            {
+                    if(brown[p] == true)
+                    {
+                            out.write(separator);
+                            separator = ", ";
+                            out.write(""+p);
+                    }
+            }
+            out.write("\n\n");
 		}
 
 		out.write("Bank: ");
@@ -435,7 +498,10 @@ public class GameManager
 		out.flush();
 		out.close();
 	}
-	
+
+	/**
+	 * It shows all the information from the datastructure on the console.
+	 */
 	public void showGame()
 	{
 
@@ -447,10 +513,11 @@ public class GameManager
 			System.out.print("Player " + (pid+1) + ":\n");
 
 			System.out.print("\t");
-			System.out.print(whatColorIsThis(color[pid]) + "\n");
+			System.out.print(all[pid].getplayercolor() + "\n");
+			//			System.out.print(whatColorIsThis(color[pid]) + "\n");
 
 			System.out.print("\t");
-			System.out.print( personality[pid] + "\n\n" );
+			System.out.print( all[pid].getPersonality() + "\n\n" );
 		}
 
 		System.out.print("Current state of the game board:\n\n");
@@ -469,7 +536,8 @@ public class GameManager
 				{
 					System.out.print(separator);
 					separator = ',';
-					System.out.print( color[pid] );
+					System.out.print( all[pid].getplayercolor().toUpperCase().charAt(0) );
+					//					System.out.print( color[pid] );
 				}
 			}
 			if(separator == ' ')
@@ -491,6 +559,7 @@ public class GameManager
 
 			System.out.print("\t" + "Trolls: " + cityArea[aid].getNumberTrolls() + "\n\n");
 		}
+		
 		// Player Status......
 		System.out.print("Players Status:\n\n");
 		for(int pid = 0; pid < numberOfPlayers; pid++)
@@ -498,18 +567,74 @@ public class GameManager
 			System.out.print("Player " + (pid+1) + ":\n");
 
 			System.out.print("\t");
-			System.out.print(playerMinion[pid] + " minions\n");
+			System.out.print(all[pid].getNumberOfMinionsInHand() + " minions\n");
 
 			System.out.print("\t");
-			System.out.print(playerBuilding[pid] + " buildings\n");
+			System.out.print(all[pid].getNumberOfBuildingsInHand() + " buildings\n");
 
 			System.out.print("\t");
-			System.out.print(playerMoney[pid] + " $\n\n");
+			System.out.print(all[pid].getPlayerMoney() + " $\n\n");
 
 			System.out.print("\tCity Area cards:\n");
-			//////////
+			for(int ind = 0; ind < all[pid].getAreaCards().size(); ind++)
+				System.out.print("\t\t" + all[pid].getAreaCards().get(ind) + "\n");
+			System.out.print("\n");
+
 			System.out.print("\tPlayer cards:\n");
-			//////////
+            //////////            
+            boolean[] brown = new boolean[128];
+            boolean[] green = new boolean[128];
+            for(int p = 0; p < 128; p ++)
+                    brown[p] = green[p] = false;
+            
+            for(int p = 0; p < all[pid].getPlayerCards().size(); p ++)
+            {
+                    String myCard = all[pid].getPlayerCards().get(p);
+                    char cl = myCard.charAt(0);
+                    
+                    // remove the first Character
+                    myCard = myCard.substring(1);
+                    
+                    if(cl == 'B')
+                    {
+                            brown[ Integer.valueOf(myCard) ] = true;
+                    }
+                    else if(cl == 'G')
+                    {
+                            green[ Integer.valueOf(myCard) ] = true;
+                    }
+                    else
+                    {
+                            System.out.println("&&&&&&&&&&&&&&");
+                    }
+            }
+            
+            String separator = " ";
+            System.out.print("\t\tGreen");
+            for(int p = 0; p < 128; p ++)
+            {
+                    if(green[p] == true)
+                    {
+                            System.out.print(separator);
+                            separator = ", ";
+                            System.out.print(""+p);
+                    }
+            }
+            
+            System.out.print("\n");
+            
+            separator = " ";
+            System.out.print("\t\tBrown");
+            for(int p = 0; p < 128; p ++)
+            {
+                    if(brown[p] == true)
+                    {
+                            System.out.print(separator);
+                            separator = ", ";
+                            System.out.print(""+p);
+                    }
+            }
+            System.out.print("\n\n");
 		}
 
 		System.out.print("Bank: ");

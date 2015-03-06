@@ -20,19 +20,17 @@ public class Bank {
 	
 	/**
 	 * The bank is initialized to the specified amount.
-	 * If a new game is started, please use the parameterless
-	 * constructor.
 	 * @param initialAmount Current balance of the entire bank.
 	 * @throws BankException Thrown when initial amount is not valid. For details, please refer to the getDetails() method.
 	 */
-	public Bank(int initialAmount) throws BankException {
-		if (initialAmount > MAXIMUM_AMOUNT)
+	public void setBalance(int currentBalance) throws BankException {
+		if (currentBalance > MAXIMUM_AMOUNT)
 			throw new BankException(BankError.AMOUNT_EXCEEDS_LIMIT);
 		
-		if (initialAmount < 0)
+		if (currentBalance < 0)
 			throw new BankException(BankError.AMOUNT_MUST_BE_POSITIVE);
 		
-		_currentBalance = initialAmount;
+		_currentBalance = currentBalance;
 	}
 	
 	/**

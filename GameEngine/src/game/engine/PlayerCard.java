@@ -1,7 +1,9 @@
 package game.engine;
 
 import java.util.HashMap;
+import java.util.List;
 
+import game.action.IAction;
 import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
 
@@ -160,5 +162,10 @@ public class PlayerCard extends Card {
 			throw new EntityNotSetException();
 		
 		return _borderColor;
+	}
+	
+	// TODO
+	public List<IAction> getActions() throws EntityNotSetException {
+		return null;
 	}
 }

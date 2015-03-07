@@ -517,5 +517,29 @@ public class GameManager
 		System.out.print("" + gameBank.getBalance());
 		System.out.print(" $\n");
 	}
-
+	
+	// TODO
+	public Player getPlayer(int index) {
+		return null;
+	}
+	
+	// TODO
+	public PersonalityCard getPersonalityCard(String cardName) {
+		return null;
+	}
+	
+	// TODO
+	public PlayerCard getPlayerCard(String cardName) {
+		return null;
+	}
+	
+	// TODO
+	public MapArea getMapArea(String areaName) {
+		return null;
+	}
+	
+	// TODO
+	public List<Player> getPlayers() {
+		return null;
+	}
 }

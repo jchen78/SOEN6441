@@ -4,7 +4,7 @@ import game.error.InvalidOperationException;
 
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements IMoneyHolder {
 	private int playerIndex;
 	private String playerName;
 	private String playerColor;
@@ -114,10 +114,17 @@ public class Player {
 		this.playerPersonality = personality;
 	}
 	
+	@Override
+	public String getAccountHolderName()
+	{
+		return playerName;
+	}
+	
 	/**
 	 * Gets the money currently in the player's hand.
 	 */
-	public int getPlayerMoney() {
+	@Override
+	public int getMoney() {
 		return playerMoney;
 	}
 	
@@ -131,6 +138,16 @@ public class Player {
 			throw new InvalidOperationException("Amount of money must be valid.");
 	   
 		playerMoney = money;
+	}
+	
+	@Override
+	public void addMoney(int amount) throws InvalidOperationException {
+		setPlayerMoney(playerMoney + amount);
+	}
+	
+	@Override
+	public void removeMoney(int amount) throws InvalidOperationException {
+		setPlayerMoney(playerMoney - amount);
 	}
 	
 	/**

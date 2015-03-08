@@ -33,6 +33,8 @@ public class CityAreaCard extends Card {
 		return CITY_AREA_CARD_NAMES.keySet().toArray(new String[12]);
 	}
 	
+	private boolean _isActive = false;
+	
 	@Override
 	public void setEntity(String entityName) throws InvalidEntityNameException {
 		if (!CITY_AREA_CARD_NAMES.containsKey(entityName))
@@ -44,5 +46,13 @@ public class CityAreaCard extends Card {
 	@Override
 	public String getCardname() {
 		return CITY_AREA_CARD_NAMES.get(_cardName);
+	}
+	
+	public boolean isActive() {
+		return _isActive;
+	}
+	
+	public void setCardStatus(boolean isActive) {
+		_isActive = isActive;
 	}
 }

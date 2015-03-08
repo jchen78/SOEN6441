@@ -1,8 +1,6 @@
-package game.action;
+package game.action.scaffold;
 
 import game.error.ActionException;
-
-import java.util.List;
 
 public interface IActionVisitor {
 	void visit(IActionVisitee visitee) throws ActionException;

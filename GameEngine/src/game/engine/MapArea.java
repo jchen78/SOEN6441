@@ -76,6 +76,17 @@ public class MapArea implements IEntity {
 		this._buildingOwner = null;
 	}
     
+	private boolean shouldSetTroubleMarker() {
+		int totalNumberMinions = _numberTrolls + _numberDemons;
+		if (totalNumberMinions > 1)
+			return true;
+		
+		for (int i = 0; i < 4; i++)
+			totalNumberMinions += _minions[i];
+		
+		return totalNumberMinions > 1;
+	}
+	
 	/**
 	 * User-friendly name of the gameboard area represented by the current instance.
 	 * @return User-friendly name (not the entity name).
@@ -109,19 +120,6 @@ public class MapArea implements IEntity {
 	}
 	
 	/**
-	 * Modifies the status of the trouble marker flag for the gameboard area represented by this instance.
-	 * @see hasTroubleMarker
-	 * @param troubleMarker Value to which the trouble marker flag should be set.
-	 * @throws InvalidOperationException Thrown when an attempt to set the trouble marker to "True" is made while a building is constructed.
-	 */
-	public void setTroubleMarker(boolean troubleMarker) throws InvalidOperationException {
-		if (_buildingOwner != null && troubleMarker)
-			throw new InvalidOperationException("Cannot set trouble marker when a building is constructed.");
-		
-		this._isTroubleMarkerSet = troubleMarker;
-	}
-	
-	/**
 	 * Gets the number of demons on the gameboard area represented by this instance.
 	 * @return The number of demons in the current gameboard area.
 	 */
@@ -137,6 +135,12 @@ public class MapArea implements IEntity {
 	public void setNumberDemons(int numberDemons) throws InvalidOperationException {
 		if (numberDemons < 0 || numberDemons > 4)
 			throw new InvalidOperationException("The number of demons must be valid.");
+		
+		if (numberDemons < _numberDemons)
+			_isTroubleMarkerSet = false;
+		else
+			_isTroubleMarkerSet = shouldSetTroubleMarker();
+		
 		this._numberDemons = numberDemons;
 	}
 	
@@ -157,6 +161,11 @@ public class MapArea implements IEntity {
 		if (numberTrolls < 0 || numberTrolls > 3)
 			throw new InvalidOperationException("The number of trolls must be valid.");
 		
+		if (numberTrolls < this._numberTrolls)
+			_isTroubleMarkerSet = false;
+		else
+			_isTroubleMarkerSet = shouldSetTroubleMarker();
+			
 		this._numberTrolls = numberTrolls;
 	}
 	
@@ -180,6 +189,7 @@ public class MapArea implements IEntity {
 			throw new InvalidOperationException("The number of minions must be valid.");
 		
 		_minions[playerID] += count;
+		_isTroubleMarkerSet = shouldSetTroubleMarker();
 	}
 
 	private void performValidationForPlayerID(int playerID)	throws InvalidOperationException {
@@ -272,5 +282,18 @@ public class MapArea implements IEntity {
 		
 		setNumberDemons(formattedDataParts[6]);
 		setNumberTrolls(formattedDataParts[7]);
+	}
+
+	public void removeMinion(int playerIndex) throws InvalidOperationException {
+		if (playerIndex < 0 || playerIndex > 3 || _minions[playerIndex] <= 0)
+			throw new InvalidOperationException("No minions may be removed for the player specified.");
+		
+		_minions[playerIndex]--;
+		_isTroubleMarkerSet = false;
+	}
+	
+	// TODO
+	public boolean isAdjacent(String areaName) {
+		return false;
 	}
 }

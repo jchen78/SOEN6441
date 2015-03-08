@@ -1,4 +1,4 @@
-package game.action;
+package game.action.scaffold;
 
 import game.error.ActionException;
 

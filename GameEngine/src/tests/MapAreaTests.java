@@ -109,15 +109,6 @@ public class MapAreaTests {
 		}
 	}
 	
-	@Test public void WhenSettingTroubleMarkerMapAreaUpdatesItself() {
-		MapArea mapArea = new MapArea();
-		assertFalse(mapArea.hasTroubleMarker());
-		
-		try { mapArea.setTroubleMarker(true); } catch (InvalidOperationException e) { }
-		
-		assertTrue(mapArea.hasTroubleMarker());
-	}
-	
 	@Test public void WhenSettingBuildingMapAreaUpdatesItself() throws InvalidOperationException {
 		MapArea mapArea = new MapArea();
 		assertNull(mapArea.getBuildingOwner());
@@ -147,22 +138,12 @@ public class MapAreaTests {
 	
 	@Test public void GivenMapAreaWithTroubleMarkerAlreadySetWhenAddingBuildingShouldThrowException() throws InvalidOperationException {
 		MapArea mapArea = new MapArea();
-		mapArea.setTroubleMarker(true);
+		mapArea.addMinions(0, 2);
 		InvalidOperationException expectedException = null;
 		
 		try { mapArea.addBuilding(0); } catch (InvalidOperationException e) { expectedException = e; }
 		
 		assertEquals("Cannot add building while trouble marker is set.", expectedException.getMessage());
-	}
-	
-	@Test public void GivenMapAreaWithBuildingAlreadyConstructedWhenSettingTroubleMarkerShouldThrowException() throws InvalidOperationException {
-		MapArea mapArea = new MapArea();
-		mapArea.addBuilding(0);
-		InvalidOperationException expectedException = null;
-		
-		try { mapArea.setTroubleMarker(true); } catch (InvalidOperationException e) { expectedException = e; }
-		
-		assertEquals("Cannot set trouble marker when a building is constructed.", expectedException.getMessage());
 	}
 	
 	@Test public void WhenAddingMinionMapAreaShouldUpdateItself() throws InvalidOperationException {
@@ -258,7 +239,6 @@ public class MapAreaTests {
 	@Test public void GivenMapAreaWithTroubleMarkerWhenGettingCurrentStateShouldSerializeDataCorrectly() throws InvalidEntityNameException, InvalidOperationException {
 		MapArea mapArea = new MapArea();
 		mapArea.setEntity("TheScours");
-		mapArea.setTroubleMarker(true);
 		mapArea.addMinions(1, 9);
 		mapArea.setNumberDemons(2);
 		mapArea.setNumberTrolls(1);
@@ -278,6 +258,6 @@ public class MapAreaTests {
 		
 		String serializedData = mapArea.getCurrentState();
 		
-		assertEquals("0;2;0;9;0;0;2;1", serializedData);
+		assertEquals("1;-1;0;9;0;0;2;1", serializedData);
 	}
 }

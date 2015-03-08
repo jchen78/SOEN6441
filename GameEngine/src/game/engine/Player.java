@@ -5,6 +5,7 @@ import game.error.InvalidOperationException;
 import java.util.ArrayList;
 
 public class Player {
+	private int playerIndex;
 	private String playerName;
 	private String playerColor;
 	private int numOfPlayerBuildings;
@@ -12,6 +13,10 @@ public class Player {
 	private String playerPersonality;
 	private int playerMoney;
 	private ArrayList<String> playerCards;
+	
+	public Player(int index) {
+		playerIndex = index;
+	}
 
 	/**
 	 * Gets the user-friendly player name.
@@ -195,5 +200,9 @@ public class Player {
 		playerCards = new ArrayList<String>();
 		for (int i = 6; i < serializedParts.length; i++)
 			playerCards.add(serializedParts[i]);
+	}
+
+	public int getIndex() {
+		return playerIndex;
 	}
 }

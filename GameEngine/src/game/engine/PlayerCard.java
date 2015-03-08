@@ -3,7 +3,7 @@ package game.engine;
 import java.util.HashMap;
 import java.util.List;
 
-import game.action.IAction;
+import game.action.scaffold.IAction;
 import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
 

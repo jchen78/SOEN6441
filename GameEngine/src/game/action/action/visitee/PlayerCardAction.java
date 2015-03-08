@@ -1,5 +1,9 @@
-package game.action;
+package game.action.action.visitee;
 
+import game.action.scaffold.ActionType;
+import game.action.scaffold.IAction;
+import game.action.scaffold.IActionVisitee;
+import game.action.scaffold.IActionVisitor;
 import game.engine.*;
 import game.error.ActionException;
 import game.error.EntityNotSetException;

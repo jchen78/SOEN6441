@@ -1,6 +1,6 @@
 package game.error;
 
-import game.action.*;
+import game.action.scaffold.*;
 
 public class ActionException extends Exception {
 	private static final long serialVersionUID = 1L;

@@ -220,7 +220,7 @@ public class GameManager
 
 					temp = inFile.nextLine();
 					temp = temp.replaceAll("\\D+", "");
-					cityArea[j].setTroubleMarker(Integer.parseInt(temp) ==  1);
+					// cityArea[j].setTroubleMarker(Integer.parseInt(temp) ==  1); // The city area will manage itself
 
 					temp = inFile.nextLine();
 					temp = temp.replaceAll("\\D+", "");
@@ -519,7 +519,7 @@ public class GameManager
 	}
 	
 	// TODO
-	public Player getPlayer(int index) {
+	public Player getPlayer(String playerName) {
 		return null;
 	}
 	
@@ -539,7 +539,7 @@ public class GameManager
 	}
 	
 	// TODO
-	public List<Player> getPlayers() {
+	public List<Player> getAllPlayers() {
 		return null;
 	}
 }

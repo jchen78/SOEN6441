@@ -1,4 +1,4 @@
-package game.action;
+package game.action.scaffold;
 
 public enum ActionType {
 	ActionGroup,

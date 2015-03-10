@@ -189,13 +189,52 @@ public class MapArea implements IEntity {
 	 * @param count Number of minions to add (0-12, inclusive).
 	 * @throws InvalidOperationException Thrown when the playerID or the count is invalid.
 	 */
-	public void addMinions(int playerID, int count) throws InvalidOperationException {
-		performValidationForPlayerID(playerID);
+	public void addMinions(Player player, int count) throws InvalidOperationException {
+//		performValidationForPlayerID(playerID);
 		if (count < 0 || count > 12)
 			throw new InvalidOperationException("The number of minions must be valid.");
+		if (isPossibleToAddMinions(player)) {
+			player.decrementMinionsBy(count);
+			_minions[player.getIndex()] += count;
+			_isTroubleMarkerSet = shouldSetTroubleMarker();
+		}
+	}
+	
+	boolean isPossibleToAddMinions(Player player) {
+		if (playerHasMinions(player)) {
+			if (playerHasNoMinionsOnOtherArea(player)) {
+				return true;
+			}
+			else if (playerHasMinionsOnAdjacentAreas(player)) {
+				return true;
+			}
+			else if (playerHasMinionsOnThisArea(player)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean playerHasMinionsOnThisArea(Player player) {
+		return _minions[player.getIndex()] > 0;
+	}
+
+	private boolean playerHasMinionsOnAdjacentAreas(Player player) {
+		for (MapArea adjacent : adjacentMapAreas) {
+			if (adjacent._minions[player.getIndex()] > 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean playerHasNoMinionsOnOtherArea(Player player) {
+		return player.getNumberOfMinionsInHand() == 12;
 		
-		_minions[playerID] += count;
-		_isTroubleMarkerSet = shouldSetTroubleMarker();
+	}
+
+	private boolean playerHasMinions(Player player) {
+		return player.getNumberOfMinionsInHand() > 0;
 	}
 
 	private void performValidationForPlayerID(int playerID)	throws InvalidOperationException {
@@ -258,7 +297,7 @@ public class MapArea implements IEntity {
 	 * @param serializedData String representing the saved state of a gameboard area instance.
 	 * @throws InvalidOperationException Thrown when the serialized data is in an invalid format or contains invalid data.
 	 */
-	public void setCurrentState(String serializedData) throws InvalidOperationException {
+	public void setCurrentState(String serializedData, GameManager gameManager) throws InvalidOperationException {
 		if (serializedData == null)
 			throw new InvalidOperationException("Serialized data must be valid.");
 		
@@ -281,20 +320,18 @@ public class MapArea implements IEntity {
 			addBuilding(formattedDataParts[1]);
 		
 		_minions = new int[4];
-		addMinions(0, formattedDataParts[2]);
-		addMinions(1, formattedDataParts[3]);
-		addMinions(2, formattedDataParts[4]);
-		addMinions(3, formattedDataParts[5]);
+		addMinions(gameManager.getPlayer(0), formattedDataParts[2]);
+		addMinions(gameManager.getPlayer(1), formattedDataParts[3]);
+		addMinions(gameManager.getPlayer(2), formattedDataParts[4]);
+		addMinions(gameManager.getPlayer(3), formattedDataParts[5]);
 		
 		setNumberDemons(formattedDataParts[6]);
 		setNumberTrolls(formattedDataParts[7]);
 	}
 
-	public void removeMinion(int playerIndex) throws InvalidOperationException {
-		if (playerIndex < 0 || playerIndex > 3 || _minions[playerIndex] <= 0)
-			throw new InvalidOperationException("No minions may be removed for the player specified.");
-		
-		_minions[playerIndex]--;
+	public void removeMinions(Player player, int count ) throws InvalidOperationException {
+		player.incrementNumberOfMinionsBy(1);
+		_minions[player.getIndex()]--;
 		_isTroubleMarkerSet = false;
 	}
 	
@@ -302,4 +339,12 @@ public class MapArea implements IEntity {
 	public boolean isAdjacent(String areaName) {
 		return false;
 	}
+
+	public void addAdjacentArea(MapArea mapArea) {
+		adjacentMapAreas.add(mapArea);
+		
+	}
+
+	
+	
 }

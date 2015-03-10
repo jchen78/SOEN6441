@@ -40,7 +40,8 @@ public class GameManager
 
 	private boolean[] greenCard = new boolean[100];
 	private boolean[] brownCard = new boolean[100];
-
+	
+	private List<Player> players = new ArrayList<Player>();
 	Bank gameBank;
 
 	//private Bank gameBank;
@@ -56,9 +57,10 @@ public class GameManager
 
 	GameManager()
 	{
-		cityArea = new MapArea[12];
-		for(int i = 0; i < 12; i ++)
-			cityArea[i] = new MapArea();
+//		cityArea = new MapArea[12];
+//		for(int i = 0; i < 12; i ++)
+//			cityArea[i] = new MapArea();
+		cityArea = new Map().createMap();
 		gameBank = new Bank();
 	}
 
@@ -214,7 +216,7 @@ public class GameManager
 						{
 							int playerIndex = getPlayerIndex( mnn.charAt(h) );
 							if(playerIndex != -1)
-								cityArea[j].addMinions(playerIndex, 1);
+								cityArea[j].addMinions(getPlayer(playerIndex), 1);
 						}
 					}
 
@@ -541,5 +543,9 @@ public class GameManager
 	// TODO
 	public List<Player> getAllPlayers() {
 		return null;
+	}
+
+	public Player getPlayer(int i) {
+		return players.get(i);
 	}
 }

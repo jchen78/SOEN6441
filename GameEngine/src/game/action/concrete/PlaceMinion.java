@@ -59,12 +59,12 @@ public class PlaceMinion implements IOptionalAction, IActionWithEntityPlacement,
 	@Override
 	public void setAreaForRemoval(String selectedAreaName) throws Exception {
 		MapArea selectedArea = _gameInstance.getMapArea(selectedAreaName);
-		selectedArea.removeMinion(_currentPlayer.getIndex());
+		selectedArea.removeMinions(_gameInstance.getPlayer(this._currentPlayer.getIndex()),1);
 	}
 
 	@Override
 	public void setAreaForPlacement(String targetAreaName) throws Exception {
 		MapArea selectedArea = _gameInstance.getMapArea(targetAreaName);
-		selectedArea.addMinions(this._currentPlayer.getIndex(), 1);
+		selectedArea.addMinions(_gameInstance.getPlayer(this._currentPlayer.getIndex()), 1);
 	}
 }

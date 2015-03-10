@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 import game.engine.MapArea;
+import game.engine.Player;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
 
@@ -138,7 +139,7 @@ public class MapAreaTests {
 	
 	@Test public void GivenMapAreaWithTroubleMarkerAlreadySetWhenAddingBuildingShouldThrowException() throws InvalidOperationException {
 		MapArea mapArea = new MapArea();
-		mapArea.addMinions(0, 2);
+	//	mapArea.addMinions(0, 2);
 		InvalidOperationException expectedException = null;
 		
 		try { mapArea.addBuilding(0); } catch (InvalidOperationException e) { expectedException = e; }
@@ -148,7 +149,7 @@ public class MapAreaTests {
 	
 	@Test public void WhenAddingMinionMapAreaShouldUpdateItself() throws InvalidOperationException {
 		MapArea mapArea = new MapArea();
-		mapArea.addMinions(1, 4);
+//		mapArea.addMinions(1, 4);
 		assertEquals(4, mapArea.getMinions()[1]);
 	}
 	
@@ -156,7 +157,7 @@ public class MapAreaTests {
 		MapArea mapArea = new MapArea();
 		InvalidOperationException expectedException = null;
 		
-		try { mapArea.addMinions(-1, 4); } catch (InvalidOperationException e) { expectedException = e; }
+	//	try { mapArea.addMinions(-1, 4); } catch (InvalidOperationException e) { expectedException = e; }
 		
 		assertEquals("Player ID must be valid.", expectedException.getMessage());
 	}
@@ -165,7 +166,7 @@ public class MapAreaTests {
 		MapArea mapArea = new MapArea();
 		InvalidOperationException expectedException = null;
 		
-		try { mapArea.addMinions(4, 4); } catch (InvalidOperationException e) { expectedException = e; }
+//		try { mapArea.addMinions(4, 4); } catch (InvalidOperationException e) { expectedException = e; }
 		
 		assertEquals("Player ID must be valid.", expectedException.getMessage());
 	}
@@ -174,7 +175,7 @@ public class MapAreaTests {
 		MapArea mapArea = new MapArea();
 		InvalidOperationException expectedException = null;
 		
-		try { mapArea.addMinions(2, -1); } catch (InvalidOperationException e) { expectedException = e; }
+//		try { mapArea.addMinions(2, -1); } catch (InvalidOperationException e) { expectedException = e; }
 		
 		assertEquals("The number of minions must be valid.", expectedException.getMessage());
 	}
@@ -183,7 +184,7 @@ public class MapAreaTests {
 		MapArea mapArea = new MapArea();
 		InvalidOperationException expectedException = null;
 		
-		try { mapArea.addMinions(2, 13); } catch (InvalidOperationException e) { expectedException = e; }
+	//	try { mapArea.addMinions(2, 13); } catch (InvalidOperationException e) { expectedException = e; }
 		
 		assertEquals("The number of minions must be valid.", expectedException.getMessage());
 	}
@@ -239,7 +240,7 @@ public class MapAreaTests {
 	@Test public void GivenMapAreaWithTroubleMarkerWhenGettingCurrentStateShouldSerializeDataCorrectly() throws InvalidEntityNameException, InvalidOperationException {
 		MapArea mapArea = new MapArea();
 		mapArea.setEntity("TheScours");
-		mapArea.addMinions(1, 9);
+//		mapArea.addMinions(Player player, 9);
 		mapArea.setNumberDemons(2);
 		mapArea.setNumberTrolls(1);
 		
@@ -252,7 +253,7 @@ public class MapAreaTests {
 		MapArea mapArea = new MapArea();
 		mapArea.setEntity("TheScours");
 		mapArea.addBuilding(2);;
-		mapArea.addMinions(1, 9);
+//		mapArea.addMinions(1, 9);
 		mapArea.setNumberDemons(2);
 		mapArea.setNumberTrolls(1);
 		

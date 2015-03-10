@@ -9,7 +9,7 @@ public class Player implements IMoneyHolder {
 	private String playerName;
 	private String playerColor;
 	private int numOfPlayerBuildings;
-	private int numOfPlayerMinions;
+	private int numOfPlayerMinions = 12;
 	private String playerPersonality;
 	private int playerMoney;
 	private ArrayList<String> playerCards;
@@ -221,5 +221,14 @@ public class Player implements IMoneyHolder {
 
 	public int getIndex() {
 		return playerIndex;
+	}
+
+	public void decrementMinionsBy(int count) {
+		numOfPlayerMinions -= count;
+		
+	}
+
+	public void incrementNumberOfMinionsBy(int count) {
+		numOfPlayerMinions += count;
 	}
 }

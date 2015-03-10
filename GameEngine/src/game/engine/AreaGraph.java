@@ -5,6 +5,11 @@ public class AreaGraph
 	private boolean adjacencyMatrix [][];
 	private int vertexCount;
 
+	/**
+	 * Creates an {@link AreaGraph}
+	 * 
+	 * @param vertexCnt vertex count
+	 */
 	public AreaGraph(int vertexCnt)
 	{
 		this.vertexCount = vertexCnt+1;

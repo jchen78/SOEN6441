@@ -3,7 +3,9 @@ package game.engine;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class represents the entity of a game board area.
@@ -68,7 +70,7 @@ public class MapArea implements IEntity {
 	private int _numberDemons;
 	private int _numberTrolls;
 	private int[] _minions = new int[4]; //indicates how many minions each player has in that area
-	
+	private List<MapArea> adjacentMapAreas = new ArrayList();
 	/**
 	 * Constructor: Initializes data structures for loading.
 	 */
@@ -76,6 +78,10 @@ public class MapArea implements IEntity {
 		this._buildingOwner = null;
 	}
     
+	/**
+	 * Returns true if it should set the trouble marker
+	 * @return true if it should set the trouble marker
+	 */
 	private boolean shouldSetTroubleMarker() {
 		int totalNumberMinions = _numberTrolls + _numberDemons;
 		if (totalNumberMinions > 1)

@@ -1,7 +1,6 @@
 package game.action.concrete;
 
 import java.util.List;
-import java.util.Queue;
 
 import game.action.scaffold.ActionType;
 import game.action.scaffold.IAction;
@@ -20,14 +19,12 @@ public class PlayCard implements IActionDataGatherer, IActionVisitee {
 
 	@Override
 	public void accept(IActionVisitor visitor) throws ActionException {
-		// TODO Auto-generated method stub
-
+		visitor.visit(this);
 	}
 
 	@Override
 	public ActionType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return ActionType.PlayerCard;
 	}
 
 	@Override

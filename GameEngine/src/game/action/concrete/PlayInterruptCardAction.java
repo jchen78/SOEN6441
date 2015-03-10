@@ -24,6 +24,11 @@ public class PlayInterruptCardAction implements IOptionalAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "Abort the current action with an interrupt card. Current action: " + _interruptedAction.getDescription();
+	}
+	
+	@Override
 	public Queue<IActionDataGatherer> execute(GameManager gameInstance, String currentPlayer) throws Exception {
 		Queue<IActionDataGatherer> possibleInterruptActions = new LinkedList<IActionDataGatherer>();
 		List<String> allPlayerCardNames = gameInstance.getPlayer(currentPlayer).getPlayerCards();

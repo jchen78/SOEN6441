@@ -1,4 +1,4 @@
-package game.action.action.visitee;
+package game.action.concrete;
 
 import game.action.scaffold.ActionType;
 import game.action.scaffold.IAction;
@@ -13,16 +13,26 @@ import java.util.List;
 import java.util.Queue;
 
 public class PlayerCardAction implements IActionVisitee, IAction {
-	private GameManager _gameInstance;
 	private Player _owner;
 	private PlayerCard _card;
+	private int _cardIndex;
 	private IActionVisitor _visitor;
 	private Queue<IAction> _actions;
 	
 	public PlayerCardAction(GameManager gameInstance, Player owner, PlayerCard card) {
-		_gameInstance = gameInstance;
 		_owner = owner;
 		_card = card;
+		_cardIndex = 0;
+		for (String ownedCardName : _owner.getPlayerCards())
+			if (ownedCardName.equals(card.getCardname()))
+				break;
+			else
+				_cardIndex++;
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Play a card: " + _card.getCardname() + ".";
 	}
 
 	@Override
@@ -38,6 +48,7 @@ public class PlayerCardAction implements IActionVisitee, IAction {
 
 	@Override
 	public List<IAction> getActions() throws ActionException {
+		_owner.getPlayerCards().remove(_cardIndex);
 		LinkedList<IAction> _currentHead = new LinkedList<IAction>();
 		try {
 			initializeActions();
@@ -60,6 +71,6 @@ public class PlayerCardAction implements IActionVisitee, IAction {
 
 	@Override
 	public void registerAction(IAction action) {
-		_actions.poll();
+		_actions.poll(); // Equivalent to dequeue, which isn't available in the built-in data structure.
 	}
 }

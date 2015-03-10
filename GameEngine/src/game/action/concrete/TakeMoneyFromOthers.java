@@ -11,7 +11,17 @@ import game.engine.GameManager;
 import game.engine.Player;
 
 public class TakeMoneyFromOthers implements IOptionalAction {
+	private int _maximumAmount;
 	private Player _currentPlayer;
+	
+	public TakeMoneyFromOthers(int maximumAmount) {
+		_maximumAmount = maximumAmount;
+	}
+	
+	@Override
+	public String getDescription() {
+		return "Take $" + _maximumAmount + " from all other players where possible.";
+	}
 
 	@Override
 	public Queue<IActionDataGatherer> execute(GameManager gameInstance, String currentPlayerName) throws Exception {

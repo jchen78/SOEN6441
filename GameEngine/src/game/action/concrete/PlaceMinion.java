@@ -20,6 +20,11 @@ public class PlaceMinion implements IOptionalAction, IActionWithEntityPlacement,
 	private Player _currentPlayer;
 	
 	@Override
+	public String getDescription() {
+		return "Place a minion.";
+	}
+	
+	@Override
 	public Queue<IActionDataGatherer> execute(GameManager gameInstance, String currentPlayerName) throws Exception {
 		_gameInstance = gameInstance;
 		_currentPlayer = _gameInstance.getPlayer(currentPlayerName);

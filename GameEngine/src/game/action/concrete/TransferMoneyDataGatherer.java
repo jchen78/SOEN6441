@@ -24,6 +24,16 @@ public class TransferMoneyDataGatherer implements IInterruptibleDataGatherer {
 		_transferAmount = transferAmount;
 		_type = actionType;
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Transfer $" + _transferAmount + " from " + getFriendlyAccountName(_source) + " to " + getFriendlyAccountName(_target) + ".";
+	}
+	
+	private String getFriendlyAccountName(IMoneyHolder account) {
+		String name = account.getAccountHolderName();
+		return (name == null) ? "Bank" : name;
+	}
 
 	@Override
 	public String getInterruptorName() {

@@ -137,18 +137,28 @@ public class PlayerCard extends Card {
 	}
 	
 	private String _borderColor = null;
+	private String _cardName = null;
 	
 	@Override
 	public void setEntity(String entityName) throws InvalidEntityNameException {
 		if (entityName == null)
 			throw new InvalidEntityNameException();
 		
-		if (GREENBORDERED_CARD_NAMES.containsKey(entityName))
+		if (GREENBORDERED_CARD_NAMES.containsKey(entityName)) {
 			_borderColor = "Green";
-		else if (BROWNBORDERED_CARD_NAMES.containsKey(entityName))
+			_cardName = GREENBORDERED_CARD_NAMES.get(entityName);
+		}
+		else if (BROWNBORDERED_CARD_NAMES.containsKey(entityName)) {
 			_borderColor = "Brown";
+			_cardName = BROWNBORDERED_CARD_NAMES.get(entityName);
+		}
 		else
 			throw new InvalidEntityNameException();
+	}
+	
+	@Override
+	public String getCardname() {
+		return _cardName;
 	}
 	
 	/**

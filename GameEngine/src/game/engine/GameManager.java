@@ -60,7 +60,7 @@ public class GameManager
 //		cityArea = new MapArea[12];
 //		for(int i = 0; i < 12; i ++)
 //			cityArea[i] = new MapArea();
-		cityArea = new Map().createMap();
+		//cityArea = new Map().createMap();
 		gameBank = new Bank();
 	}
 

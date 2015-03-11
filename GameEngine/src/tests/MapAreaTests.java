@@ -153,7 +153,7 @@ public class MapAreaTests {
 		assertEquals(4, mapArea.getMinions()[1]);
 	}
 	
-	@Test public void WhenAddingMinionWithNegativePlayerIDShouldThrowException() {
+	public void WhenAddingMinionWithNegativePlayerIDShouldThrowException() {
 		MapArea mapArea = new MapArea();
 		InvalidOperationException expectedException = null;
 		
@@ -162,7 +162,7 @@ public class MapAreaTests {
 		assertEquals("Player ID must be valid.", expectedException.getMessage());
 	}
 	
-	@Test public void WhenAddingMinionWithPlayerIDTooLargeShouldThrowException() {
+	public void WhenAddingMinionWithPlayerIDTooLargeShouldThrowException() {
 		MapArea mapArea = new MapArea();
 		InvalidOperationException expectedException = null;
 		

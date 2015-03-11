@@ -548,4 +548,9 @@ public class GameManager
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
+
+	public CityAreaCard getCityAreaCard(String cityAreaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

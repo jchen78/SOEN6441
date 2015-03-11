@@ -1,13 +1,18 @@
 package game.engine;
 
+import game.action.sequence.interfaces.ICardVisitee;
+import game.action.sequence.interfaces.IVisitee;
+import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.GameOverException;
 import game.error.InvalidEntityNameException;
 
 import java.util.HashMap;
+import java.util.Queue;
 
 /**
  * This class represents entities from the City Area card deck.
  */
-public class CityAreaCard extends Card {
+public class CityAreaCard extends Card implements ICardVisitee {
 	private static final HashMap<String, String> CITY_AREA_CARD_NAMES = new HashMap<String, String>();
 	
 	static {
@@ -54,5 +59,23 @@ public class CityAreaCard extends Card {
 	
 	public void setCardStatus(boolean isActive) {
 		_isActive = isActive;
+	}
+
+	@Override
+	public Queue<IVisitee> accept(IVisitor visitor) throws GameOverException {
+		// TODO Auto-generated method stub
+		// The intention is to do this using the Strategy pattern. This way, the number of classes and repeated code are both minimized.
+		return null;
+	}
+
+	@Override
+	public String getDescription() {
+		return "Play " + getCardname();
+	}
+
+	@Override
+	public CardType getCardType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

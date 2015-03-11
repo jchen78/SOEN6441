@@ -2,15 +2,20 @@ package game.engine;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Queue;
 
 import game.action.scaffold.IAction;
+import game.action.sequence.interfaces.ICardVisitee;
+import game.action.sequence.interfaces.IVisitee;
+import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.GameOverException;
 import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
 
 /**
  * This class represents the green- or brown-bordered player cards. It is yet incomplete: only arbitrary (temporary) names and border color are stored.
  */
-public class PlayerCard extends Card {
+public class PlayerCard extends Card implements ICardVisitee {
 	private static final HashMap<String, String> GREENBORDERED_CARD_NAMES = new HashMap<String, String>();
 	private static final HashMap<String, String> BROWNBORDERED_CARD_NAMES = new HashMap<String, String>();
 
@@ -166,6 +171,30 @@ public class PlayerCard extends Card {
 	
 	// TODO
 	public List<IAction> getActions() throws EntityNotSetException {
+		return null;
+	}
+	
+	// TODO
+	public CardType getType() throws EntityNotSetException {
+		return null;
+	}
+
+	@Override
+	public Queue<IVisitee> accept(IVisitor visitor) throws GameOverException {
+		// TODO Auto-generated method stub
+		// The plan is to implement this method using the Command design pattern.
+		return null;
+	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CardType getCardType() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

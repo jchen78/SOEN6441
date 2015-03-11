@@ -3,6 +3,7 @@ package game.engine;
 import game.error.InvalidOperationException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Player implements IMoneyHolder {
 	private int playerIndex;
@@ -13,6 +14,7 @@ public class Player implements IMoneyHolder {
 	private String playerPersonality;
 	private int playerMoney;
 	private ArrayList<String> playerCards;
+	private HashSet<String> cityCards;
 	
 	public Player(int index) {
 		playerIndex = index;
@@ -230,5 +232,10 @@ public class Player implements IMoneyHolder {
 
 	public void incrementNumberOfMinionsBy(int count) {
 		numOfPlayerMinions += count;
+	}
+	
+	// TODO
+	public String[] getCityCards() {
+		return cityCards.toArray(new String[cityCards.size()]);
 	}
 }

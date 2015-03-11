@@ -1,7 +1,0 @@
-EARTHQUAKE((game, player) -> {
-		Die die = Die.getDie();
-		int AffectedArea1 = die.roll();
-		int AffectedArea2 = die.roll();
-		game.removeBuilding(AffectedArea1);
-		game.removeBuilding(AffectedArea2);
-	}),

@@ -548,4 +548,15 @@ public class GameManager
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
+	
+	public int getTotalNumberOfTroubleMarkers(){
+		// TODO
+		return 0;
+	}
+
+
+	public Integer getNumberOfAreasControlled(Player player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

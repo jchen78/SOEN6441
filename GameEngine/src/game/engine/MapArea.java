@@ -335,11 +335,17 @@ public class MapArea implements IEntity {
 		_isTroubleMarkerSet = false;
 	}
 	
-	// TODO
+	/**
+	 * @param 
+	 * @return
+	 */
 	public boolean isAdjacent(String areaName) {
 		return false;
 	}
 
+	/**
+	 * @param mapArea= MapArea object 
+	 */
 	public void addAdjacentArea(MapArea mapArea) {
 		adjacentMapAreas.add(mapArea);
 		

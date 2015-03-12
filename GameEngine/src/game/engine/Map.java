@@ -1,7 +1,7 @@
 package game.engine;
 
 /**
- *this class contains the function returning array list of all the adjacent areas for a particular area
+ *This class contains the function returning array list of all the adjacent areas for a particular area
  */
 public class Map {
 	public MapArea[] createMap() {

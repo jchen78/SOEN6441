@@ -461,7 +461,7 @@ public class GameManager
 			System.out.print( area[ aid ] + "\n");
 
 			System.out.print("\t" + "minions:" );
-			int[] minioins = cityArea[aid].getMinions();
+			int[] minioins = cityArea[aid].getMinions();			
 			char separator = ' ';
 			for(int pid = 0; pid < numberOfPlayers; pid ++)
 			{

@@ -8,13 +8,13 @@ import java.io.*;
 
 public class GameManager
 {
+	private int currentTurn;
 	private int numberOfPlayers;
 	private char[] color= new char[4];
 	private String[] personality = new String[7];
 
 
 	private MapArea[] cityArea = new MapArea[12];
-	//	private String[] area = MapArea.getInternalNames();
 	private String[] area = {
 			"Dolly Sisters", 
 			"Unreal Estate", 
@@ -88,22 +88,35 @@ public class GameManager
 		return "ERROR";
 	}
 
-	public void start()
+	public void start() throws InvalidOperationException
 	{
-
 		Scanner input = new Scanner(System.in);
 
 		System.out.println("Enter number of players:");
-		numberOfPlayers = input.nextInt();
+		numberOfPlayers = Integer.parseInt(input.next());
 
-		int beginner = randNum.nextInt(numberOfPlayers+1);
+		for(int i = 0; i < numberOfPlayers; i++)
+			players.add(new Player(i));
 
-		if (beginner > 0)
-			System.out.printf("%d starts the game!\n\n", beginner);
-		else
-			System.out.printf("%d starts the game!\n\n", beginner+1);
+		System.out.println("Enter name of players and color:");
+		for(int i = 0; i < numberOfPlayers; i++)
+		{
+			String playerName = input.nextLine();
+			String playerColor = input.nextLine(); 
+			players.get(i).setName(playerName);
+			players.get(i).setplayercolor(playerColor);
+			players.get(i).setNumberBuildings(6);
+			players.get(i).setMinion(12);
+			players.get(i).setPlayerMoney(10);
+		}
+
+		currentTurn = Dice.FirstPlayer(numberOfPlayers);
+
+		System.out.printf("%s starts the game!\n\n", players.get(currentTurn).getName());
+
+		input.close();
 	}
-
+	
 	public void printMenu() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
 		int n;
@@ -538,20 +551,32 @@ public class GameManager
 	public PlayerCard getPlayerCard(String cardName) {
 		return new PlayerCard( cardName );
 	}
-	
-	// TODO
-	public MapArea getMapArea(String areaName) {
+
+	// DONE
+	public MapArea getMapArea(String areaName) { 
+		String[] allAreas = MapArea.getInternalNames();
+		for(int i = 0; i < 12; i ++)
+		{
+			if(areaName.compareTo( allAreas[i] ) == 0)
+			{
+				return cityArea[i];
+			}
+		}
+
 		return null;
 	}
 
-	// TODO
+	// DONE
 	public List<Player> getAllPlayers() {
-		return null;
+		return players;
 	}
 
-	// TODO
+	// DONE
 	public List<MapArea> getAllMapAreas() {
-		return null;
+		List <MapArea> res = new ArrayList<MapArea>();
+		for(int ai = 0; ai < 12; ai ++)
+			res.add(cityArea[ai]); 
+		return res;
 	}
 
 	public Player getPlayer(int i) {

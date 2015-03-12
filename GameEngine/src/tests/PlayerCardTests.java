@@ -17,7 +17,7 @@ public class PlayerCardTests {
 	private PlayerCard _playerCard;
 	
 	@Before public void InitializePlayerCard() {
-		_playerCard = new PlayerCard();
+		_playerCard = new PlayerCard("playerCardName");
 	}
 
 	@Test public void WhenInitializingWithNullShouldThrowException() {
@@ -46,7 +46,7 @@ public class PlayerCardTests {
 		PlayerCard currentCard;
 		
 		for (String cardName : PlayerCard.getGreenBorderedCardNames()) {
-			currentCard = new PlayerCard();
+			currentCard = new PlayerCard(cardName);
 			currentCard.setEntity(cardName);
 			greenBorderedCards.add(currentCard);
 		}
@@ -62,7 +62,7 @@ public class PlayerCardTests {
 		PlayerCard currentCard;
 		
 		for (String cardName : PlayerCard.getBrownBorderedCardNames()) {
-			currentCard = new PlayerCard();
+			currentCard = new PlayerCard(cardName);
 			currentCard.setEntity(cardName);
 			brownBorderedCards.add(currentCard);
 		}

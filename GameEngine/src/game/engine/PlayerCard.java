@@ -1,5 +1,6 @@
 package game.engine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
@@ -16,8 +17,12 @@ import game.error.InvalidEntityNameException;
  * This class represents the green- or brown-bordered player cards. It is yet incomplete: only arbitrary (temporary) names and border color are stored.
  */
 public class PlayerCard extends Card implements ICardVisitee {
+
 	private static final HashMap<String, String> GREENBORDERED_CARD_NAMES = new HashMap<String, String>();
-	private static final HashMap<String, String> BROWNBORDERED_CARD_NAMES = new HashMap<String, String>();
+	private static final HashMap<String, String> BROWNBORDERED_CARD_NAMES = new HashMap<String, String>();	
+	private ArrayList<String> symbols = new ArrayList<String>();
+	private String explanation;
+	private String cardName;
 
 	static {
 		GREENBORDERED_CARD_NAMES.put("MrBoggis", "Mr Boggis");
@@ -68,7 +73,7 @@ public class PlayerCard extends Card implements ICardVisitee {
 		GREENBORDERED_CARD_NAMES.put("TheSeamstressesGuild", "The Seamstresses' Guild");
 		GREENBORDERED_CARD_NAMES.put("MrPinAndMrTulip", "Mr Pin & Mr Tulip");
 		GREENBORDERED_CARD_NAMES.put("TheThievesGuild", "The Thieves' Guild");
-		
+
 
 		BROWNBORDERED_CARD_NAMES.put("SergeantCheeryLittlebottom", "Sergeant Cheery Littlebottom");
 		BROWNBORDERED_CARD_NAMES.put("OttoChriek", "Otto Chriek");
@@ -125,6 +130,310 @@ public class PlayerCard extends Card implements ICardVisitee {
 		BROWNBORDERED_CARD_NAMES.put("Gargoyles", "Gargoyles");
 	}
 	
+	
+	public PlayerCard(String _cardName)
+	{
+		if(cardName.compareTo("MrBoggis") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBoggis")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Take $2 if possible, from every other player";
+		}
+
+		// TODO
+		if(cardName.compareTo("MrBent") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBent")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheBeggarsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBeggarsGuild")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheBankOfAnkhMorpork") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBankOfAnkhMorpork")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheAnkhMorporkSynshineDragonSanctuary") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheAnkhMorporkSynshineDragonSanctuary")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("SergeantAngua") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("SergeantAngua")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheAgonyAunts") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheAgonyAunts")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheDysk") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheDysk")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheDuckman") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheDuckman")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Drumknott") == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("CMOTDibbler") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("CMOTDibbler")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("DrCruces") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("DrCruces")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("CaptainCarrot") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("CaptainCarrot")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("MsCake") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MsCake")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Groat") == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("GimletsDwarfDelicatessen") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("GimletsDwarfDelicatessen")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Gaspode") == 0 )
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("FreshStartClub") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("FreshStartClub")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("FourOleRon") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("FourOleRon")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheFoolsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheFoolsGuild")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheFireBrigade") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheFireBrigade")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("InigoSkimmer") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("InigoSkimmer")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("HistoryMonks") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HistoryMonks")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Hex") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("Hex")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("HereNNow") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HereNNow")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("HarryKing") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HarryKing")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("HargasHouseOfRibs") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HargasHouseOfRibs")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("MrGryle") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrGryle")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("ThePeeledNuts") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ThePeeledNuts")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheOperaHouse") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheOperaHouse")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("NorryNobbs") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("NorryNobbs")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Modo") == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheMendedDrum") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheMendedDrum")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Librarian") == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("LeonardOfQuirm") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("LeonardOfQuirm")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("ShonkyShop") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ShonkyShop")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("SacharissaCrisplock") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("SacharissaCrisplock")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("RosiePalm") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("RosiePalm")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Rincewind") == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheRoyalMint") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheRoyalMint")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("QueenMolly") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("QueenMolly")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("PinkPussycatClub") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("PinkPussycatClub")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("ZorgoTheRetrophrenologist") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ZorgoTheRetrophrenologist")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("DrWhiteface") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("DrWhiteface")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("WallaceSponky") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("WallaceSponky")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheSeamstressesGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheSeamstressesGuild")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("MrPinAndMrTulip") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrPinAndMrTulip")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("TheThievesGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheThievesGuild")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		//TODO
+		//Do the same thing for brown cards
+		if(cardName.compareTo("SergeantCheeryLittlebottom") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("SergeantCheeryLittlebottom")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+	}
+
 	/**
 	 * Gets all valid entity names for the green-bordered player card deck.
 	 * @return An array of all valid green-bordered player card entity names, in no particular order.
@@ -132,7 +441,7 @@ public class PlayerCard extends Card implements ICardVisitee {
 	public static String[] getGreenBorderedCardNames() {
 		return GREENBORDERED_CARD_NAMES.keySet().toArray(new String[48]);
 	}
-	
+
 	/**
 	 * Gets all valid entity names for the brown-bordered player card deck.
 	 * @return An array of all valid brown-bordered player card entity names, in no particular order.
@@ -140,14 +449,14 @@ public class PlayerCard extends Card implements ICardVisitee {
 	public static String[] getBrownBorderedCardNames() {
 		return BROWNBORDERED_CARD_NAMES.keySet().toArray(new String[52]);
 	}
-	
+
 	private String _borderColor = null;
-	
+
 	@Override
 	public void setEntity(String entityName) throws InvalidEntityNameException {
 		if (entityName == null)
 			throw new InvalidEntityNameException();
-		
+
 		if (GREENBORDERED_CARD_NAMES.containsKey(entityName))
 			_borderColor = "Green";
 		else if (BROWNBORDERED_CARD_NAMES.containsKey(entityName))
@@ -155,7 +464,7 @@ public class PlayerCard extends Card implements ICardVisitee {
 		else
 			throw new InvalidEntityNameException();
 	}
-	
+
 	/**
 	 * Gets the border color, as loaded when the <code>setEntity</code> method was called.
 	 * @see setEntity
@@ -165,15 +474,15 @@ public class PlayerCard extends Card implements ICardVisitee {
 	public String getBorderColor() throws EntityNotSetException {
 		if (_borderColor == null)
 			throw new EntityNotSetException();
-		
+
 		return _borderColor;
 	}
-	
+
 	// TODO
 	public List<IAction> getActions() throws EntityNotSetException {
 		return null;
 	}
-	
+
 	// TODO
 	public CardType getType() throws EntityNotSetException {
 		return null;

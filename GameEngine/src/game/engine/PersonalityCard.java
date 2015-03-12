@@ -38,7 +38,7 @@ public class PersonalityCard extends Card {
 		PERSONALITY_CARD_EXPLANATION.put("DragonKingOfArms", "if at the start of you turn there are eight or more trouble markers on the board then you win the game immediately.");
 		PERSONALITY_CARD_EXPLANATION.put("Dragon King of Arms", "if at the start of you turn there are eight or more trouble markers on the board then you win the game immediately.");
 
-		PERSONALITY_CARD_EXPLANATION.put("Chrysoprase", "wins if that player’s net worth (cash plus building values) is $50 or more at the beginning of their turn")");
+		PERSONALITY_CARD_EXPLANATION.put("Chrysoprase", "wins if that player’s net worth (cash plus building values) is $50 or more at the beginning of their turn");
 	}
 	
 	/**

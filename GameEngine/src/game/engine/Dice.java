@@ -26,7 +26,7 @@ public class Dice {
 	 * @return an integer between one and twelve
 	 */
 	public static int roll() {
-		return randomGen.nextInt(faces + 1);
+		return randomGen.nextInt(faces)+1;
 	}
 	
 	/**
@@ -35,10 +35,10 @@ public class Dice {
 	 * @return an integer one and number of players
 	 */
 	public static int FirstPlayer(int numberOfPlayers) {
-		return (roll() % numberOfPlayers) + 1;
+		return (roll() % numberOfPlayers);
 	}
 
-	public static void main(String [] args) {
+/*	public static void main(String [] args) {
     int result;
     System.out.println("please enter number of players of game");
     
@@ -48,5 +48,5 @@ public class Dice {
     System.out.println("player number "+ result + " start the game ");
 
          
-   }
+   }*/
 }

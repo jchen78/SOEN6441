@@ -486,295 +486,340 @@ public class PlayerCard extends Card implements ICardVisitee {
 		{
 			cardName = _cardName;
 			symbols.add("Scroll");
-			explanation = "";
+			symbols.add("Place another card");
+			explanation = "Pay another player $2. They must then remove one minion of their choice(not one of yours) with an area trouble marker in it";
 		}
 		if(cardName.compareTo("The Dean") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Dean")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Place another card");
+			explanation = "Remove one minion from unreal estate";
 		}
 		if(cardName.compareTo("HELLO") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("HELLO")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Assassination");
+			symbols.add("Place a Building");
 		}
 		if(cardName.compareTo("Burleigh & Stronginthearm") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Burleigh & Stronginthearm")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a Building");
+			explanation = "Pay a player of your choice $2. Then choose a minion to assassinate";
 		}
 		if(cardName.compareTo("The Bursar") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Bursar")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Exchange the positions of any two minion on the board";
 		}
 		if(cardName.compareTo("Cable Street Particulars") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Cable Street Particulars")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Select one player. Look at his cards and choose one of them to be discarded";
 		}
 		if(cardName.compareTo("Canting Crew") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Canting Crew")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Move a minion belonging to another player from one area to an adjacent area";
 		}
 		if(cardName.compareTo("Carcer") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Carcer")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Roll the die twice and remove one minion of your choice from those areas even if there is no trouble there";
 		}
 		if(cardName.compareTo("The chair of Indefinite Studies") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The chair of Indefinite Studies")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Exchange your hand with that of another player";
 		}
 		if(cardName.compareTo("Sir Charles Lavatory") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sir Charles Lavatory")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Earn $1 for each building on the board(any color)";
 		}
 		if(cardName.compareTo("Dorfl") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Dorfl")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Move one of your minion from one area to any other area on the board";
 		}
 		if(cardName.compareTo("Sergeant Detritus") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sergeant Detritus")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Remove one trouble marker");
+			symbols.add("Remove one trouble marker");
 		}
 		if(cardName.compareTo("Deep Dwarves") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Deep Dwarves")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Place a minion in any area and donot place a trouble marker";
 		}
 		if(cardName.compareTo("Adora Belle Dearheart") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Adora Belle Dearheart")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			symbols.add("Place a building");
+			explanation = "Move one of your minion from one area to any other area on the board";
 		}
 		if(cardName.compareTo("The Alchemists' Guild") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Alchemists' Guild")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Discard upto three cards and refill your hand to five cards";
 		}
 		if(cardName.compareTo("The Auditors") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Auditors")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Every other player, in player order, must remove one of their minion from the board";
 		}
 		if(cardName.compareTo("Buggy Swires") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Buggy Swires")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Remove a trouble marker");
 		}
 		if(cardName.compareTo("Susan") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Susan")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Interrupt");
+			explanation = "Stop one of your minions from being removed from the board";
 		}
 		if(cardName.compareTo("Sybil Vimes") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sybil Vimes")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Take money $3");
+			symbols.add("Scroll");
+			explanation = "Replace another player's building with one of your own. Pay the cost of the building to the original owner. It must be an area that doesnot have a trouble marker ";
 		}
 		if(cardName.compareTo("Mr Teatime") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Mr Teatime")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Take Money $3");
+			symbols.add("Assassination");
+			symbols.add("Play another card");
 		}
 		if(cardName.compareTo("The Watch") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Watch")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a building");
+			symbols.add("Remove one trouble marker");
 		}
 		if(cardName.compareTo("Wee Mad Arthur") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Wee Mad Arthur")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "You may build a building for a half price";
 		}
 		if(cardName.compareTo("William de Worde") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("William de Worde")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Scroll");
+			explanation = "Earn $1 for each trouble marker on the board";
 		}
 		if(cardName.compareTo("Willikins") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Willikins")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Place one minion in an area you have a building";
 		}
 		if(cardName.compareTo("Archchancellor Ridcully") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Archchancellor Ridcully")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			explanation = "Place one or two minions in or adjacent to Unreal Estate ";
 		}
 		if(cardName.compareTo("Ruby") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Ruby")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Place a building");
 		}
 		if(cardName.compareTo("The Senior Wrangler") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Senior Wrangler")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Place one minion in or adjacent to Unreal Estate";
 		}
 		if(cardName.compareTo("Mr Shine") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Mr Shine")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Place a minion in any area and donot place a trouble marker";
 		}
 		if(cardName.compareTo("Mr Slant") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Mr Slant")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Choose a area containing a trouble marker and receive $2 for each minion there";
 		}
 		if(cardName.compareTo("The Smoking Gnu") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Smoking Gnu")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Place one minion in an area containing a trouble marker";
 		}
 		if(cardName.compareTo("Stanley") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Stanley")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Select two cards randomly from one player and choose one to keep. Return the another card";
 		}
 		if(cardName.compareTo("Moist von Lipwig") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Moist von Lipwig")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Take Money $3");
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Take two cards from the draw deck";
 		}
 		if(cardName.compareTo("Doctor Mossy Lawn") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Doctor Mossy Lawn")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Interrupt");
+			explanation = "Interrupt your own turn. Your turn finishes but donot discard the card you played before this one";
 		}
 		if(cardName.compareTo("Patrician's Palace") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Patrician's Palace")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a building");
+			symbols.add("Take money $4");
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("Ponder Stibbons") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Ponder Stibbons")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			explanation = "Play any two cards from your hand";
 		}
 		if(cardName.compareTo("The Post Office") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Post Office")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Take $1 for each building on the board";
 		}
 		if(cardName.compareTo("Reacher Gilt") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Reacher Gilt")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "You can replace other player's building with one of your own. Pay the cost of the building to the original owner. It must be an area that has trouble marker in it";
 		}
 		if(cardName.compareTo("Professor of Recent Runes") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Professor of Recent Runes")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Take two cards from the draw deck";
 		}
 		if(cardName.compareTo("Doctor Hix") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Doctor Hix")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Place a trouble marker in an area of your choice";
 		}
 		if(cardName.compareTo("Hobson's Livery Stable") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Hobson's Livery Stable")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Pay $2 to a player of your choice. Then move one of your minions to any area you wish";
 		}
 		if(cardName.compareTo("Hubert") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Hubert")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Force one player to give another player $3(you cannot choose yourself)";
 		}
 		if(cardName.compareTo("Igor") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Igor")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Interrupt");
+			explanation = "If you have a minion removed you can place him in a different area";
 		}
 		if(cardName.compareTo("The luggage") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The luggage")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Scroll");
+			explanation = "Discard one card";
 		}
 		if(cardName.compareTo("The Mob") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Mob")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			symbols.add("Play another card");
+			explanation = "Place one trouble marker in an area adjacent to one already containing a trouble marker";
 		}
 		if(cardName.compareTo("Lord Downey") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Lord Downey")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $3");
+			symbols.add("Place a building");
 		}
 		if(cardName.compareTo("Dwarves") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Dwarves")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("Edward d'Eath") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Edward d'Eath")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $3");
+			symbols.add("Place a building");
 		}
 		if(cardName.compareTo("Errol") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Errol")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Roll a die. On the roll of '7' or more you remove a minion of your choice from an area containing a trouble marker. On a roll of a '1' you must remove one of your own minions";
 		}
 		if(cardName.compareTo("Gargoyles") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Gargoyles")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Draw one card for each building you have on the board";
 		}
 	}
 

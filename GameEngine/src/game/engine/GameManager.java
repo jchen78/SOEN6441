@@ -548,6 +548,11 @@ public class GameManager
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
+	
+	// TODO
+	public Player getNextPlayer() {
+		return null;
+	}
 
 	public CityAreaCard getCityAreaCard(String cityAreaName) {
 		// TODO Auto-generated method stub

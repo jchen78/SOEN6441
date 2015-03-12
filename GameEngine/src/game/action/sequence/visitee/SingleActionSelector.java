@@ -7,20 +7,22 @@ import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 
 public class SingleActionSelector implements IVisitee {
-	public SingleActionSelector(List<IVisitee> possibleActions) {
-		
+	private List<IVisitee> _possibleActions;
+	private String _visiteeType;
+	
+	public SingleActionSelector(List<IVisitee> possibleActions, String visiteeType) {
+		_possibleActions = possibleActions;
+		_visiteeType = visiteeType;
 	}
 
 	@Override
-	public Queue<IVisitee> accept(IVisitor visitor) throws GameOverException {
-		// TODO Auto-generated method stub
-		return null;
+	public void accept(IVisitor visitor) throws GameOverException {
+		visitor.visit(visitor.selectAction(_possibleActions));
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Select one of the " + _visiteeType;
 	}
 
 }

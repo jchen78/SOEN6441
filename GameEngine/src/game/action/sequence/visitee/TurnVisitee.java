@@ -21,7 +21,9 @@ public class TurnVisitee implements IVisitee {
 	}
 	
 	@Override
-	public Queue<IVisitee> accept(IVisitor visitor) {
+	public void accept(IVisitor visitor) throws GameOverException {
+		// TODO: Offer to save & exit the game
+		
 		// First update the visitor to indicate the current player.
 		GameManager gameInstance = visitor.getGameInstance();
 		Player currentPlayer = gameInstance.getPlayer(_playerName);
@@ -45,17 +47,19 @@ public class TurnVisitee implements IVisitee {
 			}
 		}
 		
-		currentlyAvailableActions.add(new SingleActionSelector(playableCards));
+		currentlyAvailableActions.add(new SingleActionSelector(playableCards, "player cards."));
 		for (String cityAreaName : currentPlayer.getCityCards()) {
 			CityAreaCard cityCard = gameInstance.getCityAreaCard(cityAreaName);
 			if (cityCard.getCardType().equals(CardType.Playable))
 				currentlyAvailableActions.add(cityCard);
 		}
 		
-		visitor.visit(currentlyAvailableActions);
+		new MultipleActionSelector(currentlyAvailableActions).accept(visitor);
 		
-		// No prerequisites: return an empty collection.
-		return new LinkedList<IVisitee>();
+		int numberCardsInHand = currentPlayer.getPlayerCards().size();
+		for (int i = numberCardsInHand; i < 5; i++) {
+			// Draw card.
+		}
 	}
 
 	@Override

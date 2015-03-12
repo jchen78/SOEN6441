@@ -180,10 +180,9 @@ public class PlayerCard extends Card implements ICardVisitee {
 	}
 
 	@Override
-	public Queue<IVisitee> accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException {
 		// TODO Auto-generated method stub
 		// The plan is to implement this method using the Command design pattern.
-		return null;
 	}
 
 	@Override

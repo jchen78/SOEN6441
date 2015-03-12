@@ -1,18 +1,13 @@
 package game.action.sequence.visitee;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.engine.*;
 
 public class WinningConditionVisitor implements IVisitee {
 	@Override
-	public Queue<IVisitee> accept(IVisitor visitor) {
+	public void accept(IVisitor visitor) throws GameOverException {
 		// TODO Auto-generated method stub
-		// No prerequisites: return an empty collection
-		return new LinkedList<IVisitee>();
 	}
 
 	@Override

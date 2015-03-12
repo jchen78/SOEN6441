@@ -62,10 +62,9 @@ public class CityAreaCard extends Card implements ICardVisitee {
 	}
 
 	@Override
-	public Queue<IVisitee> accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException {
 		// TODO Auto-generated method stub
 		// The intention is to do this using the Strategy pattern. This way, the number of classes and repeated code are both minimized.
-		return null;
 	}
 
 	@Override

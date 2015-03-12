@@ -9,6 +9,7 @@ import java.util.HashMap;
  */
 public class PersonalityCard extends Card {
 	private static final HashMap<String, String> PERSONALITY_CARD_NAMES = new HashMap<String, String>();
+	private static final HashMap<String, String> PERSONALITY_CARD_EXPLANATION = new HashMap<String, String>();
 	
 	static {
 		PERSONALITY_CARD_NAMES.put("LordDeWorde", "Lord de Worde");
@@ -18,6 +19,27 @@ public class PersonalityCard extends Card {
 		PERSONALITY_CARD_NAMES.put("LordRust", "Lord Rust");
 		PERSONALITY_CARD_NAMES.put("DragonKingOfArms", "Dragon King of Arms");
 		PERSONALITY_CARD_NAMES.put("Chrysoprase", "Chrysoprase");
+		
+		// TODO
+		PERSONALITY_CARD_EXPLANATION.put("LordDeWorde", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Lord de Worde", "Explanation");
+
+		PERSONALITY_CARD_EXPLANATION.put("CommanderVimes", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Commander Vimes", "Explanation");
+
+		PERSONALITY_CARD_EXPLANATION.put("LordVetinari", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Lord Vetinari", "Explanation");
+
+		PERSONALITY_CARD_EXPLANATION.put("LordSelachii", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Lord Selachii", "Explanation");
+
+		PERSONALITY_CARD_EXPLANATION.put("LordRust", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Lord Rust", "Explanation");
+
+		PERSONALITY_CARD_EXPLANATION.put("DragonKingOfArms", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Dragon King of Arms", "Explanation");
+
+		PERSONALITY_CARD_EXPLANATION.put("Chrysoprase", "Explanation");
 	}
 	
 	/**
@@ -39,5 +61,16 @@ public class PersonalityCard extends Card {
 	@Override
 	public String getCardname() {
 		return PERSONALITY_CARD_NAMES.get(_cardName);
+	}
+	
+	/**
+	 * Gets the explanation for desirable personality card
+	 * @param cardName
+	 * @return A string of explanation for the personality card
+	 */
+	public static String getCardExplanation(String cardName) {
+		if (!PERSONALITY_CARD_EXPLANATION.containsKey(cardName))
+			return null;
+		return PERSONALITY_CARD_EXPLANATION.get(cardName);
 	}
 }

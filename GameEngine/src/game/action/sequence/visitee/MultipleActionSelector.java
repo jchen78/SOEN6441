@@ -7,6 +7,7 @@ import game.action.sequence.interfaces.IVisitor;
 
 public class MultipleActionSelector implements IVisitee {
 	private List<IVisitee> _nonExclusiveActions;
+	
 	public MultipleActionSelector(List<IVisitee> nonExclusiveActions) {
 		_nonExclusiveActions = nonExclusiveActions;
 	}
@@ -25,5 +26,4 @@ public class MultipleActionSelector implements IVisitee {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

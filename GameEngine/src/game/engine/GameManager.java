@@ -544,6 +544,11 @@ public class GameManager
 	public List<Player> getAllPlayers() {
 		return null;
 	}
+	
+	// TODO
+	public List<MapArea> getAllMapAreas() {
+		return null;
+	}
 
 	public Player getPlayer(int i) {
 		return players.get(i);

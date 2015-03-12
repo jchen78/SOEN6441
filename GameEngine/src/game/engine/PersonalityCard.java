@@ -40,4 +40,9 @@ public class PersonalityCard extends Card {
 	public String getCardname() {
 		return PERSONALITY_CARD_NAMES.get(_cardName);
 	}
+
+	public static String getCardExplanation(String cardName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

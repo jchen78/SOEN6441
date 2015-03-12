@@ -431,6 +431,318 @@ public class PlayerCard extends Card implements ICardVisitee {
 			cardName = _cardName;
 			symbols.add("");
 			explanation = "";
+		}			
+		if(cardName.compareTo("Otto Chriek") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Otto Chriek")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Clacks") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Clacks")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Segeant Colon") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sergeant Colon")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Cosmo Lavish") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Cosmo Lavish")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Dean") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Dean")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("HELLO") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("HELLO")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Burleigh & Stronginthearm") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Burleigh & Stronginthearm")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Bursar") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Bursar")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Cable Street Particulars") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Cable Street Particulars")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Canting Crew") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Canting Crew")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Carcer") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Carcer")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The chair of Indefinite Studies") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The chair of Indefinite Studies")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Sir Charles Lavatory") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sir Charles Lavatory")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Dorfl") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Dorfl")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Sergeant Detritus") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sergeant Detritus")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Deep Dwarves") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Deep Dwarves")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Adora Belle Dearheart") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Adora Belle Dearheart")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Alchemists' Guild") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Alchemists' Guild")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Auditors") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Auditors")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Buggy Swires") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Buggy Swires")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Susan") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Susan")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Sybil Vimes") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sybil Vimes")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Mr Teatime") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Mr Teatime")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Watch") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Watch")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Wee Mad Arthur") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Wee Mad Arthur")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("William de Worde") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("William de Worde")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Willikins") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Willikins")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Archchancellor Ridcully") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Archchancellor Ridcully")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Ruby") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Ruby")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Senior Wrangler") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Senior Wrangler")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Mr Shine") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Mr Shine")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Mr Slant") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Mr Slant")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Smoking Gnu") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Smoking Gnu")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Stanley") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Stanley")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Moist von Lipwig") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Moist von Lipwig")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Doctor Mossy Lawn") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Doctor Mossy Lawn")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Patrician's Palace") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Patrician's Palace")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Ponder Stibbons") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Ponder Stibbons")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Post Office") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Post Office")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Reacher Gilt") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Reacher Gilt")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Professor of Recent Runes") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Professor of Recent Runes")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Doctor Hix") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Doctor Hix")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Hobson's Livery Stable") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Hobson's Livery Stable")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Hubert") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Hubert")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Igor") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Igor")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The luggage") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The luggage")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("The Mob") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Mob")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Lord Downey") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Lord Downey")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Dwarves") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Dwarves")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Edward d'Eath") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Edward d'Eath")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Errol") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Errol")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
+		}
+		if(cardName.compareTo("Gargoyles") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Gargoyles")) == 0)
+		{
+			cardName = _cardName;
+			symbols.add("");
+			explanation = "";
 		}
 	}
 

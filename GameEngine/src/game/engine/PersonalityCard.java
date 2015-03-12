@@ -20,26 +20,25 @@ public class PersonalityCard extends Card {
 		PERSONALITY_CARD_NAMES.put("DragonKingOfArms", "Dragon King of Arms");
 		PERSONALITY_CARD_NAMES.put("Chrysoprase", "Chrysoprase");
 		
-		// TODO
-		PERSONALITY_CARD_EXPLANATION.put("LordDeWorde", "Explanation");
-		PERSONALITY_CARD_EXPLANATION.put("Lord de Worde", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("LordDeWorde", "you win if at the beginning of your turn you control a certain number of areas (having more pieces in than anyone else in a certain number of areas).");
+		PERSONALITY_CARD_EXPLANATION.put("Lord de Worde", "you win if at the beginning of your turn you control a certain number of areas (having more pieces in than anyone else in a certain number of areas).");
 
-		PERSONALITY_CARD_EXPLANATION.put("CommanderVimes", "Explanation");
-		PERSONALITY_CARD_EXPLANATION.put("Commander Vimes", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("CommanderVimes", "If the games end due to the cards running out then you win the game");
+		PERSONALITY_CARD_EXPLANATION.put("Commander Vimes", "If the games end due to the cards running out then you win the game");
 
-		PERSONALITY_CARD_EXPLANATION.put("LordVetinari", "Explanation");
-		PERSONALITY_CARD_EXPLANATION.put("Lord Vetinari", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("LordVetinari", "Lord Vetinari wins by having minions in 11 different areas with two players, 10 with three, and 9 with four");
+		PERSONALITY_CARD_EXPLANATION.put("Lord Vetinari", "Lord Vetinari wins by having minions in 11 different areas with two players, 10 with three, and 9 with four");
 
-		PERSONALITY_CARD_EXPLANATION.put("LordSelachii", "Explanation");
-		PERSONALITY_CARD_EXPLANATION.put("Lord Selachii", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("LordSelachii", "you win if at the beginning of your turn you control a certain number of areas (having more pieces in than anyone else in a certain number of areas).");
+		PERSONALITY_CARD_EXPLANATION.put("Lord Selachii", "you win if at the beginning of your turn you control a certain number of areas (having more pieces in than anyone else in a certain number of areas).");
 
-		PERSONALITY_CARD_EXPLANATION.put("LordRust", "Explanation");
-		PERSONALITY_CARD_EXPLANATION.put("Lord Rust", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("LordRust", "you win if at the beginning of your turn you control a certain number of areas (having more pieces in than anyone else in a certain number of areas).");
+		PERSONALITY_CARD_EXPLANATION.put("Lord Rust", "you win if at the beginning of your turn you control a certain number of areas (having more pieces in than anyone else in a certain number of areas).");
 
-		PERSONALITY_CARD_EXPLANATION.put("DragonKingOfArms", "Explanation");
-		PERSONALITY_CARD_EXPLANATION.put("Dragon King of Arms", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("DragonKingOfArms", "if at the start of you turn there are eight or more trouble markers on the board then you win the game immediately.");
+		PERSONALITY_CARD_EXPLANATION.put("Dragon King of Arms", "if at the start of you turn there are eight or more trouble markers on the board then you win the game immediately.");
 
-		PERSONALITY_CARD_EXPLANATION.put("Chrysoprase", "Explanation");
+		PERSONALITY_CARD_EXPLANATION.put("Chrysoprase", "wins if that player’s net worth (cash plus building values) is $50 or more at the beginning of their turn")");
 	}
 	
 	/**

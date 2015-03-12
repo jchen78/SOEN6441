@@ -9,8 +9,6 @@ import java.io.*;
 public class GameManager
 {
 	private int numberOfPlayers;
-	//private Player[] all = new Player[numberOfPlayers];
-
 	private char[] color= new char[4];
 	private String[] personality = new String[7];
 
@@ -40,7 +38,7 @@ public class GameManager
 
 	private boolean[] greenCard = new boolean[100];
 	private boolean[] brownCard = new boolean[100];
-	
+
 	private List<Player> players = new ArrayList<Player>();
 	Bank gameBank;
 
@@ -52,14 +50,13 @@ public class GameManager
 	//private PlayerCard[] playerCards;
 
 	private Random randNum = new Random();
-	//private String fileName;
 	private String tmpStr;
 
 	GameManager()
 	{
-//		cityArea = new MapArea[12];
-//		for(int i = 0; i < 12; i ++)
-//			cityArea[i] = new MapArea();
+		//		cityArea = new MapArea[12];
+		//		for(int i = 0; i < 12; i ++)
+		//			cityArea[i] = new MapArea();
 		//cityArea = new Map().createMap();
 		gameBank = new Bank();
 	}
@@ -145,7 +142,7 @@ public class GameManager
 
 	public void loadGame() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
-	
+
 		Scanner console = new Scanner(System.in);
 		String loadFileName;
 
@@ -438,7 +435,7 @@ public class GameManager
 		out.flush();
 		out.close();
 	}
-	
+
 	public void showGame()
 	{
 
@@ -519,32 +516,39 @@ public class GameManager
 		System.out.print("" + gameBank.getBalance());
 		System.out.print(" $\n");
 	}
-	
-	// TODO
+
+	// DONE
 	public Player getPlayer(String playerName) {
+		for(int i = 0; i < players.size(); i ++)
+			if(players.get(i).getName().compareTo(playerName) == 0)
+				return players.get(i);
 		return null;
 	}
-	
+
 	// TODO
 	public PersonalityCard getPersonalityCard(String cardName) {
 		return null;
 	}
-	
-	// TODO
+
+	public String getPersonalityCardExplanation(String cardName) {
+		return PersonalityCard.getCardExplanation(cardName);
+	}
+
+	// DONE
 	public PlayerCard getPlayerCard(String cardName) {
-		return null;
+		return new PlayerCard( cardName );
 	}
 	
 	// TODO
 	public MapArea getMapArea(String areaName) {
 		return null;
 	}
-	
+
 	// TODO
 	public List<Player> getAllPlayers() {
 		return null;
 	}
-	
+
 	// TODO
 	public List<MapArea> getAllMapAreas() {
 		return null;
@@ -553,7 +557,7 @@ public class GameManager
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
-	
+
 	// TODO
 	public Player getNextPlayer() {
 		return null;

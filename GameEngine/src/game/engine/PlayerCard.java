@@ -145,315 +145,347 @@ public class PlayerCard extends Card implements ICardVisitee {
 		if(cardName.compareTo("MrBent") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBent")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Place this card infront of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";
 		}
 		if(cardName.compareTo("TheBeggarsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBeggarsGuild")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Select one player, they must give you two cards of their choice";
 		}
 		if(cardName.compareTo("TheBankOfAnkhMorpork") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBankOfAnkhMorpork")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Place this card infront of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";
 		}
 		if(cardName.compareTo("TheAnkhMorporkSynshineDragonSanctuary") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheAnkhMorporkSynshineDragonSanctuary")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Each player must give you either $1 or one of their cards";
 		}
 		if(cardName.compareTo("SergeantAngua") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("SergeantAngua")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Remove one Trouble marker");
+			symbols.add("Play another card");
 		}
 		if(cardName.compareTo("TheAgonyAunts") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheAgonyAunts")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $2");
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("TheDysk") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheDysk")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a Building");
+			symbols.add("Scroll");
+			explanation = "Each $1 for each minion in The Isle of Gods";
 		}
 		if(cardName.compareTo("TheDuckman") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheDuckman")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Move a minion belonging to another player from one area to adjacent area";
 		}
-		if(cardName.compareTo("Drumknott") == 0)
+		if(cardName.compareTo("Drumknott") == 0 || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("Drumknott")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Play any two other cards from your hand";
 		}
 		if(cardName.compareTo("CMOTDibbler") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("CMOTDibbler")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Roll a die. On a roll of '7' or more you take $4 from the band and On the roll of '1' give '$1' to the bank or remove one of your minion from the board. All other results have no effects";
 		}
 		if(cardName.compareTo("DrCruces") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("DrCruces")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $3");
 		}
 		if(cardName.compareTo("CaptainCarrot") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("CaptainCarrot")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Remove one trouble marker");
+			symbols.add("Take money $1");
 		}
 		if(cardName.compareTo("MsCake") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MsCake")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Take money $2");
+			symbols.add("Place a building");
+			explanation = "Look at all but one of the unused personality card";
 		}
 		if(cardName.compareTo("Groat") == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("GimletsDwarfDelicatessen") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("GimletsDwarfDelicatessen")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Take money $3");
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("Gaspode") == 0 )
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Interrupt");
+			explanation = "Stop a player from moving or removing one of your minion";
 		}
 		if(cardName.compareTo("FreshStartClub") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("FreshStartClub")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Interrupt");
+			explanation = "If you have a minion removed you can place him in a different area";
 		}
 		if(cardName.compareTo("FourOleRon") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("FourOleRon")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Move a minion belonging to another player from one area to an adjacent area";
 		}
 		if(cardName.compareTo("TheFoolsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheFoolsGuild")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Select another player. If they donot give you $5 then place this card infront of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
 		}
 		if(cardName.compareTo("TheFireBrigade") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheFireBrigade")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Choose a player. If they donot give you $5 then you can remove one of his building from the board";
 		}
 		if(cardName.compareTo("InigoSkimmer") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("InigoSkimmer")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $2");
 		}
 		if(cardName.compareTo("HistoryMonks") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HistoryMonks")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Shuffle the discard pile and draw four cards randomly and place the remaining cards back as the discard pile";
 		}
 		if(cardName.compareTo("Hex") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("Hex")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a Building");
+			explanation = "Take 3 cards from the draw deck";
 		}
 		if(cardName.compareTo("HereNNow") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HereNNow")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Roll a die. On a roll of '7' or more you take $3 from the band and On the roll of '1' remove one of your minion from the board. All other results have no effects";
 		}
 		if(cardName.compareTo("HarryKing") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HarryKing")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Scroll");
+			explanation = "Discard as many card as you wish and take $2 for each discarded";
 		}
 		if(cardName.compareTo("HargasHouseOfRibs") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HargasHouseOfRibs")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Take money $3");
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("MrGryle") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrGryle")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $1");
 		}
 		if(cardName.compareTo("ThePeeledNuts") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ThePeeledNuts")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
 		}
 		if(cardName.compareTo("TheOperaHouse") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheOperaHouse")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a building");
+			symbols.add("Scroll");
+			explanation = "Earn $1 for each minion in The Isle of Gods";
 		}
 		if(cardName.compareTo("NorryNobbs") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("NorryNobbs")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Play another card");
+			explanation = "Take $3 from the player of your choice";
 		}
 		if(cardName.compareTo("Modo") == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Discard one card";
 		}
 		if(cardName.compareTo("TheMendedDrum") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheMendedDrum")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a building");
+			symbols.add("Take money $2");
 		}
 		if(cardName.compareTo("Librarian") == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Take four cards from the draw deck";
 		}
 		if(cardName.compareTo("LeonardOfQuirm") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("LeonardOfQuirm")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			explanation = "Take four cards from the draw deck";
 		}
 		if(cardName.compareTo("ShonkyShop") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ShonkyShop")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Discard as many card as you wish and take $1 for each one discarded";
 		}
 		if(cardName.compareTo("SacharissaCrisplock") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("SacharissaCrisplock")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Earn $1 for each trouble marker on the board";
 		}
 		if(cardName.compareTo("RosiePalm") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("RosiePalm")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Scroll");
+			explanation = "Choose one Player. Give them one of of your cards. Thwy must give you $2 in return";
 		}
 		if(cardName.compareTo("Rincewind") == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Random Event");
+			symbols.add("Scroll");
+			symbols.add("Place another card");
+			explanation = "Move one of your minion from an area containing a trouble marker to an adjacent area";
 		}
 		if(cardName.compareTo("TheRoyalMint") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheRoyalMint")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a building");
+			symbols.add("Take money $5");
 		}
 		if(cardName.compareTo("QueenMolly") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("QueenMolly")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Place a minion");
+			symbols.add("Scroll");
+			explanation = "Select one player. They must give you two cards of their choice";
 		}
 		if(cardName.compareTo("PinkPussycatClub") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("PinkPussycatClub")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Take money $3");
+			symbols.add("Play another card");
 		}
 		if(cardName.compareTo("ZorgoTheRetrophrenologist") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ZorgoTheRetrophrenologist")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "You may exchange your Personality card with one drawn randomly from those not in use";
 		}
 		if(cardName.compareTo("DrWhiteface") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("DrWhiteface")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Select another player. If they donot give you $5 then place this card infront of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
 		}
 		if(cardName.compareTo("WallaceSponky") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("WallaceSponky")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Interrupt");
+			explanation = "You cannot be affected by the text on a card played by another player";
 		}
 		if(cardName.compareTo("TheSeamstressesGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheSeamstressesGuild")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Choose one player. Give them one of your cards. They must give you $2 in return";
 		}
 		if(cardName.compareTo("MrPinAndMrTulip") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrPinAndMrTulip")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Assassination");
+			symbols.add("Take money $1");
+			explanation = "The New Firm";
 		}
 		if(cardName.compareTo("TheThievesGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheThievesGuild")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a minion");
+			explanation = "Take $2, if possible from every other player";
 		}
 		//TODO
 		//Do the same thing for brown cards
 		if(cardName.compareTo("SergeantCheeryLittlebottom") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("SergeantCheeryLittlebottom")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Remove one trouble marker");
+			explanation = "Take two cards from the draw deck";
 		}			
 		if(cardName.compareTo("Otto Chriek") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Otto Chriek")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Place a building");
+			explanation = "Earn $1 for each trouble marker on the board";
 		}
 		if(cardName.compareTo("The Clacks") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Clacks")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Scroll");
+			symbols.add("Take money $2");
+			symbols.add("Place another card");
+			explanation = "Take two cards from the draw deck";
 		}
 		if(cardName.compareTo("Segeant Colon") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Sergeant Colon")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
-			explanation = "";
+			symbols.add("Remove one trouble marker");
+			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("Cosmo Lavish") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("Cosmo Lavish")) == 0)
 		{
 			cardName = _cardName;
-			symbols.add("");
+			symbols.add("Scroll");
 			explanation = "";
 		}
 		if(cardName.compareTo("The Dean") == 0  || cardName.compareTo(BROWNBORDERED_CARD_NAMES.get("The Dean")) == 0)

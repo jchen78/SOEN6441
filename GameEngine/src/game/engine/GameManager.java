@@ -116,7 +116,30 @@ public class GameManager
 
 		input.close();
 	}
-	
+
+	public void printCurrentPlayerProperties()
+	{
+		Scanner input = new Scanner(System.in);
+
+		for(int i = 0; i < players.size(); i++)
+		{
+			System.out.printf("%s: \n", players.get(i).getplayercolor());
+			System.out.printf("\tMinions: %s\n", players.get(i).getNumberOfMinionsInHand());
+			System.out.printf("\tBuildings: %s\n", players.get(i).getNumberOfBuildingsInHand());
+			System.out.printf("\tMoney: %s\n", players.get(i).getMoney());
+			System.out.print("\n\tCity Area Card:\n");
+			System.out.print("\n\tPlayer Cards:\n");
+			// TODO
+			///// System.out.print("%s\n", players[i].getPlayerCards());
+			System.out.printf("\n");
+
+			System.out.println("Which card you wish to play?");
+			String card = input.nextLine();
+		}
+
+		input.close();
+	}
+
 	public void printMenu() throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
 		int n;
@@ -583,9 +606,10 @@ public class GameManager
 		return players.get(i);
 	}
 
-	// TODO
+	// DONE
 	public Player getNextPlayer() {
-		return null;
+		currentTurn = (currentTurn+1) % numberOfPlayers;
+		return players.get( (currentTurn-1+numberOfPlayers) % numberOfPlayers );
 	}
 
 	public CityAreaCard getCityAreaCard(String cityAreaName) {

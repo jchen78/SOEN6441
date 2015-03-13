@@ -11,6 +11,10 @@ import game.action.scaffold.dataGathering.IActionDataGatherer;
 import game.engine.PlayerCard;
 import game.error.ActionException;
 
+/**
+ * PlayCard class to select the card 
+ *
+ */
 public class PlayCard implements IActionDataGatherer, IActionVisitee {
 	PlayerCard _cardToPlay;
 	

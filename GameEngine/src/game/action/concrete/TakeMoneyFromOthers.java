@@ -10,6 +10,11 @@ import game.action.scaffold.dataGathering.IActionDataGatherer;
 import game.engine.GameManager;
 import game.engine.Player;
 
+/**
+ * 
+ * TakeMoneycardfromOthers to perform some specific instruction on player cards
+ * 
+ */
 public class TakeMoneyFromOthers implements IOptionalAction {
 	private Player _currentPlayer;
 

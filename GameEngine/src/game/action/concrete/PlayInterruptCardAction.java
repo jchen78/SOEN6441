@@ -13,6 +13,10 @@ import game.engine.GameManager;
 import game.engine.InterruptPlayerCard;
 import game.engine.PlayerCard;
 
+/*
+ * PlayInterruptCardAction
+ * 
+ */
 public class PlayInterruptCardAction implements IOptionalAction {
 	private IExecutableAction _interruptedAction;
 	private ActionType _typeToInterrupt;

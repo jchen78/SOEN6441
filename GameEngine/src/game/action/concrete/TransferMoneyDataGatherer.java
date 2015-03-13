@@ -14,6 +14,12 @@ import game.engine.GameManager;
 import game.engine.IMoneyHolder;
 import game.error.ActionException;
 
+/**
+ * 
+ * TransferMoneyDataGatherer.java
+ *
+ */
+
 public class TransferMoneyDataGatherer implements IInterruptibleDataGatherer {
 	private int _transferAmount;
 	private IMoneyHolder _source;

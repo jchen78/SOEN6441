@@ -6,6 +6,12 @@ import game.action.scaffold.dataGathering.IActionDataGatherer;
 import game.action.scaffold.dataGathering.IActionWithEntityRemoval;
 import game.error.InvalidOperationException;
 
+/**
+ * 
+ * RemoveEntityData.java
+ * 
+ */
+
 public class RemoveEntityData implements IActionDataGatherer {
 	private List<String> _targetAreaNames;
 	private IActionWithEntityRemoval _requestingAction;

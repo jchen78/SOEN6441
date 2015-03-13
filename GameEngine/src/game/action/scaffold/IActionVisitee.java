@@ -4,6 +4,13 @@ import game.error.ActionException;
 
 import java.util.List;
 
+/**
+ * 
+ * 
+ * IActionVisitee.java
+ * 
+ * /
+
 public interface IActionVisitee {
 	void accept(IActionVisitor visitor) throws ActionException;
 	ActionType getType();

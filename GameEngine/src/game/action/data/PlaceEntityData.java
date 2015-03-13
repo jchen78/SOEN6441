@@ -5,6 +5,12 @@ import java.util.List;
 import game.action.scaffold.dataGathering.IActionDataGatherer;
 import game.action.scaffold.dataGathering.IActionWithEntityPlacement;
 
+/**
+ * 
+ * PlaceEntityData.java class placing entity data of the player
+ *
+ */
+
 public class PlaceEntityData implements IActionDataGatherer {
 	private IActionWithEntityPlacement _requestingAction;
 	private List<String> _targetAreaNames;

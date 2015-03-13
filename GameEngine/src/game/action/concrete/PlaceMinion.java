@@ -1,5 +1,7 @@
 package game.action.concrete;
-
+/**
+ * Placing the minion on the particular area checking the area condition
+ */
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

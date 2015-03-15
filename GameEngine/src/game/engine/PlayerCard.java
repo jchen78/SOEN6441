@@ -2,14 +2,15 @@ package game.engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Queue;
+import java.util.LinkedList;
 
-import game.action.scaffold.IAction;
 import game.action.sequence.interfaces.ICardVisitee;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.action.sequence.visitee.GameOverException;
+import game.action.sequence.visitee.OptionalActionVisitee;
+import game.action.sequence.visitee.PlaceMinionVisitee;
+import game.action.sequence.visitee.TakeMoneyFromOthersVisitee;
 import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
 
@@ -23,6 +24,7 @@ public class PlayerCard extends Card implements ICardVisitee {
 	private ArrayList<String> symbols = new ArrayList<String>();
 	private String explanation;
 	private String cardName;
+	private CardType cardType;
 
 	static {
 		GREENBORDERED_CARD_NAMES.put("MrBoggis", "Mr Boggis");
@@ -133,9 +135,13 @@ public class PlayerCard extends Card implements ICardVisitee {
 	
 	public PlayerCard(String _cardName)
 	{
+		this.allActions = new LinkedList<IVisitee>();
 		if(cardName.compareTo("MrBoggis") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBoggis")) == 0)
 		{
 			cardName = _cardName;
+			this.allActions.add(new TakeMoneyFromOthersVisitee(2, ActionType.PlayerCardText, ActionName.TakeMoney));
+			this.allActions.add(new PlaceMinionVisitee(ActionType.PlayerCardIcon));
+			
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Take $2 if possible, from every other player";
@@ -840,6 +846,7 @@ public class PlayerCard extends Card implements ICardVisitee {
 	}
 
 	private String _borderColor = null;
+	private LinkedList<IVisitee> allActions;
 
 	@Override
 	public void setEntity(String entityName) throws InvalidEntityNameException {
@@ -867,31 +874,21 @@ public class PlayerCard extends Card implements ICardVisitee {
 		return _borderColor;
 	}
 
-	// TODO
-	public List<IAction> getActions() throws EntityNotSetException {
-		return null;
-	}
-
-	// TODO
-	public CardType getType() throws EntityNotSetException {
-		return null;
-	}
-
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		// TODO Auto-generated method stub
-		// The plan is to implement this method using the Command design pattern.
+		for (IVisitee action : allActions) {
+			visitor.visit(new OptionalActionVisitee(action));
+		}
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return _borderColor.equals("Green") ? GREENBORDERED_CARD_NAMES.get(cardName) : BROWNBORDERED_CARD_NAMES.get(cardName);
 	}
 
 	@Override
-	public CardType getCardType() {
+	public CardType getCardType() throws EntityNotSetException {
 		// TODO Auto-generated method stub
-		return null;
+		return cardType;
 	}
 }

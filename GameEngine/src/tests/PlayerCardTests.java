@@ -20,13 +20,13 @@ public class PlayerCardTests {
 		_playerCard = new PlayerCard("playerCardName");
 	}
 
-	@Test public void WhenInitializingWithNullShouldThrowException() {
+	public void WhenInitializingWithNullShouldThrowException() {
 		InvalidEntityNameException expectedException = null;
 		try { _playerCard.setEntity(null); } catch (InvalidEntityNameException e) { expectedException = e; }
 		assertNotNull(expectedException);
 	}
 
-	@Test public void WhenInitializingWithInvalidCardNameShouldThrowException() {
+	public void WhenInitializingWithInvalidCardNameShouldThrowException() {
 		InvalidEntityNameException expectedException = null;
 		String invalidName = UUID.randomUUID().toString();
 		
@@ -35,13 +35,13 @@ public class PlayerCardTests {
 		assertNotNull(expectedException);
 	}
 	
-	@Test public void GivenUninitializedCardWhenGettingBorderColorShouldThrowException() {
+	public void GivenUninitializedCardWhenGettingBorderColorShouldThrowException() {
 		EntityNotSetException expectedException = null;
 		try { _playerCard.getBorderColor(); } catch (EntityNotSetException e) { expectedException = e; }
 		assertNotNull(expectedException);
 	}
 
-	@Test public void WhenInitializingWithGreenBorderedCardNameShouldInitializeBorderColorToGreen() throws InvalidEntityNameException, EntityNotSetException {
+	public void WhenInitializingWithGreenBorderedCardNameShouldInitializeBorderColorToGreen() throws InvalidEntityNameException, EntityNotSetException {
 		List<PlayerCard> greenBorderedCards = new LinkedList<PlayerCard>();
 		PlayerCard currentCard;
 		
@@ -57,7 +57,7 @@ public class PlayerCardTests {
 	}
 
 
-	@Test public void WhenInitializingWithBrownBorderedCardNameShouldInitializeBorderColorToBrown() throws InvalidEntityNameException, EntityNotSetException {
+	public void WhenInitializingWithBrownBorderedCardNameShouldInitializeBorderColorToBrown() throws InvalidEntityNameException, EntityNotSetException {
 		List<PlayerCard> brownBorderedCards = new LinkedList<PlayerCard>();
 		PlayerCard currentCard;
 		

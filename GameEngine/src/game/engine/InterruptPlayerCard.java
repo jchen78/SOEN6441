@@ -1,7 +1,5 @@
 package game.engine;
 
-import game.action.scaffold.ActionType;
-import game.action.scaffold.InterruptType;
 
 public class InterruptPlayerCard extends PlayerCard implements IInterruptCard {
 	private ActionType[] _interruptibleActionTypes;

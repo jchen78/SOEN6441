@@ -1,10 +1,4 @@
-package game.action.scaffold;
-
-/**
- * 
- * ActionType.java
- * 
- * /
+package game.engine;
 
 public enum ActionType {
 	ActionGroup,

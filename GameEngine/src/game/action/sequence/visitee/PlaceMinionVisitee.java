@@ -6,36 +6,40 @@ import java.util.List;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.engine.*;
+import game.error.InvalidOperationException;
 
 public class PlaceMinionVisitee implements IVisitee {
-	private List<IVisitee> validAreas;
+	private MapArea _selectedArea;
+	private ActionType _sourceOfAction;
 	
-	public PlaceMinionVisitee() {
-		
+	public PlaceMinionVisitee(ActionType sourceOfAction) {
+		_sourceOfAction = sourceOfAction;
 	}
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		GameManager gameInstance = visitor.getGameInstance();
 		Player currentPlayer = visitor.getCurrentPlayer();
-		List<MapArea> currentlyPopulatedAreas = new LinkedList<MapArea>();
-		for (String mapAreaName : MapArea.getInternalNames()) {
-			MapArea currentArea = gameInstance.getMapArea(mapAreaName);
-			if (currentArea.getMinions()[currentPlayer.getIndex()] > 0) {
-				currentlyPopulatedAreas.add(currentArea);
-			}
-		}
+		List<MapArea> currentlyPopulatedAreas = currentPlayer.getPopulatedAreas(gameInstance);
+		List<MapArea> possibleChoices;
+		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
 		
 		if (currentPlayer.getNumberOfMinionsInHand() == 0) {
-			RemoveMinionVisitee removeMinionVisitee = new RemoveMinionVisitee(currentPlayer.getName());
+			List<IVisitee> areasForRemoval = new LinkedList<IVisitee>();
+			for (MapArea populatedArea : currentlyPopulatedAreas)
+				areasForRemoval.add(new SelectionVisitee(populatedArea.getName()));
+			
+			SingleActionSelector removalSelector = new SingleActionSelector(translatedChoices, "map areas");
+			removalSelector.accept(visitor);
+			SelectionVisitee selection = (SelectionVisitee)removalSelector.getSelection();
+			
+			RemoveMinionVisitee removeMinionVisitee = new RemoveMinionVisitee(currentPlayer.getName(), selection.getDescription(), _sourceOfAction);
 			removeMinionVisitee.accept(visitor);
-			MapArea removedArea = removeMinionVisitee.getRemovedMapArea();
+			MapArea removedArea = gameInstance.getMapArea(selection.getDescription());
 			if (removedArea.getMinions()[currentPlayer.getIndex()] == 0)
 				currentlyPopulatedAreas.remove(removedArea);
 		}
 		
-		List<MapArea> possibleChoices;
-		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
 		if (currentlyPopulatedAreas.size() == 0) {
 			possibleChoices = gameInstance.getAllMapAreas();
 			for (MapArea mapArea : possibleChoices)
@@ -54,16 +58,30 @@ public class PlaceMinionVisitee implements IVisitee {
 			}
 		}
 		
-		
+		SingleActionSelector selector = new SingleActionSelector(translatedChoices, "map areas");
+		selector.accept(visitor);
+		SelectionVisitee selection = (SelectionVisitee)selector.getSelection();
+		for (MapArea mapArea : possibleChoices) {
+			if (mapArea.getName() == selection.getDescription()) {
+				_selectedArea = mapArea;
+				try {
+					_selectedArea.addMinions(currentPlayer, 1);
+				} catch (InvalidOperationException e) {
+					// TODO Re-select an area
+					e.printStackTrace();
+				}
+				
+				break;
+			}
+		}
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Place a minion on the board.";
 	}
 	
 	public MapArea getNewlyPopulatedArea() {
-		return null;
+		return _selectedArea;
 	}
 }

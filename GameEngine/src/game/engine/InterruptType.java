@@ -1,4 +1,4 @@
-package game.action.scaffold;
+package game.engine;
 
 public enum InterruptType {
 	Text

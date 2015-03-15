@@ -39,6 +39,9 @@ public class GameManager
 	private boolean[] greenCard = new boolean[100];
 	private boolean[] brownCard = new boolean[100];
 
+	private String[] greenBrownDeck;
+	private int greenBrownDeckCurrentIndex;	
+	
 	private List<Player> players = new ArrayList<Player>();
 	Bank gameBank;
 
@@ -52,7 +55,7 @@ public class GameManager
 	private Random randNum = new Random();
 	private String tmpStr;
 
-	GameManager()
+	public GameManager()
 	{
 		//		cityArea = new MapArea[12];
 		//		for(int i = 0; i < 12; i ++)
@@ -616,4 +619,39 @@ public class GameManager
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public static void shuffleArrayOfString(String[] ar)
+   {
+           Random rnd = new Random();
+           for (int i = ar.length - 1; i > 0; i--)
+           {
+                   int index = rnd.nextInt(i + 1);
+                   String tmp = ar[index];
+                   ar[index] = ar[i];
+                   ar[i] = tmp;
+           }
+   }
+       
+   public void drawCardsToPlayers() throws InvalidOperationException
+   {
+           greenBrownDeck = PlayerCard.getGreenBorderedCardNames();
+           greenBrownDeckCurrentIndex = 0;
+           
+           shuffleArrayOfString(greenBrownDeck);
+           
+           for(int pid = 0; pid < numberOfPlayers; pid++)
+           {
+                   ArrayList <String> thisPlayerCards = new ArrayList<String>();
+                   for(int cnt = 0; cnt < 5; cnt ++)
+                   {
+                           thisPlayerCards.add( greenBrownDeck[ greenBrownDeckCurrentIndex ] );
+                           greenBrownDeckCurrentIndex ++;
+                   }
+                   players.get(pid).setPlayerCards(thisPlayerCards);
+           }        
+   }
+   
+   public String drawOneCardFromDeck()
+   {
+	   return greenBrownDeck[greenBrownDeckCurrentIndex++];
+   }
 }

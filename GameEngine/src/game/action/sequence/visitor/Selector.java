@@ -13,9 +13,4 @@ public class Selector {
 	public int getSelectedIndex() {
 		return 0;
 	}
-	
-	// TODO
-	public boolean isActionSkipped() {
-		return false;
-	}
 }

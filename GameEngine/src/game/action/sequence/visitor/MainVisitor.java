@@ -52,7 +52,7 @@ public class MainVisitor implements IVisitor {
 	public IVisitee selectAction(List<IVisitee> choices) {
 		_printer.print(choices);
 		_selector.select(choices);
-		return null;
+		return choices.get(_selector.getSelectedIndex());
 	}
 
 }

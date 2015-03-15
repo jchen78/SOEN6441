@@ -39,7 +39,7 @@ public class TurnVisitee implements IVisitee {
 		for (String cardName : currentPlayer.getPlayerCards()) {
 			PlayerCard currentCard = gameInstance.getPlayerCard(cardName);
 			try {
-				if (currentCard.getType().equals(CardType.Playable))
+				if (currentCard.getCardType().equals(CardType.Playable))
 					playableCards.add(currentCard);
 			} catch (EntityNotSetException e) {
 				// TODO Auto-generated catch block
@@ -58,7 +58,7 @@ public class TurnVisitee implements IVisitee {
 		
 		int numberCardsInHand = currentPlayer.getPlayerCards().size();
 		for (int i = numberCardsInHand; i < 5; i++) {
-			// Draw card.
+			currentPlayer.addCard(gameInstance.drawOneCardFromDeck());
 		}
 	}
 

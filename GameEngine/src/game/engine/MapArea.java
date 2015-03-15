@@ -193,11 +193,12 @@ public class MapArea implements IEntity {
 //		performValidationForPlayerID(playerID);
 		if (count < 0 || count > 12)
 			throw new InvalidOperationException("The number of minions must be valid.");
-		if (isPossibleToAddMinions(player)) {
-			player.decrementMinionsBy(count);
-			_minions[player.getIndex()] += count;
-			_isTroubleMarkerSet = shouldSetTroubleMarker();
-		}
+		else if (!isPossibleToAddMinions(player))
+			throw new InvalidOperationException("The map area selected must be valid.");
+		
+		player.decrementMinionsBy(count);
+		_minions[player.getIndex()] += count;
+		_isTroubleMarkerSet = shouldSetTroubleMarker();
 	}
 	
 	boolean isPossibleToAddMinions(Player player) {

@@ -23,7 +23,6 @@ public class MultipleActionSelector implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Select one option.";
 	}
 }

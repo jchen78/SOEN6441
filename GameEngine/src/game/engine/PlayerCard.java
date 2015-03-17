@@ -151,6 +151,7 @@ public class PlayerCard extends Card implements ICardVisitee {
 		if(cardName.compareTo("MrBent") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBent")) == 0)
 		{
 			cardName = _cardName;
+		//	this.allActions.add(new Scroll(ActionType.PlayerCardIcon));
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Place this card infront of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";

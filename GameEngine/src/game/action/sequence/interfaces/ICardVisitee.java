@@ -6,3 +6,6 @@ import game.error.EntityNotSetException;
 public interface ICardVisitee extends IVisitee {
 	CardType getCardType() throws EntityNotSetException;
 }
+
+
+

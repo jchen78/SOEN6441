@@ -4,6 +4,8 @@ import game.error.InvalidOperationException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Player implements IMoneyHolder {
 	private int playerIndex;
@@ -173,6 +175,14 @@ public class Player implements IMoneyHolder {
 		this.playerCards = cardNames;
 	}
 	
+	public void addCard(String cardName) {
+		playerCards.add(cardName);
+	}
+	
+	public void removeCard(String cardName) {
+		playerCards.remove(cardName);
+	}
+	
 	/**
 	 * Serializes the current player's state.
 	 */
@@ -232,6 +242,18 @@ public class Player implements IMoneyHolder {
 
 	public void incrementNumberOfMinionsBy(int count) {
 		numOfPlayerMinions += count;
+	}
+	
+	public List<MapArea> getPopulatedAreas(GameManager gameInstance) {
+		List<MapArea> currentlyPopulatedAreas = new LinkedList<MapArea>();
+		for (String mapAreaName : MapArea.getInternalNames()) {
+			MapArea currentArea = gameInstance.getMapArea(mapAreaName);
+			if (currentArea.getMinions()[getIndex()] > 0) {
+				currentlyPopulatedAreas.add(currentArea);
+			}
+		}
+		
+		return currentlyPopulatedAreas;
 	}
 	
 	// TODO

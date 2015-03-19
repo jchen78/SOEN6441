@@ -1,6 +1,6 @@
 /**
- * File: IVistee.java
- * /
+ * File: IVisitee.java
+ **/
 package game.action.sequence.interfaces;
 
 import game.action.sequence.visitee.GameOverException;

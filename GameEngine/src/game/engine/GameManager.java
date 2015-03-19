@@ -1,12 +1,17 @@
 package game.engine;
 
+import game.action.sequence.interfaces.IVisitee;
+import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.GameOverException;
+import game.action.sequence.visitor.Printer;
+import game.action.sequence.visitor.Selector;
 import game.error.BankException;
 import game.error.InvalidOperationException;
 
 import java.util.*;
 import java.io.*;
 
-public class GameManager
+public class GameManager implements IVisitor
 {
 	private int currentTurn;
 	private int numberOfPlayers;
@@ -654,4 +659,55 @@ public class GameManager
    {
 	   return greenBrownDeck[greenBrownDeckCurrentIndex++];
    }
+   
+	private GameManager _gameInstance;
+	private Player _currentPlayer;
+	
+	private Printer _printer;
+	private Selector _selector = new Selector();
+	
+	public void setMode(Printer currentMode) {
+		_printer = currentMode;
+	}
+
+	@Override
+	public void visit(IVisitee visitee) {
+		_printer.print(visitee);
+		
+		try {
+			visitee.accept(this);
+		} catch (GameOverException e) {
+			// TODO
+			// Choose winner according to personality card
+			// Display winner
+			// Clean up & exit.
+		}
+	}
+	
+	@Override
+	public IVisitee selectAction(List<IVisitee> choices) {
+		_printer.print(choices);
+		_selector.select(choices);
+		return choices.get(_selector.getSelectedIndex());
+	}
+	
+	@Override
+	public Player getCurrentPlayer() {
+		// TODO Auto-generated method stub
+		// More in-depth explanation: The game manager should be the one to know who the current player is.
+		// This could be a stack if we need to handle multiple interruptions, or simply two variables otherwise. 
+		return null;
+	}
+	
+	@Override
+	public void setCurrentPlayer(Player currentPlayer) {
+		// TODO Auto-generated method stub
+		// See "getCurrentPlayer()"
+	}
+	
+	@Override
+	public GameManager getGameInstance() {
+		// To be removed. All the relevant methods from GameManager will be moved to IVisitor instead (intended for a later refactor).
+		return this;
+	}
 }

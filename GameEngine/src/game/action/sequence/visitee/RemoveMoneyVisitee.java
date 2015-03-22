@@ -2,6 +2,7 @@ package game.action.sequence.visitee;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.core.interfaces.IPlayer;
 import game.engine.*;
 import game.error.InvalidOperationException;
 
@@ -20,7 +21,7 @@ public class RemoveMoneyVisitee implements IVisitee {
 	
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		Player targetPlayer = visitor.getGameInstance().getPlayer(_targetName);
+		IPlayer targetPlayer = visitor.getGameInstance().getPlayer(_targetName);
 		int availableFunds = targetPlayer.getMoney();
 		if (availableFunds == 0) {
 			_amount = 0;

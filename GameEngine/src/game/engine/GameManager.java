@@ -5,14 +5,33 @@ import game.action.sequence.interfaces.IVisitor;
 import game.action.sequence.visitee.GameOverException;
 import game.action.sequence.visitor.Printer;
 import game.action.sequence.visitor.Selector;
+import game.core.enums.*;
+import game.core.interfaces.*;
+import game.core.io.*;
+import game.engine.utils.*;
 import game.error.BankException;
 import game.error.InvalidOperationException;
 
 import java.util.*;
 import java.io.*;
 
-public class GameManager implements IVisitor
+public class GameManager implements IVisitor, IGameInstance
 {
+	private MenuSelector _menuSelector;
+	private PersistanceManager _persistanceManager;
+	private ConcreteCreator _creator;
+	
+	private PlayerIterator _playerIterator;
+	
+	private PlayerCardDeck _activePlayerCardDeck;
+	private PlayerCardDeck _discardedPlayerCardDeck;
+	private HashMap<PlayerCardName, IPlayerCard> _playerCardDatabase;
+	
+	private RandomEventCardDeck _activeRandomEventCardDeck;
+	private HashMap<RandomEventCardName, IRandomEventCard> _randomEventDatabase;
+	
+	private HashMap<CityAreaName, ICityArea> _cityAreaDatabase;
+	
 	private int currentTurn;
 	private int numberOfPlayers;
 	private char[] color= new char[4];
@@ -45,6 +64,7 @@ public class GameManager implements IVisitor
 	private boolean[] brownCard = new boolean[100];
 
 	private String[] greenBrownDeck;
+	
 	private int greenBrownDeckCurrentIndex;	
 	
 	private List<Player> players = new ArrayList<Player>();
@@ -62,511 +82,106 @@ public class GameManager implements IVisitor
 
 	public GameManager()
 	{
+		this(new ConcreteCreator());
+	}
+	
+	public GameManager(ConcreteCreator creator) {
 		//		cityArea = new MapArea[12];
 		//		for(int i = 0; i < 12; i ++)
 		//			cityArea[i] = new MapArea();
 		//cityArea = new Map().createMap();
 		gameBank = new Bank();
+		_creator = creator;
 	}
 
-	private int getPlayerIndex(char ch)
-	{
-		for(int i = 0; i < numberOfPlayers; i++)
-		{
-			if(ch == color[i])
-				return i;
+	public void initializeGame() throws Exception {
+		initializeEntityDatabase();
+		
+		int selection = _menuSelector.getSelection("Start a new game.", "Load an existing game.");
+		HashMap<String, String> gameData = null;
+		if (selection == 1)
+			gameData = retrieveNewGameData();
+		else
+			gameData = retrieveExistingGameData();
+		
+		setState(gameData);
+	}
+	
+	private void initializeEntityDatabase() {
+		// TODO : Set the *Database (playerCardDatabase, cityAreaDatabase, etc.) variables
+	}
+	
+	private HashMap<String, String> retrieveNewGameData() {
+		// TODO
+		return null;
+	}
+	
+	private HashMap<String, String> retrieveExistingGameData() {
+		// TODO
+		return null;
+	}
+	
+	private HashMap<String, String> getState(String[] stateContents) throws IllegalArgumentException {
+		HashMap<String, String> state = new HashMap<String, String>();
+		if (stateContents.length % 3 != 0)
+			throw new IllegalArgumentException();
+		for (int i = 0; i < stateContents.length; i += 3) {
+			if (!stateContents[i + 2].equals(""))
+				throw new IllegalArgumentException();
+			
+			state.put(stateContents[i], stateContents[i + 1]);
 		}
-		return -1;
+		
+		return null;
+	}
+	
+	private void setState(HashMap<String, String> currentState) {
+		_playerIterator = new PlayerIterator(currentState.get("Players"));
+		_activePlayerCardDeck = new PlayerCardDeck(currentState.get("ActivePlayerCardDeck"));
+		_discardedPlayerCardDeck = new PlayerCardDeck(currentState.get("DiscardedPlayerCardDeck"));
+		_activeRandomEventCardDeck = new RandomEventCardDeck(currentState.get("RandomEventCardDeck"));
+		setMapState(currentState.get("CityAreas"));
 	}
 
-	private String whatColorIsThis(char ch)
-	{
-		if(ch == 'r' || ch == 'R')
-			return "red";
-
-		if(ch == 'y' || ch == 'Y')
-			return "yellow";
-
-		if(ch == 'g' || ch == 'G')
-			return "green";
-
-		if(ch == 'b' || ch == 'B')
-			return "blue";
-
-		return "ERROR";
-	}
-
-	public void start() throws InvalidOperationException
-	{
-		Scanner input = new Scanner(System.in);
-
-		System.out.println("Enter number of players:");
-		numberOfPlayers = Integer.parseInt(input.next());
-
-		for(int i = 0; i < numberOfPlayers; i++)
-			players.add(new Player(i));
-
-		System.out.println("Enter name of players and color:");
-		for(int i = 0; i < numberOfPlayers; i++)
-		{
-			String playerName = input.nextLine();
-			String playerColor = input.nextLine(); 
-			players.get(i).setName(playerName);
-			players.get(i).setplayercolor(playerColor);
-			players.get(i).setNumberBuildings(6);
-			players.get(i).setMinion(12);
-			players.get(i).setPlayerMoney(10);
-		}
-
-		currentTurn = Dice.FirstPlayer(numberOfPlayers);
-
-		System.out.printf("%s starts the game!\n\n", players.get(currentTurn).getName());
-
-		input.close();
-	}
-
-	public void printCurrentPlayerProperties()
-	{
-		Scanner input = new Scanner(System.in);
-
-		for(int i = 0; i < players.size(); i++)
-		{
-			System.out.printf("%s: \n", players.get(i).getplayercolor());
-			System.out.printf("\tMinions: %s\n", players.get(i).getNumberOfMinionsInHand());
-			System.out.printf("\tBuildings: %s\n", players.get(i).getNumberOfBuildingsInHand());
-			System.out.printf("\tMoney: %s\n", players.get(i).getMoney());
-			System.out.print("\n\tCity Area Card:\n");
-			System.out.print("\n\tPlayer Cards:\n");
-			// TODO
-			///// System.out.print("%s\n", players[i].getPlayerCards());
-			System.out.printf("\n");
-
-			System.out.println("Which card you wish to play?");
-			String card = input.nextLine();
-		}
-
-		input.close();
-	}
-
-	public void printMenu() throws IOException, InvalidOperationException, NumberFormatException, BankException
-	{
-		int n;
-		Scanner input = new Scanner(System.in);
-
-		while(true)
-		{
-			System.out.println("1 - Load a game from file");
-			System.out.println("2 - Save this game to file");
-			System.out.println("3 - Show this game in console");
-			System.out.println("4 - Start a new Game");
-			System.out.println("5 - exit");
-
-			n = input.nextInt();
-			if(n == 1) {
-				loadGame();
-			}
-			else if(n == 2) {
-				saveGame();
-			}
-			else if(n == 3) {
-				showGame();
-			}
-			else if(n == 4) {
-				// start();
-			}
-			else if(n == 5) {
-				// exit
-				break;
-			}
-			else {
-				System.out.println("Invalid number");
-			}
+	private void setMapState(String currentState) {
+		_cityAreaDatabase = new HashMap<CityAreaName, ICityArea>(12);
+		String[] cityStates = currentState.split(PersistanceManager.ROW_SEPARATOR);
+		for (String cityState : cityStates) {
+			ICityArea currentCity =  _creator.createCity(cityState);
+			_cityAreaDatabase.put(currentCity.getCityAreaName(), currentCity);
 		}
 	}
-
-	public void loadGame() throws IOException, InvalidOperationException, NumberFormatException, BankException
-	{
-
-		Scanner console = new Scanner(System.in);
-		String loadFileName;
-
-		System.out.println("Enter file name for loading:");
-		//loadFileName = console.nextLine();
-		loadFileName = "input.txt";
-		File inputFile = new File(loadFileName);
-		Scanner inFile = new Scanner(inputFile);
-
-		String line = inFile.nextLine();
-		line = line.replaceAll("\\D+", "");
-		numberOfPlayers = Integer.parseInt(line);
-
-		for(int i = 0; i < numberOfPlayers; i++)
-		{
-			tmpStr = inFile.nextLine();	//ignoring blank line
-			tmpStr = inFile.nextLine(); //ignoring blank line
-
-			String str = inFile.nextLine();
-			str = str.replaceAll("\\s+","");
-			str = str.toUpperCase();
-			color[i] = str.charAt(0);
-
-			str = inFile.nextLine();
-			str = str.replaceAll("\\s+","");
-			personality[i] = str;
-			//System.out.printf("Personality of Player %d: %s\n\n", i+1, personality[i]);
-		}
-
-		tmpStr = inFile.nextLine();
-		tmpStr = inFile.nextLine();
-
-		//loading values of Area
-		for(int i = 0; i < 12; i++)
-		{
-			//reading empty line before the name of area
-			tmpStr = inFile.nextLine();
-
-			//reading name of area
-			String str = inFile.nextLine();
-			for(int j = 0; j < 12; j++)
-			{
-				if(str.equals(area[j]))
-				{
-					boolean ok = false;
-					String temp, mnn = "";
-					temp = inFile.nextLine();
-
-					for(int k = 0; k < temp.length(); k++)
-					{
-						if(temp.charAt(k) != ':' && ok == false)
-							continue;
-						else if(temp.charAt(k) == ':')
-							ok = true;
-						else if(temp.charAt(k) != ':' && ok == true)
-							mnn += temp.charAt(k);
-					}
-
-					mnn = mnn.replaceAll("\\s+", "");
-
-					if(mnn.equals("None"))
-					{
-						//minion[j] = "";
-					}
-					else
-					{
-						for(int h = 0; h < mnn.length(); h ++)
-						{
-							int playerIndex = getPlayerIndex( mnn.charAt(h) );
-							if(playerIndex != -1)
-								cityArea[j].addMinions(getPlayer(playerIndex), 1);
-						}
-					}
-
-					temp = inFile.nextLine();
-					temp = temp.replaceAll("\\D+", "");
-					// cityArea[j].setTroubleMarker(Integer.parseInt(temp) ==  1); // The city area will manage itself
-
-					temp = inFile.nextLine();
-					temp = temp.replaceAll("\\D+", "");
-					///////////////In Build 1 it's not important who owns this building!
-					if(Integer.parseInt(temp) == 1)
-						cityArea[j].addBuilding(0);
-					//building[j] = Integer.parseInt(temp);
-
-					temp = inFile.nextLine();
-					temp = temp.replaceAll("\\D+", "");
-					cityArea[j].setNumberDemons(Integer.parseInt(temp));
-					//demons[j] = Integer.parseInt(temp);
-
-					temp = inFile.nextLine();
-					temp = temp.replaceAll("\\D+", "");
-					cityArea[j].setNumberTrolls(Integer.parseInt(temp));
-					//troll[j] = Integer.parseInt(temp);
-
-					break;
-				}
-			}
-
-		}
-
-		tmpStr = inFile.nextLine();
-		tmpStr = inFile.nextLine();
-
-		//Loading values of Players
-		for(int i = 0; i < numberOfPlayers; i++)
-		{
-			tmpStr = inFile.nextLine();
-
-			//We suppose that players were written in order
-			String str = inFile.nextLine();
-			str = inFile.nextLine();
-
-			str = str.replaceAll("\\D+", "");
-			int numberOfMinion = Integer.parseInt(str);
-			playerMinion[i] = numberOfMinion;
-
-			str = inFile.nextLine();
-			str = str.replaceAll("\\D+", "");
-			int numberOfBuild = Integer.parseInt(str);
-			playerBuilding[i] = numberOfBuild;
-
-			str = inFile.nextLine();
-			str = str.replaceAll("\\D+", "");
-			int dlr = Integer.parseInt(str);
-			playerMoney[i] = dlr;
-
-			//ignore 2 lines
-			tmpStr = inFile.nextLine();
-			tmpStr = inFile.nextLine();
-
-
-			while(true)
-			{
-				String areaCard = inFile.nextLine();
-
-				if(areaCard.equals(""))
-					break;
-				else
-					playerAreaCard[i] += areaCard;
-			}
-
-			//ignore following line
-			tmpStr = inFile.nextLine();
-
-			//Green Card
-			str = inFile.nextLine();
-			str = str.replaceAll("\\s+", "");
-			str += ',';
-			String cardNum = "";
-			for(int j = 0; j < str.length(); j++)
-			{
-				if(Character.isDigit(str.charAt(j)))
-				{
-					cardNum += str.charAt(j);
-				}
-				else if(str.charAt(j) == ',')
-				{
-					int ind = Integer.parseInt(cardNum);
-					greenCard[ind] = true;
-					cardNum = "";
-				}
-				else
-					continue;
-			}
-
-
-			//Brown Card
-			str = inFile.nextLine();
-			str = str.replaceAll("\\s+", "");
-			str += ',';
-			cardNum = "";
-			for(int j = 0; j < str.length(); j++)
-			{
-				if(Character.isDigit(str.charAt(j)))
-				{
-					cardNum += str.charAt(j);
-				}
-				else if(str.charAt(j) == ',')
-				{
-					int ind = Integer.parseInt(cardNum);
-					brownCard[ind] = true;
-					cardNum = "";
-				}
-				else
-					continue;
-			}
-		}
-
-		//ignoring following line
-		tmpStr = inFile.nextLine();
-		String str = inFile.nextLine();
-		str = str.replaceAll("\\D+", "");
-		gameBank.setBalance(Integer.parseInt(str));
-		//bank = Integer.parseInt(str);
+	
+	public void persistGame() throws Exception {
+		LinkedList<String> currentState = new LinkedList<String>();
+		addStateData(currentState, "Players", _playerIterator.getCurrentState());
+		addStateData(currentState, "ActivePlayerCardDeck", _activePlayerCardDeck.getCurrentState());
+		addStateData(currentState, "DiscardedPlayerCardDeck", _discardedPlayerCardDeck.getCurrentState());
+		addStateData(currentState, "RandomEventCardDeck", _activeRandomEventCardDeck.getCurrentState());
+		addStateData(currentState, "CityAreas", getMapState());
+		
+		_persistanceManager.persist(currentState.toArray(new String[currentState.size()]));
+	}
+	
+	private String getMapState() {
+		String currentState = "";
+		for (ICityArea currentArea : _cityAreaDatabase.values())
+			currentState += PersistanceManager.ROW_SEPARATOR + currentArea.getCurrentState();
+		
+		int separatorLength = PersistanceManager.ROW_SEPARATOR.length();
+		currentState = currentState.substring(separatorLength, currentState.length() - separatorLength);
+		return currentState;
 	}
 
-	public void saveGame() throws IOException
-	{
-		String saveFileName;
-		Scanner console = new Scanner(System.in);
-
-		//saveFileName = console.nextLine();
-		saveFileName = "output.txt";
-
-		File outFile = new File(saveFileName);
-		FileWriter out = new FileWriter(outFile);
-		//Scanner coin = new Scanner(System.in);
-
-		//Clear previous data????
-		out.flush();
-
-		out.write("Number of players: " + (numberOfPlayers));
-		out.write("\n\n");
-
-		for(int pid = 0; pid < numberOfPlayers; pid ++)
-		{
-			out.write("Player " + (pid+1) + ":\n");
-
-			out.write("\t");
-			out.write(whatColorIsThis(color[pid]) + "\n");
-
-			out.write("\t");
-			out.write( personality[pid] + "\n\n" );
-		}
-
-		out.write("Current state of the game board:\n\n");
-
-
-		for(int aid = 0; aid < 12; aid ++)
-		{
-			out.write( area[ aid ] + "\n");
-
-			out.write("\t" + "minions:" );
-			int[] minioins = cityArea[aid].getMinions();
-			char separator = ' ';
-			for(int pid = 0; pid < numberOfPlayers; pid ++)
-			{
-				for(int cnt = 0; cnt < minioins[pid]; cnt ++)
-				{
-					out.write(separator);
-					separator = ',';
-					out.write( color[pid] );
-				}
-			}
-			if(separator == ' ')
-				out.write(" none");
-			out.write("\n");
-
-			if(cityArea[aid].hasTroubleMarker() == true)
-				out.write("\t" + "Trouble: 1\n");
-			else
-				out.write("\t" + "Trouble: 0\n");
-
-			Integer buildingNumber = cityArea[aid].getBuildingOwner();
-			if(buildingNumber == null)
-				out.write("\t" + "Building: 0" + "\n");
-			else
-				out.write("\t" + "Building: 1" + "\n");
-
-			out.write("\t" + "Demons: " + cityArea[aid].getNumberDemons() + "\n");
-
-			out.write("\t" + "Trolls: " + cityArea[aid].getNumberTrolls() + "\n\n");
-		}
-		// Player Status......
-		out.write("Players Status:\n\n");
-		for(int pid = 0; pid < numberOfPlayers; pid++)
-		{
-			out.write("Player " + (pid+1) + ":\n");
-
-			out.write("\t");
-			out.write(playerMinion[pid] + " minions\n");
-
-			out.write("\t");
-			out.write(playerBuilding[pid] + " buildings\n");
-
-			out.write("\t");
-			out.write(playerMoney[pid] + " $\n\n");
-
-			out.write("\tCity Area cards:\n");
-			//////////
-			out.write("\tPlayer cards:\n");
-			//////////
-		}
-
-		out.write("Bank: ");
-		out.write("" + gameBank.getBalance());
-		out.write(" $");
-
-		out.flush();
-		out.close();
-	}
-
-	public void showGame()
-	{
-
-		System.out.print("Number of players: " + (numberOfPlayers));
-		System.out.print("\n\n");
-
-		for(int pid = 0; pid < numberOfPlayers; pid ++)
-		{
-			System.out.print("Player " + (pid+1) + ":\n");
-
-			System.out.print("\t");
-			System.out.print(whatColorIsThis(color[pid]) + "\n");
-
-			System.out.print("\t");
-			System.out.print( personality[pid] + "\n\n" );
-		}
-
-		System.out.print("Current state of the game board:\n\n");
-
-
-		for(int aid = 0; aid < 12; aid ++)
-		{
-			System.out.print( area[ aid ] + "\n");
-
-			System.out.print("\t" + "minions:" );
-			int[] minioins = cityArea[aid].getMinions();
-			char separator = ' ';
-			for(int pid = 0; pid < numberOfPlayers; pid ++)
-			{
-				for(int cnt = 0; cnt < minioins[pid]; cnt ++)
-				{
-					System.out.print(separator);
-					separator = ',';
-					System.out.print( color[pid] );
-				}
-			}
-			if(separator == ' ')
-				System.out.print(" none");
-			System.out.print("\n");
-
-			if(cityArea[aid].hasTroubleMarker() == true)
-				System.out.print("\t" + "Trouble: 1\n");
-			else
-				System.out.print("\t" + "Trouble: 0\n");
-
-			Integer buildingNumber = cityArea[aid].getBuildingOwner();
-			if(buildingNumber == null)
-				System.out.print("\t" + "Building: 0" + "\n");
-			else
-				System.out.print("\t" + "Building: 1" + "\n");
-
-			System.out.print("\t" + "Demons: " + cityArea[aid].getNumberDemons() + "\n");
-
-			System.out.print("\t" + "Trolls: " + cityArea[aid].getNumberTrolls() + "\n\n");
-		}
-		// Player Status......
-		System.out.print("Players Status:\n\n");
-		for(int pid = 0; pid < numberOfPlayers; pid++)
-		{
-			System.out.print("Player " + (pid+1) + ":\n");
-
-			System.out.print("\t");
-			System.out.print(playerMinion[pid] + " minions\n");
-
-			System.out.print("\t");
-			System.out.print(playerBuilding[pid] + " buildings\n");
-
-			System.out.print("\t");
-			System.out.print(playerMoney[pid] + " $\n\n");
-
-			System.out.print("\tCity Area cards:\n");
-			//////////
-			System.out.print("\tPlayer cards:\n");
-			//////////
-		}
-
-		System.out.print("Bank: ");
-		System.out.print("" + gameBank.getBalance());
-		System.out.print(" $\n");
+	private void addStateData(LinkedList<String> currentStateData, String stateType, String serializedStateData) {
+		currentStateData.add(stateType);
+		currentStateData.add(serializedStateData);
+		currentStateData.add("");
 	}
 
 	// DONE
-	public Player getPlayer(String playerName) {
-		for(int i = 0; i < players.size(); i ++)
-			if(players.get(i).getName().compareTo(playerName) == 0)
-				return players.get(i);
-		return null;
+	public IPlayer getPlayer(String playerName) {
+		return _playerIterator.getPlayer(playerName);
 	}
 
 	// TODO
@@ -579,8 +194,8 @@ public class GameManager implements IVisitor
 	}
 
 	// DONE
-	public PlayerCard getPlayerCard(String cardName) {
-		return new PlayerCard( cardName );
+	public IPlayerCard getPlayerCard(PlayerCardName cardName) {
+		return _playerCardDatabase.get(cardName);
 	}
 
 	// DONE
@@ -597,19 +212,6 @@ public class GameManager implements IVisitor
 		return null;
 	}
 
-	// DONE
-	public List<Player> getAllPlayers() {
-		return players;
-	}
-
-	// DONE
-	public List<MapArea> getAllMapAreas() {
-		List <MapArea> res = new ArrayList<MapArea>();
-		for(int ai = 0; ai < 12; ai ++)
-			res.add(cityArea[ai]); 
-		return res;
-	}
-
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
@@ -620,9 +222,8 @@ public class GameManager implements IVisitor
 		return players.get( (currentTurn-1+numberOfPlayers) % numberOfPlayers );
 	}
 
-	public CityAreaCard getCityAreaCard(String cityAreaName) {
-		// TODO Auto-generated method stub
-		return null;
+	public ICityArea getCityArea(CityAreaName cityAreaName) {
+		return _cityAreaDatabase.get(cityAreaName);
 	}
 	public static void shuffleArrayOfString(String[] ar)
    {
@@ -692,14 +293,13 @@ public class GameManager implements IVisitor
 	}
 	
 	@Override
-	public Player getCurrentPlayer() {
+	public IPlayer getCurrentPlayer() {
 		// TODO Auto-generated method stub
 		// More in-depth explanation: The game manager should be the one to know who the current player is.
 		// This could be a stack if we need to handle multiple interruptions, or simply two variables otherwise. 
-		return null;
+		return _playerIterator.getCurrentPlayer();
 	}
 	
-	@Override
 	public void setCurrentPlayer(Player currentPlayer) {
 		// TODO Auto-generated method stub
 		// See "getCurrentPlayer()"
@@ -709,5 +309,91 @@ public class GameManager implements IVisitor
 	public GameManager getGameInstance() {
 		// To be removed. All the relevant methods from GameManager will be moved to IVisitor instead (intended for a later refactor).
 		return this;
+	}
+
+	public PlayerCardName drawPlayerCard() {
+		return _activePlayerCardDeck.drawCard();
+	}
+
+	@Override
+	public void setCurrentPlayer(IPlayer currentPlayer) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	public ICityArea[] getAllCityAreas() {
+		return _cityAreaDatabase.values().toArray(new ICityArea[12]);
+	}
+
+	@Override
+	public PlayerCardName drawDiscardedPlayerCard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void discardPlayerCard(PlayerCardName discardedCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IPlayerCard getPlayerCard(String cardName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CityAreaName[] getAllMapAreas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ICityArea getMapArea(CityAreaName selectedArea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonalityCardName drawPersonalityCard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void discardPersonalityCard(PersonalityCardName discardedCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IPersonalityCard getPersonalityCard(PersonalityCardName cardName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IRandomEventCard getRandomEvent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void registerNewPlayer(String playerName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IPlayer[] getAllPlayers() {
+		return _playerIterator.getNonCurrentPlayers();
+	}
+
+	@Override
+	public int rollDie() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

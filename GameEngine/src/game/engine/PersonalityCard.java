@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.core.interfaces.IPersonalityCard;
 import game.error.InvalidEntityNameException;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 /**
  * This class represents an entity from the Personality card deck.
  */
-public class PersonalityCard extends Card {
+public class PersonalityCard extends Card implements IPersonalityCard {
 	private static final HashMap<String, String> PERSONALITY_CARD_NAMES = new HashMap<String, String>();
 	private static final HashMap<String, String> PERSONALITY_CARD_EXPLANATION = new HashMap<String, String>();
 	

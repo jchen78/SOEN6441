@@ -37,19 +37,6 @@ public class TurnTests {
 			}
 			
 		}
-		
-		@Override
-		public List<Player> getAllPlayers() {
-			// TODO Auto-generated method stub
-			return mockPlayers;
-		}
-		
-		@Override
-		public Player getNextPlayer() {
-			Player player = isFirstPlayerTurn ? mockPlayers.get(0) : mockPlayers.get(1);
-			isFirstPlayerTurn = !isFirstPlayerTurn;
-			return player;
-		}
 	}
 	
 	private class PlayerMock extends Player {

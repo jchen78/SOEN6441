@@ -1,15 +1,20 @@
 package game.action.sequence.visitee;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.core.enums.CityAreaName;
+import game.core.interfaces.ICityArea;
+import game.core.interfaces.IGameInstance;
+import game.core.interfaces.IPlayer;
 import game.engine.*;
 import game.error.InvalidOperationException;
 
 public class PlaceMinionVisitee implements IVisitee {
-	private MapArea _selectedArea;
+	private ICityArea _selectedArea;
 	private ActionType _sourceOfAction;
 	
 	public PlaceMinionVisitee(ActionType sourceOfAction) {
@@ -19,15 +24,15 @@ public class PlaceMinionVisitee implements IVisitee {
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		GameManager gameInstance = visitor.getGameInstance();
-		Player currentPlayer = visitor.getCurrentPlayer();
-		List<MapArea> currentlyPopulatedAreas = currentPlayer.getPopulatedAreas(gameInstance);
-		List<MapArea> possibleChoices;
+		IPlayer currentPlayer = visitor.getCurrentPlayer();
+		List<ICityArea> currentlyPopulatedAreas = currentPlayer.getPopulatedAreas((IGameInstance)gameInstance);
+		List<ICityArea> possibleChoices;
 		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
 		
 		if (currentPlayer.getNumberOfMinionsInHand() == 0) {
 			List<IVisitee> areasForRemoval = new LinkedList<IVisitee>();
-			for (MapArea populatedArea : currentlyPopulatedAreas)
-				areasForRemoval.add(new SelectionVisitee(populatedArea.getName()));
+			for (ICityArea populatedArea : currentlyPopulatedAreas)
+				areasForRemoval.add(new SelectionVisitee(populatedArea.getCityAreaName().getText()));
 			
 			SingleActionSelector removalSelector = new SingleActionSelector(translatedChoices, "map areas");
 			removalSelector.accept(visitor);
@@ -41,17 +46,17 @@ public class PlaceMinionVisitee implements IVisitee {
 		}
 		
 		if (currentlyPopulatedAreas.size() == 0) {
-			possibleChoices = gameInstance.getAllMapAreas();
-			for (MapArea mapArea : possibleChoices)
-				translatedChoices.add(new SelectionVisitee(mapArea.getName()));
+			possibleChoices = Arrays.asList(gameInstance.getAllCityAreas());
+			for (ICityArea mapArea : possibleChoices)
+				translatedChoices.add(new SelectionVisitee(mapArea.getCityAreaName().getText()));
 		}
 		else {
-			possibleChoices = new LinkedList<MapArea>();
-			for (String mapAreaName : MapArea.getInternalNames()) {
-				for (MapArea populatedArea : currentlyPopulatedAreas) {
+			possibleChoices = new LinkedList<ICityArea>();
+			for (CityAreaName mapAreaName : CityAreaName.values()) {
+				for (ICityArea populatedArea : currentlyPopulatedAreas) {
 					if (populatedArea.isAdjacent(mapAreaName)) {
-						possibleChoices.add(gameInstance.getMapArea(mapAreaName));
-						translatedChoices.add(new SelectionVisitee(mapAreaName));
+						possibleChoices.add(gameInstance.getCityArea(mapAreaName));
+						translatedChoices.add(new SelectionVisitee(mapAreaName.getText()));
 						break;
 					}
 				}
@@ -61,8 +66,8 @@ public class PlaceMinionVisitee implements IVisitee {
 		SingleActionSelector selector = new SingleActionSelector(translatedChoices, "map areas");
 		selector.accept(visitor);
 		SelectionVisitee selection = (SelectionVisitee)selector.getSelection();
-		for (MapArea mapArea : possibleChoices) {
-			if (mapArea.getName() == selection.getDescription()) {
+		for (ICityArea mapArea : possibleChoices) {
+			if (mapArea.getCityAreaName().getText() == selection.getDescription()) {
 				_selectedArea = mapArea;
 				try {
 					_selectedArea.addMinions(currentPlayer, 1);
@@ -81,7 +86,7 @@ public class PlaceMinionVisitee implements IVisitee {
 		return "Place a minion on the board.";
 	}
 	
-	public MapArea getNewlyPopulatedArea() {
+	public ICityArea getNewlyPopulatedArea() {
 		return _selectedArea;
 	}
 }

@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.core.interfaces.IPlayer;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
 
@@ -330,8 +331,8 @@ public class MapArea implements IEntity {
 		setNumberTrolls(formattedDataParts[7]);
 	}
 
-	public void removeMinions(Player player, int count ) throws InvalidOperationException {
-		player.incrementNumberOfMinionsBy(1);
+	public void removeMinions(IPlayer player, int count ) throws InvalidOperationException {
+		player.returnMinionsToHand(1);
 		_minions[player.getIndex()]--;
 		_isTroubleMarkerSet = false;
 	}

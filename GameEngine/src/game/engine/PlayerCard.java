@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import game.core.interfaces.IPlayerCard;
 import game.action.sequence.interfaces.ICardVisitee;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
@@ -17,7 +18,7 @@ import game.error.InvalidEntityNameException;
 /**
  * This class represents the green- or brown-bordered player cards. It is yet incomplete: only arbitrary (temporary) names and border color are stored.
  */
-public class PlayerCard extends Card implements ICardVisitee {
+public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 
 	private static final HashMap<String, String> GREENBORDERED_CARD_NAMES = new HashMap<String, String>();
 	private static final HashMap<String, String> BROWNBORDERED_CARD_NAMES = new HashMap<String, String>();	

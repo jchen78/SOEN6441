@@ -1,5 +1,10 @@
 package game.engine;
 
+import game.core.enums.CityAreaName;
+import game.core.enums.PlayerCardName;
+import game.core.interfaces.ICityArea;
+import game.core.interfaces.IGameInstance;
+import game.core.interfaces.IPlayer;
 import game.error.InvalidOperationException;
 
 import java.util.ArrayList;
@@ -7,7 +12,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Player implements IMoneyHolder {
+public class Player implements IMoneyHolder, IPlayer {
 	private int playerIndex;
 	private String playerName;
 	private String playerColor;
@@ -158,8 +163,9 @@ public class Player implements IMoneyHolder {
 	 * Gets the list of player cards in the current player's hand.
 	 * @return List of card names, as recognizable by the game manager.
 	 */
-	public ArrayList<String> getPlayerCards() {
-		return playerCards;
+	public List<PlayerCardName> getPlayerCards() {
+		// TODO
+		return null;
 	}
 	
 	/**
@@ -255,9 +261,28 @@ public class Player implements IMoneyHolder {
 		
 		return currentlyPopulatedAreas;
 	}
-	
-	// TODO
-	public String[] getCityCards() {
-		return cityCards.toArray(new String[cityCards.size()]);
+
+	@Override
+	public List<CityAreaName> getCityCards() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addPlayerCard(PlayerCardName drawPlayerCard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void returnMinionsToHand(int numberMinions) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<ICityArea> getPopulatedAreas(IGameInstance gameInstance) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

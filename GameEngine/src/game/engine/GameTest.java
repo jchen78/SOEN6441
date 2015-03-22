@@ -12,6 +12,6 @@ public class GameTest
 	{
 		GameManager gm = new GameManager();
 
-		gm.printMenu();
+		//gm.printMenu();
 	}
 }

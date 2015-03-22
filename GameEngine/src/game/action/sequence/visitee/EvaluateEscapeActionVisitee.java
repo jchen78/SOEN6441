@@ -2,10 +2,11 @@ package game.action.sequence.visitee;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.core.interfaces.IPlayer;
 import game.engine.*;
 
 public class EvaluateEscapeActionVisitee implements IVisitee {
-	public EvaluateEscapeActionVisitee(Player targetPlayer, ActionType typeOfAction, ActionName actionToInterrupt) {
+	public EvaluateEscapeActionVisitee(IPlayer targetPlayer, ActionType typeOfAction, ActionName actionToInterrupt) {
 		
 	}
 	

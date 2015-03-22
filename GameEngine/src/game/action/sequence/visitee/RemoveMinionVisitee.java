@@ -2,6 +2,7 @@ package game.action.sequence.visitee;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.core.interfaces.IPlayer;
 import game.engine.ActionName;
 import game.engine.ActionType;
 import game.engine.MapArea;
@@ -21,8 +22,8 @@ public class RemoveMinionVisitee implements IVisitee {
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		Player currentPlayer = visitor.getCurrentPlayer();
-		Player targetPlayer = visitor.getGameInstance().getPlayer(_targetPlayerName);
+		IPlayer currentPlayer = visitor.getCurrentPlayer();
+		IPlayer targetPlayer = visitor.getGameInstance().getPlayer(_targetPlayerName);
 		MapArea targetArea = visitor.getGameInstance().getMapArea(_targetAreaName);
 		
 		if (_targetPlayerName != currentPlayer.getName()) {

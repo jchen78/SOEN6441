@@ -2,14 +2,15 @@ package game.action.sequence.visitee;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
-import game.engine.CityAreaCard;
+import game.core.enums.CityAreaName;
+import game.core.enums.PlayerCardName;
+import game.core.interfaces.ICityArea;
+import game.core.interfaces.IPlayer;
+import game.core.interfaces.IPlayerCard;
 import game.engine.GameManager;
-import game.engine.Player;
-import game.engine.PlayerCard;
 import game.engine.CardType;
 import game.error.EntityNotSetException;
 
@@ -26,7 +27,7 @@ public class TurnVisitee implements IVisitee {
 		
 		// First update the visitor to indicate the current player.
 		GameManager gameInstance = visitor.getGameInstance();
-		Player currentPlayer = gameInstance.getPlayer(_playerName);
+		IPlayer currentPlayer = gameInstance.getPlayer(_playerName);
 		visitor.setCurrentPlayer(currentPlayer);
 		
 		// Evaluate the player's winning conditions; no prerequisites are related to this action.
@@ -36,8 +37,8 @@ public class TurnVisitee implements IVisitee {
 		// If there are any city cards, add those to the possible actions
 		LinkedList<IVisitee> currentlyAvailableActions = new LinkedList<IVisitee>();
 		List<IVisitee> playableCards = new LinkedList<IVisitee>();
-		for (String cardName : currentPlayer.getPlayerCards()) {
-			PlayerCard currentCard = gameInstance.getPlayerCard(cardName);
+		for (PlayerCardName cardName : currentPlayer.getPlayerCards()) {
+			IPlayerCard currentCard = gameInstance.getPlayerCard(cardName);
 			try {
 				if (currentCard.getCardType().equals(CardType.Playable))
 					playableCards.add(currentCard);
@@ -48,8 +49,8 @@ public class TurnVisitee implements IVisitee {
 		}
 		
 		currentlyAvailableActions.add(new SingleActionSelector(playableCards, "player cards."));
-		for (String cityAreaName : currentPlayer.getCityCards()) {
-			CityAreaCard cityCard = gameInstance.getCityAreaCard(cityAreaName);
+		for (CityAreaName cityAreaName : currentPlayer.getCityCards()) {
+			ICityArea cityCard = gameInstance.getCityArea(cityAreaName);
 			if (cityCard.getCardType().equals(CardType.Playable))
 				currentlyAvailableActions.add(cityCard);
 		}
@@ -58,7 +59,7 @@ public class TurnVisitee implements IVisitee {
 		
 		int numberCardsInHand = currentPlayer.getPlayerCards().size();
 		for (int i = numberCardsInHand; i < 5; i++) {
-			currentPlayer.addCard(gameInstance.drawOneCardFromDeck());
+			currentPlayer.addPlayerCard(gameInstance.drawPlayerCard());
 		}
 	}
 

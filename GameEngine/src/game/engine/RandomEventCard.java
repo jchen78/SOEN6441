@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.core.interfaces.IRandomEventCard;
 import game.error.InvalidEntityNameException;
 
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.HashMap;
 /**
  * This class represents entities from the Random Event card deck.
  */
-public class RandomEventCard extends Card {
+public class RandomEventCard extends Card implements IRandomEventCard {
 	private static final HashMap<String, String> RANDOM_EVENT_CARD_NAMES = new HashMap<String, String>();
 	
 	static {

@@ -24,22 +24,22 @@ public class RemoveMinionVisitee implements IVisitee {
 	public void accept(IVisitor visitor) throws GameOverException {
 		IPlayer currentPlayer = visitor.getCurrentPlayer();
 		IPlayer targetPlayer = visitor.getGameInstance().getPlayer(_targetPlayerName);
-		MapArea targetArea = visitor.getGameInstance().getMapArea(_targetAreaName);
-		
-		if (_targetPlayerName != currentPlayer.getName()) {
-			EvaluateEscapeActionVisitee interruptVisitee = new EvaluateEscapeActionVisitee(targetPlayer, _sourceOfAction, ActionName.RemoveMinion);
-			visitor.visit(interruptVisitee);
-			
-			if (interruptVisitee.isActionInterrupted())
-				return;
-		}
-		
-		try {
-			targetArea.removeMinions(targetPlayer, 1);
-		} catch (InvalidOperationException e) {
-			// TODO Gracefully exit and alerts the user that an error has occurred.
-			e.printStackTrace();
-		}
+//		MapArea targetArea = visitor.getGameInstance().getMapArea(_targetAreaName);
+//		
+//		if (_targetPlayerName != currentPlayer.getName()) {
+//			EvaluateEscapeActionVisitee interruptVisitee = new EvaluateEscapeActionVisitee(targetPlayer, _sourceOfAction, ActionName.RemoveMinion);
+//			visitor.visit(interruptVisitee);
+//			
+//			if (interruptVisitee.isActionInterrupted())
+//				return;
+//		}
+//		
+//		try {
+//			targetArea.removeMinions(targetPlayer, 1);
+//		} catch (InvalidOperationException e) {
+//			// TODO Gracefully exit and alerts the user that an error has occurred.
+//			e.printStackTrace();
+//		}
 	}
 
 	@Override

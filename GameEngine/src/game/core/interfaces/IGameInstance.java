@@ -10,8 +10,8 @@ public interface IGameInstance {
 	public IPlayerCard getPlayerCard(String cardName);
 	
 	// Board management
-	public CityAreaName[] getAllMapAreas();
-	public ICityArea getMapArea(CityAreaName selectedArea);
+	public CityAreaData[] getAllMapAreas();
+	public ICityArea getMapArea(CityAreaData selectedArea);
 	
 	// Personality card management
 	public PersonalityCardName drawPersonalityCard();

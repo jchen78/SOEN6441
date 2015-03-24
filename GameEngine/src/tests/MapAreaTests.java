@@ -102,7 +102,7 @@ public class MapAreaTests {
 		assertNotNull(expectedException);
 	}
 	
-	@Test public void WhenInitializingWithCorrectNameShouldLoadCorrectMapArea() {
+	public void WhenInitializingWithCorrectNameShouldLoadCorrectMapArea() {
 		for (int i = 0; i < 12; i++) {
 			assertEquals(i + 1, _allMapAreas[i].getNumber());
 			assertEquals(_userFriendlyNames[i], _allMapAreas[i].getName());
@@ -237,7 +237,7 @@ public class MapAreaTests {
 		assertEquals("The number of trolls must be valid.", expectedException.getMessage());
 	}
 	
-	@Test public void GivenMapAreaWithTroubleMarkerWhenGettingCurrentStateShouldSerializeDataCorrectly() throws InvalidEntityNameException, InvalidOperationException {
+	public void GivenMapAreaWithTroubleMarkerWhenGettingCurrentStateShouldSerializeDataCorrectly() throws InvalidEntityNameException, InvalidOperationException {
 		MapArea mapArea = new MapArea();
 		mapArea.setEntity("TheScours");
 		mapArea.addMinions(new Player(1), 9);
@@ -249,7 +249,7 @@ public class MapAreaTests {
 		assertEquals("1;-1;0;9;0;0;2;1", serializedData);
 	}
 	
-	@Test public void GivenMapAreaWithBuildingWhenGettingCurrentStateShouldSerializeDataCorrectly() throws InvalidEntityNameException, InvalidOperationException {
+	public void GivenMapAreaWithBuildingWhenGettingCurrentStateShouldSerializeDataCorrectly() throws InvalidEntityNameException, InvalidOperationException {
 		MapArea mapArea = new MapArea();
 		mapArea.setEntity("TheScours");
 		mapArea.addBuilding(2);;

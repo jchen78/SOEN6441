@@ -2,7 +2,7 @@ package game.core.interfaces;
 
 import java.util.List;
 
-import game.core.enums.CityAreaName;
+import game.core.enums.CityAreaData;
 import game.core.enums.PlayerCardName;
 import game.engine.GameManager;
 import game.engine.MapArea;
@@ -22,13 +22,15 @@ public interface IPlayer {
 
 	public List<PlayerCardName> getPlayerCards();
 
-	public List<CityAreaName> getCityCards();
+	public CityAreaData[] getCityCards();
 
 	public void addPlayerCard(PlayerCardName drawPlayerCard);
 
 	public int getNumberOfMinionsInHand();
 
 	public void returnMinionsToHand(int numberMinions);
+	
+	public void removeMinionsFromHand(int numberMinions);
 
 	public List<ICityArea> getPopulatedAreas(IGameInstance gameInstance);
 

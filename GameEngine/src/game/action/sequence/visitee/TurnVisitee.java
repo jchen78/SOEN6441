@@ -5,7 +5,7 @@ import java.util.List;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
-import game.core.enums.CityAreaName;
+import game.core.enums.CityAreaData;
 import game.core.enums.PlayerCardName;
 import game.core.interfaces.ICityArea;
 import game.core.interfaces.IPlayer;
@@ -49,7 +49,7 @@ public class TurnVisitee implements IVisitee {
 		}
 		
 		currentlyAvailableActions.add(new SingleActionSelector(playableCards, "player cards."));
-		for (CityAreaName cityAreaName : currentPlayer.getCityCards()) {
+		for (CityAreaData cityAreaName : currentPlayer.getCityCards()) {
 			ICityArea cityCard = gameInstance.getCityArea(cityAreaName);
 			if (cityCard.getCardType().equals(CardType.Playable))
 				currentlyAvailableActions.add(cityCard);

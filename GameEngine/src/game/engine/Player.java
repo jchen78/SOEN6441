@@ -1,6 +1,7 @@
 package game.engine;
 
-import game.core.enums.CityAreaName;
+import game.core.enums.CityAreaData;
+import game.core.enums.PersonalityCardName;
 import game.core.enums.PlayerCardName;
 import game.core.interfaces.ICityArea;
 import game.core.interfaces.IGameInstance;
@@ -13,25 +14,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Player implements IMoneyHolder, IPlayer {
-	private int playerIndex;
-	private String playerName;
-	private String playerColor;
-	private int numOfPlayerBuildings;
-	private int numOfPlayerMinions = 12;
-	private String playerPersonality;
-	private int playerMoney;
-	private ArrayList<String> playerCards;
-	private HashSet<String> cityCards;
+	private int _playerIndex;
+	private String _playerName;
+	private String _playerColor;
+	private int _numOfPlayerBuildings;
+	private int _numOfPlayerMinions = 12;
+	private PersonalityCardName _playerPersonality;
+	private int _playerMoney;
+	private LinkedList<PlayerCardName> _playerCards;
+	private HashSet<CityAreaData> _cityCards;
 	
 	public Player(int index) {
-		playerIndex = index;
+		_playerIndex = index;
 	}
 
 	/**
 	 * Gets the user-friendly player name.
 	 */
     public String getName() {
-		return playerName;
+		return _playerName;
 	}
 	
     /**
@@ -43,7 +44,7 @@ public class Player implements IMoneyHolder, IPlayer {
     	if (name.contains(";"))
     		throw new InvalidOperationException("Player name cannot contain the semicolon character.");
     	
-		this.playerName = name;
+		this._playerName = name;
 	}
 	
     /**
@@ -51,7 +52,7 @@ public class Player implements IMoneyHolder, IPlayer {
      * @return The game manager-supplied player color.
      */
 	public String getplayercolor() {
-		return playerColor;
+		return _playerColor;
 	}
 	
 	/**
@@ -60,17 +61,17 @@ public class Player implements IMoneyHolder, IPlayer {
 	 * @throws InvalidOperationException Thrown when the color contains a semicolon character.
 	 */
 	public void setplayercolor(String playercolor) throws InvalidOperationException {
-		if (playerColor.contains(";"))
+		if (_playerColor.contains(";"))
 			throw new InvalidOperationException("The player color cannot contain the semicolon character.");
 		
-		this.playerColor = playercolor;
+		this._playerColor = playercolor;
 	}
 	
 	/**
 	 * Gets the number of minions currently in the player's possession, i.e. not on the board.
 	 */
 	public int getNumberOfMinionsInHand() {
-		return numOfPlayerMinions;
+		return _numOfPlayerMinions;
 	}
 	
 	/**
@@ -82,14 +83,14 @@ public class Player implements IMoneyHolder, IPlayer {
 		if (minionCount < 0 || minionCount > 12)
 			throw new InvalidOperationException("Number of minions must be valid.");
 		
-		numOfPlayerMinions = minionCount;
+		_numOfPlayerMinions = minionCount;
 	}
 	
 	/**
 	 * Gets the number of buildings in the player's possession, i.e. not on the board.
 	 */
 	public int getNumberOfBuildingsInHand() {
-		return numOfPlayerBuildings;
+		return _numOfPlayerBuildings;
 	}
    
 	/**
@@ -101,32 +102,35 @@ public class Player implements IMoneyHolder, IPlayer {
 		if (buildingCount < 0 || buildingCount > 6)
 			throw new InvalidOperationException("Number of buildings must be valid.");
 	   
-		this.numOfPlayerBuildings = buildingCount;
+		this._numOfPlayerBuildings = buildingCount;
 	}
 	
 	/**
 	 * Gets the name of the player's personality card as supplied by the game manager.
 	 */
-	public String getPersonality() {
-		return playerPersonality;
+	public PersonalityCardName getPersonality() {
+		return _playerPersonality;
+	}
+	
+	private void setPersonality(String personality) throws InvalidOperationException {
+		if (personality.contains(";"))
+			throw new InvalidOperationException("The personality card name cannot contain the semicolon character.");
+		
+		_playerPersonality = PersonalityCardName.valueOf(personality);
 	}
 	
 	/**
 	 * Initializes the personality card in the player's possession.
 	 * @param personality Name of the card as recognizable by the game manager.
-	 * @throws InvalidOperationException Thrown when the name contains a semicolon.
 	 */
-	public void setPersonality(String personality) throws InvalidOperationException {
-		if (personality.contains(";"))
-			throw new InvalidOperationException("The personality card name cannot contain the semicolon character.");
-		
-		this.playerPersonality = personality;
+	public void setPersonality(PersonalityCardName personality) {
+		_playerPersonality = personality;
 	}
 	
 	@Override
 	public String getAccountHolderName()
 	{
-		return playerName;
+		return _playerName;
 	}
 	
 	/**
@@ -134,7 +138,7 @@ public class Player implements IMoneyHolder, IPlayer {
 	 */
 	@Override
 	public int getMoney() {
-		return playerMoney;
+		return _playerMoney;
 	}
 	
 	/**
@@ -146,17 +150,17 @@ public class Player implements IMoneyHolder, IPlayer {
 		if (money < 0 || money > 120)
 			throw new InvalidOperationException("Amount of money must be valid.");
 	   
-		playerMoney = money;
+		_playerMoney = money;
 	}
 	
 	@Override
 	public void addMoney(int amount) throws InvalidOperationException {
-		setPlayerMoney(playerMoney + amount);
+		setPlayerMoney(_playerMoney + amount);
 	}
 	
 	@Override
 	public void removeMoney(int amount) throws InvalidOperationException {
-		setPlayerMoney(playerMoney - amount);
+		setPlayerMoney(_playerMoney - amount);
 	}
 	
 	/**
@@ -174,35 +178,28 @@ public class Player implements IMoneyHolder, IPlayer {
 	 * @throws InvalidOperationException Thrown when at least one card name contains a semicolon character.
 	 */
 	public void setPlayerCards(ArrayList<String> cardNames) throws InvalidOperationException {
-		for (String name : cardNames)
+		_playerCards = new LinkedList<PlayerCardName>();
+		for (String name : cardNames) {
 			if (name.contains(";"))
 				throw new InvalidOperationException("Card names cannot contain the semicolon character.");
-		
-		this.playerCards = cardNames;
+			
+			_playerCards.add(PlayerCardName.valueOf(name));
+		}
 	}
-	
-	public void addCard(String cardName) {
-		playerCards.add(cardName);
-	}
-	
-	public void removeCard(String cardName) {
-		playerCards.remove(cardName);
-	}
-	
 	/**
 	 * Serializes the current player's state.
 	 */
 	public String getCurrentState() {
 		String currentState =
-			valueOrEmpty(playerName) + ";"
-			+ valueOrEmpty(playerColor) + ";"
-			+ numOfPlayerBuildings + ";"
-			+ numOfPlayerMinions + ";"
-			+ valueOrEmpty(playerPersonality) + ";"
-			+ playerMoney;
+			valueOrEmpty(_playerName) + ";"
+			+ valueOrEmpty(_playerColor) + ";"
+			+ _numOfPlayerBuildings + ";"
+			+ _numOfPlayerMinions + ";"
+			+ valueOrEmpty(_playerPersonality.getValue()) + ";"
+			+ _playerMoney;
 		
-		for (String name : playerCards)
-			currentState += ";" + valueOrEmpty(name);
+		for (PlayerCardName name : _playerCards)
+			currentState += ";" + valueOrEmpty(name.getValue());
 		
 		return currentState;
 	}
@@ -226,63 +223,62 @@ public class Player implements IMoneyHolder, IPlayer {
 		if (serializedParts.length < 6 || serializedParts.length > 106)
 			throw new InvalidOperationException("Invalid serialized data.");
 		
-		playerName = serializedParts[0];
-		playerColor = serializedParts[1];
-		numOfPlayerBuildings = Integer.parseInt(serializedParts[2]);
-		numOfPlayerMinions = Integer.parseInt(serializedParts[3]);
-		playerPersonality = serializedParts[4];
-		playerMoney = Integer.parseInt(serializedParts[5]);
-		playerCards = new ArrayList<String>();
+		_playerName = serializedParts[0];
+		_playerColor = serializedParts[1];
+		_numOfPlayerBuildings = Integer.parseInt(serializedParts[2]);
+		_numOfPlayerMinions = Integer.parseInt(serializedParts[3]);
+		setPersonality(serializedParts[4]);
+		_playerMoney = Integer.parseInt(serializedParts[5]);
+		_playerCards = new LinkedList<PlayerCardName>();
 		for (int i = 6; i < serializedParts.length; i++)
-			playerCards.add(serializedParts[i]);
+			_playerCards.add(PlayerCardName.valueOf(serializedParts[i]));
 	}
 
 	public int getIndex() {
-		return playerIndex;
+		return _playerIndex;
 	}
 
 	public void decrementMinionsBy(int count) {
-		numOfPlayerMinions -= count;
+		_numOfPlayerMinions -= count;
 		
 	}
 
 	public void incrementNumberOfMinionsBy(int count) {
-		numOfPlayerMinions += count;
-	}
-	
-	public List<MapArea> getPopulatedAreas(GameManager gameInstance) {
-		List<MapArea> currentlyPopulatedAreas = new LinkedList<MapArea>();
-		for (String mapAreaName : MapArea.getInternalNames()) {
-			MapArea currentArea = gameInstance.getMapArea(mapAreaName);
-			if (currentArea.getMinions()[getIndex()] > 0) {
-				currentlyPopulatedAreas.add(currentArea);
-			}
-		}
-		
-		return currentlyPopulatedAreas;
+		_numOfPlayerMinions += count;
 	}
 
 	@Override
-	public List<CityAreaName> getCityCards() {
-		// TODO Auto-generated method stub
-		return null;
+	public CityAreaData[] getCityCards() {
+		return _cityCards.toArray(new CityAreaData[_cityCards.size()]);
 	}
 
 	@Override
-	public void addPlayerCard(PlayerCardName drawPlayerCard) {
+	public void addPlayerCard(PlayerCardName playerCard) {
 		// TODO Auto-generated method stub
-		
+		_playerCards.add(playerCard);
 	}
 
 	@Override
 	public void returnMinionsToHand(int numberMinions) {
-		// TODO Auto-generated method stub
-		
+		// TODO Basic sanity checks
+		this._numOfPlayerMinions += numberMinions;
 	}
 
 	@Override
 	public List<ICityArea> getPopulatedAreas(IGameInstance gameInstance) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ICityArea> currentlyPopulatedAreas = new LinkedList<ICityArea>();
+		for (CityAreaData area : CityAreaData.values()) {
+			ICityArea currentArea = gameInstance.getMapArea(area);
+			if (currentArea.getMinions()[_playerIndex] > 0)
+				currentlyPopulatedAreas.add(currentArea);
+		}
+//		
+		return currentlyPopulatedAreas;
+	}
+
+	@Override
+	public void removeMinionsFromHand(int numberMinions) {
+		// TODO Basic sanity checks
+		this._numOfPlayerMinions -= numberMinions;
 	}
 }

@@ -1,5 +1,9 @@
 package game.engine;
 
+import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.GameOverException;
+import game.core.enums.CityAreaData;
+import game.core.interfaces.ICityArea;
 import game.core.interfaces.IPlayer;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
@@ -11,60 +15,8 @@ import java.util.List;
 /**
  * This class represents the entity of a game board area.
  */
-public class MapArea implements IEntity {
-	private static HashMap<String, Integer> INTERNAL_MAPAREA_NAMES = new HashMap<String, Integer>();
-	private static String[] DISPLAY_NAMES = new String[12];
-	private static int[] BUILDING_COSTS = new int[12];
-	
-	static {
-		INTERNAL_MAPAREA_NAMES.put("DollySisters", 1);
-		INTERNAL_MAPAREA_NAMES.put("UnrealEstate", 2);
-		INTERNAL_MAPAREA_NAMES.put("DragonsLanding", 3);
-		INTERNAL_MAPAREA_NAMES.put("SmallGods", 4);
-		INTERNAL_MAPAREA_NAMES.put("TheScours", 5);
-		INTERNAL_MAPAREA_NAMES.put("TheHippo", 6);
-		INTERNAL_MAPAREA_NAMES.put("TheShades", 7);
-		INTERNAL_MAPAREA_NAMES.put("Dimwell", 8);
-		INTERNAL_MAPAREA_NAMES.put("Longwall", 9);
-		INTERNAL_MAPAREA_NAMES.put("IsleOfGods", 10);
-		INTERNAL_MAPAREA_NAMES.put("SevenSleepers", 11);
-		INTERNAL_MAPAREA_NAMES.put("NapHill", 12);
-		
-		DISPLAY_NAMES[0] = "Dolly Sisters";
-		DISPLAY_NAMES[1] = "Unreal Estate";
-		DISPLAY_NAMES[2] = "Dragon's Landing";
-		DISPLAY_NAMES[3] = "Small Gods";
-		DISPLAY_NAMES[4] = "The Scours";
-		DISPLAY_NAMES[5] = "The Hippo";
-		DISPLAY_NAMES[6] = "The Shades";
-		DISPLAY_NAMES[7] = "Dimwell";
-		DISPLAY_NAMES[8] = "Longwall";
-		DISPLAY_NAMES[9] = "Isle Of Gods";
-		DISPLAY_NAMES[10] = "Seven Sleepers";
-		DISPLAY_NAMES[11] = "Nap Hill";
-		
-		BUILDING_COSTS[0] = 6;
-		BUILDING_COSTS[1] = 18;
-		BUILDING_COSTS[2] = 12;
-		BUILDING_COSTS[3] = 18;
-		BUILDING_COSTS[4] = 6;
-		BUILDING_COSTS[5] = 12;
-		BUILDING_COSTS[6] = 6;
-		BUILDING_COSTS[7] = 6;
-		BUILDING_COSTS[8] = 12;
-		BUILDING_COSTS[9] = 12;
-		BUILDING_COSTS[10] = 18;
-		BUILDING_COSTS[11] = 12;
-	}
-	
-	/**
-	 * Gets the set of all valid entity names for the game board.
-	 * @return An array of gameboard area entity names, in no particular order.
-	 */
-	public static String[] getInternalNames() {
-		return INTERNAL_MAPAREA_NAMES.keySet().toArray(new String[12]);
-	}
-	
+public class MapArea implements IEntity, ICityArea {
+	private CityAreaData _cardStats;
 	private int _number;
 	private Integer _buildingOwner;
 	private boolean _isTroubleMarkerSet;
@@ -99,7 +51,7 @@ public class MapArea implements IEntity {
 	 * @return User-friendly name (not the entity name).
 	 */
 	public String getName() {
-		return DISPLAY_NAMES[_number - 1];
+		return _cardStats.getText();
 	}
 	
 	/**
@@ -115,7 +67,7 @@ public class MapArea implements IEntity {
 	 * @return Cost for constructing a building on the gameboard area represented by this instance.
 	 */
 	public int getBuildingCost() {
-		return BUILDING_COSTS[_number - 1];
+		return _cardStats.getBuildingCost();
 	}
 	
 	/**
@@ -184,61 +136,6 @@ public class MapArea implements IEntity {
 		return _minions;
 	}
 
-	/**
-	 * Adds the specified number of minions for the player identified.
-	 * @param playerID Index of the player (0-3, inclusive).
-	 * @param count Number of minions to add (0-12, inclusive).
-	 * @throws InvalidOperationException Thrown when the playerID or the count is invalid.
-	 */
-	public void addMinions(Player player, int count) throws InvalidOperationException {
-//		performValidationForPlayerID(playerID);
-		if (count < 0 || count > 12)
-			throw new InvalidOperationException("The number of minions must be valid.");
-		else if (!isPossibleToAddMinions(player))
-			throw new InvalidOperationException("The map area selected must be valid.");
-		
-		player.decrementMinionsBy(count);
-		_minions[player.getIndex()] += count;
-		_isTroubleMarkerSet = shouldSetTroubleMarker();
-	}
-	
-	boolean isPossibleToAddMinions(Player player) {
-		if (playerHasMinions(player)) {
-			if (playerHasNoMinionsOnOtherArea(player)) {
-				return true;
-			}
-			else if (playerHasMinionsOnAdjacentAreas(player)) {
-				return true;
-			}
-			else if (playerHasMinionsOnThisArea(player)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean playerHasMinionsOnThisArea(Player player) {
-		return _minions[player.getIndex()] > 0;
-	}
-
-	private boolean playerHasMinionsOnAdjacentAreas(Player player) {
-		for (MapArea adjacent : adjacentMapAreas) {
-			if (adjacent._minions[player.getIndex()] > 0) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean playerHasNoMinionsOnOtherArea(Player player) {
-		return player.getNumberOfMinionsInHand() == 12;
-		
-	}
-
-	private boolean playerHasMinions(Player player) {
-		return player.getNumberOfMinionsInHand() > 0;
-	}
-
 	private void performValidationForPlayerID(int playerID)	throws InvalidOperationException {
 		if (playerID < 0 || playerID > 3)
 			throw new InvalidOperationException("Player ID must be valid.");
@@ -268,10 +165,14 @@ public class MapArea implements IEntity {
 
 	@Override
 	public void setEntity(String entityName) throws InvalidEntityNameException {
-		if (!INTERNAL_MAPAREA_NAMES.containsKey(entityName))
+		try {
+			_cardStats = CityAreaData.valueOf(entityName);
+		}
+		catch (IllegalArgumentException e) {
 			throw new InvalidEntityNameException();
+		}
 		
-		_number = INTERNAL_MAPAREA_NAMES.get(entityName);
+		// TODO: set actions acccording to _cardStats.
 	}
 	
 	/**
@@ -353,6 +254,43 @@ public class MapArea implements IEntity {
 		
 	}
 
-	
-	
+	@Override
+	public void accept(IVisitor visitor) throws GameOverException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CityAreaData getCityAreaName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CardType getCardType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAdjacent(CityAreaData areaName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void addMinions(IPlayer currentPlayer, int numberMinions) throws InvalidOperationException {
+		if (numberMinions < 0 || numberMinions > 12)
+			throw new InvalidOperationException("The number of minions must be valid.");
+		
+		currentPlayer.removeMinionsFromHand(numberMinions);
+		_minions[currentPlayer.getIndex()] += numberMinions;
+		_isTroubleMarkerSet = shouldSetTroubleMarker();
+	}
 }

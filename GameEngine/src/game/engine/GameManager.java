@@ -30,7 +30,7 @@ public class GameManager implements IVisitor, IGameInstance
 	private RandomEventCardDeck _activeRandomEventCardDeck;
 	private HashMap<RandomEventCardName, IRandomEventCard> _randomEventDatabase;
 	
-	private HashMap<CityAreaName, ICityArea> _cityAreaDatabase;
+	private HashMap<CityAreaData, ICityArea> _cityAreaDatabase;
 	
 	private int currentTurn;
 	private int numberOfPlayers;
@@ -144,7 +144,7 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 
 	private void setMapState(String currentState) {
-		_cityAreaDatabase = new HashMap<CityAreaName, ICityArea>(12);
+		_cityAreaDatabase = new HashMap<CityAreaData, ICityArea>(12);
 		String[] cityStates = currentState.split(PersistanceManager.ROW_SEPARATOR);
 		for (String cityState : cityStates) {
 			ICityArea currentCity =  _creator.createCity(cityState);
@@ -198,20 +198,6 @@ public class GameManager implements IVisitor, IGameInstance
 		return _playerCardDatabase.get(cardName);
 	}
 
-	// DONE
-	public MapArea getMapArea(String areaName) { 
-		String[] allAreas = MapArea.getInternalNames();
-		for(int i = 0; i < 12; i ++)
-		{
-			if(areaName.compareTo( allAreas[i] ) == 0)
-			{
-				return cityArea[i];
-			}
-		}
-
-		return null;
-	}
-
 	public Player getPlayer(int i) {
 		return players.get(i);
 	}
@@ -222,7 +208,7 @@ public class GameManager implements IVisitor, IGameInstance
 		return players.get( (currentTurn-1+numberOfPlayers) % numberOfPlayers );
 	}
 
-	public ICityArea getCityArea(CityAreaName cityAreaName) {
+	public ICityArea getCityArea(CityAreaData cityAreaName) {
 		return _cityAreaDatabase.get(cityAreaName);
 	}
 	public static void shuffleArrayOfString(String[] ar)
@@ -345,13 +331,13 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 
 	@Override
-	public CityAreaName[] getAllMapAreas() {
+	public CityAreaData[] getAllMapAreas() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ICityArea getMapArea(CityAreaName selectedArea) {
+	public ICityArea getMapArea(CityAreaData selectedArea) {
 		// TODO Auto-generated method stub
 		return null;
 	}

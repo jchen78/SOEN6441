@@ -1,6 +1,6 @@
 package game.core.enums;
 
-public enum CityAreaData {
+public enum CityAreaData implements ICardName {
 	DollySisters("DollySisters");
 	
 	private String
@@ -23,11 +23,13 @@ public enum CityAreaData {
 		}
 	}
 	
+	@Override
 	public String getValue() {
 		return _internalName;
 	}
 	
-	public String getText() {
+	@Override
+	public String getDescriptiveName() {
 		return _descriptiveName;
 	}
 	

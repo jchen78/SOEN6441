@@ -51,7 +51,7 @@ public class MapArea implements IEntity, ICityArea {
 	 * @return User-friendly name (not the entity name).
 	 */
 	public String getName() {
-		return _cardStats.getText();
+		return _cardStats.getDescriptiveName();
 	}
 	
 	/**

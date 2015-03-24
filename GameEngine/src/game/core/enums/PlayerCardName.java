@@ -13,4 +13,14 @@ public enum PlayerCardName implements ICardName {
 	public String getValue() {
 		return _cardName;
 	}
+
+	@Override
+	public String getDescriptiveName() {
+		switch (_cardName) {
+			case "MrGibbs":
+				return "Mr. Gibbs";
+			default:
+				return _cardName;
+		}
+	}
 };

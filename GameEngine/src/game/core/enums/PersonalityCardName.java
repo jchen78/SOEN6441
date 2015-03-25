@@ -1,7 +1,13 @@
 package game.core.enums;
 
 public enum PersonalityCardName implements ICardName {
-	CommanderVimes("CommanderVimes");
+	CommanderVimes("CommanderVimes"),
+	LordDeWorde("LordDeWorde"),
+	LordVetinari("LordVetinari"),
+	LordSelachii("LordSelachii"),
+	LordRust("LordRust"),
+	DragonKingOfArms("DragonKingOfArms"),
+	Chrysoprase("Chrysoprase");
 	
 	private String _cardName;
 	
@@ -20,6 +26,25 @@ public enum PersonalityCardName implements ICardName {
 		switch (_cardName) {
 			case "CommanderVimes":
 				return "Commander Vimes";
+		
+			case "LordDeWorde":
+				return "Lord De Worde";
+			
+			case "Lord Vetinari":
+				return "Lord Vetinari";
+				
+			case "LordSelachii":
+				return "Lord Selachii";
+				
+			case "LordRust":
+				return "Lord Rust";
+				
+			case "DragonKingOfArms":
+				return "Dragon King Of Arms";
+				
+			case "Chrysoprase":
+				return "Chrysoprase";
+			
 			default:
 				return _cardName;
 		}

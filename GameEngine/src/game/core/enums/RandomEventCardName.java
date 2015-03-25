@@ -29,31 +29,31 @@ public enum RandomEventCardName implements ICardName {
 	public String getDescriptiveName() {
 		switch (_cardName) {
 		case "Fog":
-			return "Fire";
+			return "Fog";
 		case "Fire":
 			return "Fire";
 		case "MysteriousMurder":
-			return "MysteriousMurder";
+			return "Mysterious Murder";
 		case "Riots":
 			return "Riots";
 		case "Subsidence":
 			return "Subsidence";
 		case "Troll":
 			return "Troll";
-			default:
-				return _cardName;
-			case "BloodyStupidJhonson":
+		case "BloodyStupidJhonson":
 				return "Bloody Stupid Jhonson";
-			case "DemonsFromDungeonDimensions":
+		case "DemonsFromDungeonDimensions":
 				return "Demons From Dungeon Dimensions";
-			case "TheDragon":
+		case "TheDragon":
 				return "The Dragon";
-			case "Earthquake":
+		case "Earthquake":
 				return "Earthquake";
-			case "Explosion":
+		case "Explosion":
 				return "Explosion";
-			case "Flood":
+		case "Flood":
 					return "Flood";
+		default:
+				return _cardName;
 		}
 	}
 }

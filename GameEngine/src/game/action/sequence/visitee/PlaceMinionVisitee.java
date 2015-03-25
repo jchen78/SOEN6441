@@ -23,62 +23,66 @@ public class PlaceMinionVisitee implements IVisitee {
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-//		GameManager gameInstance = visitor.getGameInstance();
-//		IPlayer currentPlayer = visitor.getCurrentPlayer();
-//		List<ICityArea> currentlyPopulatedAreas = currentPlayer.getPopulatedAreas((IGameInstance)gameInstance);
-//		List<ICityArea> possibleChoices;
-//		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
-//		
-//		if (currentPlayer.getNumberOfMinionsInHand() == 0) {
-//			List<IVisitee> areasForRemoval = new LinkedList<IVisitee>();
-//			for (ICityArea populatedArea : currentlyPopulatedAreas)
-//				areasForRemoval.add(new SelectionVisitee(populatedArea.getCityAreaName().getText()));
-//			
-//			SingleActionSelector removalSelector = new SingleActionSelector(translatedChoices, "map areas");
-//			removalSelector.accept(visitor);
-//			SelectionVisitee selection = (SelectionVisitee)removalSelector.getSelection();
-//			
-//			RemoveMinionVisitee removeMinionVisitee = new RemoveMinionVisitee(currentPlayer.getName(), selection.getDescription(), _sourceOfAction);
-//			removeMinionVisitee.accept(visitor);
-//			MapArea removedArea = gameInstance.getMapArea(selection.getDescription());
-//			if (removedArea.getMinions()[currentPlayer.getIndex()] == 0)
-//				currentlyPopulatedAreas.remove(removedArea);
-//		}
-//		
-//		if (currentlyPopulatedAreas.size() == 0) {
-//			possibleChoices = Arrays.asList(gameInstance.getAllCityAreas());
-//			for (ICityArea mapArea : possibleChoices)
-//				translatedChoices.add(new SelectionVisitee(mapArea.getCityAreaName().getText()));
-//		}
-//		else {
-//			possibleChoices = new LinkedList<ICityArea>();
-//			for (CityAreaData mapAreaName : CityAreaData.values()) {
-//				for (ICityArea populatedArea : currentlyPopulatedAreas) {
-//					if (populatedArea.isAdjacent(mapAreaName)) {
-//						possibleChoices.add(gameInstance.getCityArea(mapAreaName));
-//						translatedChoices.add(new SelectionVisitee(mapAreaName.getText()));
-//						break;
-//					}
-//				}
-//			}
-//		}
-//		
-//		SingleActionSelector selector = new SingleActionSelector(translatedChoices, "map areas");
-//		selector.accept(visitor);
-//		SelectionVisitee selection = (SelectionVisitee)selector.getSelection();
-//		for (ICityArea mapArea : possibleChoices) {
-//			if (mapArea.getCityAreaName().getText() == selection.getDescription()) {
-//				_selectedArea = mapArea;
-//				try {
-//					_selectedArea.addMinions(currentPlayer, 1);
-//				} catch (InvalidOperationException e) {
-//					// TODO Re-select an area
-//					e.printStackTrace();
-//				}
-//				
-//				break;
-//			}
-//		}
+		GameManager gameInstance = visitor.getGameInstance();
+		IPlayer currentPlayer = visitor.getCurrentPlayer();
+		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(currentPlayer.getPopulatedAreas((IGameInstance)gameInstance));
+		List<ICityArea> possibleChoices;
+		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
+		
+		if (currentPlayer.getNumberOfMinionsInHand() == 0) {
+			List<IVisitee> areasForRemoval = new LinkedList<IVisitee>();
+			for (ICityArea populatedArea : currentlyPopulatedAreas)
+				areasForRemoval.add(new SelectionVisitee(populatedArea.getCityAreaName().getDescriptiveName()));
+			
+			SingleActionSelector removalSelector = new SingleActionSelector(translatedChoices, "map areas");
+			removalSelector.accept(visitor);
+			SelectionVisitee selection = (SelectionVisitee)removalSelector.getSelection();
+			
+			ICityArea removedArea = currentlyPopulatedAreas.get(selection.getSelectedIndex());
+			try {
+				removedArea.removeMinions(currentPlayer, 1);
+			} catch (InvalidOperationException e) {
+				e.printStackTrace();
+			}
+			currentPlayer.returnMinionsToHand(1);
+			if (removedArea.getMinions()[currentPlayer.getIndex()] == 0)
+				currentlyPopulatedAreas.remove(removedArea);
+		}
+		
+		if (currentlyPopulatedAreas.size() == 0) {
+			possibleChoices = Arrays.asList(gameInstance.getAllCityAreas());
+			for (ICityArea mapArea : possibleChoices)
+				translatedChoices.add(new SelectionVisitee(mapArea.getCityAreaName().getDescriptiveName()));
+		}
+		else {
+			possibleChoices = new LinkedList<ICityArea>();
+			for (CityAreaData mapAreaName : CityAreaData.values()) {
+				for (ICityArea populatedArea : currentlyPopulatedAreas) {
+					if (populatedArea.isAdjacent(mapAreaName)) {
+						possibleChoices.add(gameInstance.getCityArea(mapAreaName));
+						translatedChoices.add(new SelectionVisitee(mapAreaName.getDescriptiveName()));
+						break;
+					}
+				}
+			}
+		}
+		
+		SingleActionSelector selector = new SingleActionSelector(translatedChoices, "map areas");
+		selector.accept(visitor);
+		SelectionVisitee selection = (SelectionVisitee)selector.getSelection();
+		for (ICityArea mapArea : possibleChoices) {
+			if (mapArea.getCityAreaName().getDescriptiveName() == selection.getDescription()) {
+				_selectedArea = mapArea;
+				try {
+					_selectedArea.addMinions(currentPlayer, 1);
+				} catch (InvalidOperationException e) {
+					// TODO Re-select an area
+					e.printStackTrace();
+				}
+				
+				break;
+			}
+		}
 	}
 
 	@Override

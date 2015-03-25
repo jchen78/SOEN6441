@@ -12,5 +12,6 @@ public interface IVisitor {
 	IVisitee selectAction(List<IVisitee> choices);
 	IPlayer getCurrentPlayer();
 	void setCurrentPlayer(IPlayer currentPlayer);
+	void clearCurrentPlayer();
 	GameManager getGameInstance();
 }

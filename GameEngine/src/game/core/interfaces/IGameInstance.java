@@ -7,7 +7,7 @@ public interface IGameInstance {
 	public PlayerCardName drawPlayerCard();
 	public PlayerCardName drawDiscardedPlayerCard();
 	public void discardPlayerCard(PlayerCardName discardedCard);
-	public IPlayerCard getPlayerCard(String cardName);
+	public IPlayerCard getPlayerCard(PlayerCardName cardName);
 	
 	// Board management
 	public CityAreaData[] getAllMapAreas();
@@ -31,4 +31,5 @@ public interface IGameInstance {
 	public void initializeGame() throws Exception;
 	public void persistGame() throws Exception;
 	public int rollDie();
+	IPlayer getPlayer(int playerIndex);
 }

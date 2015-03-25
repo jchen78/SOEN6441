@@ -18,7 +18,7 @@ import java.util.List;
 public class MapArea implements IEntity, ICityArea {
 	private CityAreaData _cardStats;
 	private int _number;
-	private Integer _buildingOwner;
+	private String _buildingOwner;
 	private boolean _isTroubleMarkerSet;
 	private int _numberDemons;
 	private int _numberTrolls;
@@ -135,31 +135,24 @@ public class MapArea implements IEntity, ICityArea {
 	public int[] getMinions() {
 		return _minions;
 	}
-
-	private void performValidationForPlayerID(int playerID)	throws InvalidOperationException {
-		if (playerID < 0 || playerID > 3)
-			throw new InvalidOperationException("Player ID must be valid.");
-	}
 	
 	/**
-	 * Add and Remove Building for a particular playerID in a area.
-	 * @playerID Index of the player (0-3, inclusive).
-	 * @throws InvalidOperationException Thrown when the player ID is invalid or when a trouble marker is already set.
+	 * Add a building owned by the specified player.
+	 * @playerName Name of the building owner.
+	 * @throws InvalidOperationException Thrown when a trouble marker is already set.
 	 */
-	public void addBuilding (int playerID) throws InvalidOperationException {
-		performValidationForPlayerID(playerID);
+	public void addBuilding (String playerName) throws InvalidOperationException {
 		if (_isTroubleMarkerSet)
 			throw new InvalidOperationException("Cannot add building while trouble marker is set.");
 		
-		_buildingOwner = playerID;
+		_buildingOwner = playerName;
 	}
 	
 	/**
 	 * Gets the ID of the player owning the building, if any.
 	 * @return null if no building is constructed, or the index of the owning player otherwise.
 	 */
-	public Integer getBuildingOwner() {
-		// TODO Auto-generated method stub
+	public String getBuildingOwner() {
 		return _buildingOwner;
 	}
 
@@ -183,33 +176,29 @@ public class MapArea implements IEntity, ICityArea {
 	public String getCurrentState() {
 		String serializedData = "";
 		if (_isTroubleMarkerSet)
-			serializedData = "1;-1;";
+			serializedData = "1;";
 		else
-			serializedData = "0;" + _buildingOwner + ";";
+			serializedData = "0;";
 		
 		serializedData += _minions[0] + ";" + _minions[1] + ";" + _minions[2] + ";" + _minions[3] + ";";
 		serializedData += _numberDemons + ";";
 		serializedData += _numberTrolls;
+		serializedData += (_buildingOwner == null ? "" : _buildingOwner) + ";";
 		
 		return serializedData;
 	}
 	
-	/**
-	 * Sets the instance to the data specified by the string, as retrieved via getCurrentState.
-	 * @see getCurrentState
-	 * @param serializedData String representing the saved state of a gameboard area instance.
-	 * @throws InvalidOperationException Thrown when the serialized data is in an invalid format or contains invalid data.
-	 */
+	@Override
 	public void setCurrentState(String serializedData, GameManager gameManager) throws InvalidOperationException {
 		if (serializedData == null)
 			throw new InvalidOperationException("Serialized data must be valid.");
 		
 		String[] dataParts = serializedData.split(";");
-		if (dataParts.length != 8)
+		if (dataParts.length < 7 || dataParts.length > 8)
 			throw new InvalidOperationException("Serialized data must be valid.");
 		
-		int[] formattedDataParts = new int[8];
-		for (int i = 0; i < 8; i++)
+		int[] formattedDataParts = new int[7];
+		for (int i = 0; i < 7; i++)
 			try {
 				formattedDataParts[i] = Integer.parseInt(dataParts[i]);
 			} catch (Exception e) {
@@ -217,21 +206,21 @@ public class MapArea implements IEntity, ICityArea {
 			}
 		
 		_isTroubleMarkerSet = formattedDataParts[0] == 1;
-		if (formattedDataParts[1] == -1)
-			_buildingOwner = null;
-		else
-			addBuilding(formattedDataParts[1]);
-		
+	
 		_minions = new int[4];
-		addMinions(gameManager.getPlayer(0), formattedDataParts[2]);
-		addMinions(gameManager.getPlayer(1), formattedDataParts[3]);
-		addMinions(gameManager.getPlayer(2), formattedDataParts[4]);
-		addMinions(gameManager.getPlayer(3), formattedDataParts[5]);
+		addMinions(gameManager.getPlayer(0), formattedDataParts[1]);
+		addMinions(gameManager.getPlayer(1), formattedDataParts[2]);
+		addMinions(gameManager.getPlayer(2), formattedDataParts[3]);
+		addMinions(gameManager.getPlayer(3), formattedDataParts[4]);
 		
-		setNumberDemons(formattedDataParts[6]);
-		setNumberTrolls(formattedDataParts[7]);
+		setNumberDemons(formattedDataParts[5]);
+		setNumberTrolls(formattedDataParts[6]);
+		
+		if (dataParts.length == 8 && dataParts[7] != null && dataParts[7].length() > 0)
+			addBuilding(dataParts[7]);
 	}
-
+	
+	@Override
 	public void removeMinions(IPlayer player, int count ) throws InvalidOperationException {
 		player.returnMinionsToHand(1);
 		_minions[player.getIndex()]--;
@@ -262,14 +251,12 @@ public class MapArea implements IEntity, ICityArea {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return _cardStats.getDescriptiveName();
 	}
 
 	@Override
 	public CityAreaData getCityAreaName() {
-		// TODO Auto-generated method stub
-		return null;
+		return _cardStats;
 	}
 
 	@Override
@@ -289,7 +276,6 @@ public class MapArea implements IEntity, ICityArea {
 		if (numberMinions < 0 || numberMinions > 12)
 			throw new InvalidOperationException("The number of minions must be valid.");
 		
-		currentPlayer.removeMinionsFromHand(numberMinions);
 		_minions[currentPlayer.getIndex()] += numberMinions;
 		_isTroubleMarkerSet = shouldSetTroubleMarker();
 	}

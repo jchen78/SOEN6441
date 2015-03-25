@@ -11,6 +11,6 @@ public class PlayerCardDeck extends CardDeck<PlayerCardName> {
 	@Override
 	public void add(String internalCardName) {
 		PlayerCardName card = PlayerCardName.valueOf(internalCardName);
-		add(card);
+		super.add(card);
 	}
 }

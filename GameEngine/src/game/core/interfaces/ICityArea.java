@@ -3,6 +3,7 @@ package game.core.interfaces;
 import game.action.sequence.interfaces.IVisitee;
 import game.core.enums.CityAreaData;
 import game.engine.CardType;
+import game.engine.GameManager;
 import game.error.InvalidOperationException;
 
 public interface ICityArea extends IVisitee {
@@ -22,4 +23,13 @@ public interface ICityArea extends IVisitee {
 	 */
 	public void addMinions(IPlayer currentPlayer, int numberMinions) throws InvalidOperationException;
 	public int[] getMinions();
+	void removeMinions(IPlayer player, int count) throws InvalidOperationException;
+	
+	/**
+	 * Sets the instance to the data specified by the string, as retrieved via getCurrentState.
+	 * @see getCurrentState
+	 * @param serializedData String representing the saved state of a gameboard area instance.
+	 * @throws InvalidOperationException Thrown when the serialized data is in an invalid format or contains invalid data.
+	 */
+	void setCurrentState(String serializedData, GameManager gameManager) throws InvalidOperationException;
 }

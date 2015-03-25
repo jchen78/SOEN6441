@@ -11,6 +11,8 @@ import game.action.sequence.interfaces.IVisitor;
 import game.action.sequence.visitee.GameOverException;
 import game.action.sequence.visitee.OptionalActionVisitee;
 import game.action.sequence.visitee.PlaceMinionVisitee;
+import game.action.sequence.visitee.PlayCardVisitee;
+import game.action.sequence.visitee.TakeLoanFromBankVisitee;
 import game.action.sequence.visitee.TakeMoneyFromOthersVisitee;
 import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
@@ -136,26 +138,25 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 	
 	public PlayerCard(String _cardName)
 	{
-		this.allActions = new LinkedList<IVisitee>();
+		allActions = new LinkedList<IVisitee>();
 		if(cardName.compareTo("MrBoggis") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBoggis")) == 0)
 		{
 			cardName = _cardName;
-			this.allActions.add(new TakeMoneyFromOthersVisitee(2, ActionType.PlayerCardText, ActionName.TakeMoney));
-			this.allActions.add(new PlaceMinionVisitee(ActionType.PlayerCardIcon));
-			
-			symbols.add("Scroll");
-			symbols.add("Place a minion");
-			explanation = "Take $2 if possible, from every other player";
+			allActions.add(new TakeMoneyFromOthersVisitee(2, ActionType.PlayerCardText, ActionName.TakeMoney));
+			allActions.add(new PlaceMinionVisitee(ActionType.PlayerCardIcon));
 		}
 
 		// TODO
 		if(cardName.compareTo("MrBent") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrBent")) == 0)
 		{
 			cardName = _cardName;
+			
+			allActions.add(new TakeLoanFromBankVisitee());
+			allActions.add(new PlayCardVisitee());
 		//	this.allActions.add(new Scroll(ActionType.PlayerCardIcon));
 			symbols.add("Scroll");
 			symbols.add("Play another card");
-			explanation = "Place this card infront of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";
+			explanation = "Place this card in front of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";
 		}
 		if(cardName.compareTo("TheBeggarsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBeggarsGuild")) == 0)
 		{

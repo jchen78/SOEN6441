@@ -81,4 +81,9 @@ public class PlayerIterator {
 		}
 		return null;
 	}
+
+	public IPlayer getPlayer(int i) {
+		// TODO Auto-generated method stub
+		return _allPlayers[i];
+	}
 }

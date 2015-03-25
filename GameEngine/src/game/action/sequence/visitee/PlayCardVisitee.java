@@ -3,24 +3,18 @@ package game.action.sequence.visitee;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 
-public class SelectionVisitee implements IVisitee {
-	private String _selectionName;
-	
-	public SelectionVisitee(String selectionName) {
-		_selectionName = selectionName;
-	}
-	
+public class PlayCardVisitee implements IVisitee {
+
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public String getDescription() {
-		return _selectionName;
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	public int getSelectedIndex() {
-		return 0;
-	}
+
 }

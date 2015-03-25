@@ -57,7 +57,7 @@ public class TurnVisitee implements IVisitee {
 		
 		new MultipleActionSelector(currentlyAvailableActions).accept(visitor);
 		
-		int numberCardsInHand = currentPlayer.getPlayerCards().size();
+		int numberCardsInHand = currentPlayer.getPlayerCards().length;
 		for (int i = numberCardsInHand; i < 5; i++) {
 			currentPlayer.addPlayerCard(gameInstance.drawPlayerCard());
 		}

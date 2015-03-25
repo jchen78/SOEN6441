@@ -17,17 +17,24 @@ import java.io.*;
 
 public class GameManager implements IVisitor, IGameInstance
 {
+	private static final int NUMBER_CITY_AREAS = 12;
 	private MenuSelector _menuSelector;
 	private PersistanceManager _persistanceManager;
 	private ConcreteCreator _creator;
 	
 	private PlayerIterator _playerIterator;
+	private Stack<IPlayer> _playerStack;
+	
+	private PersonalityCardDeck _activePersonalityCardDeck;
+	private PersonalityCardDeck _discardedPersonalityCardDeck;
+	private HashMap<PersonalityCardName, IPersonalityCard> _personalityCardDatabase;
 	
 	private PlayerCardDeck _activePlayerCardDeck;
 	private PlayerCardDeck _discardedPlayerCardDeck;
 	private HashMap<PlayerCardName, IPlayerCard> _playerCardDatabase;
 	
 	private RandomEventCardDeck _activeRandomEventCardDeck;
+	private RandomEventCardDeck _discardedRandomEventCardDeck;
 	private HashMap<RandomEventCardName, IRandomEventCard> _randomEventDatabase;
 	
 	private HashMap<CityAreaData, ICityArea> _cityAreaDatabase;
@@ -67,7 +74,6 @@ public class GameManager implements IVisitor, IGameInstance
 	
 	private int greenBrownDeckCurrentIndex;	
 	
-	private List<Player> players = new ArrayList<Player>();
 	Bank gameBank;
 
 	//private Bank gameBank;
@@ -82,15 +88,16 @@ public class GameManager implements IVisitor, IGameInstance
 
 	public GameManager()
 	{
-		this(new ConcreteCreator());
+		this(new ConcreteCreator(), new PersistanceManager());
 	}
 	
-	public GameManager(ConcreteCreator creator) {
+	public GameManager(ConcreteCreator creator, PersistanceManager persistanceManager) {
 		//		cityArea = new MapArea[12];
 		//		for(int i = 0; i < 12; i ++)
 		//			cityArea[i] = new MapArea();
 		//cityArea = new Map().createMap();
 		gameBank = new Bank();
+		_playerStack = new Stack<IPlayer>();
 		_creator = creator;
 	}
 
@@ -117,8 +124,9 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 	
 	private HashMap<String, String> retrieveExistingGameData() {
-		// TODO
-		return null;
+		// TODO Get the filename
+		String filename = "";
+		return getState(_persistanceManager.retrieve(filename));
 	}
 	
 	private HashMap<String, String> getState(String[] stateContents) throws IllegalArgumentException {
@@ -139,7 +147,10 @@ public class GameManager implements IVisitor, IGameInstance
 		_playerIterator = new PlayerIterator(currentState.get("Players"));
 		_activePlayerCardDeck = new PlayerCardDeck(currentState.get("ActivePlayerCardDeck"));
 		_discardedPlayerCardDeck = new PlayerCardDeck(currentState.get("DiscardedPlayerCardDeck"));
-		_activeRandomEventCardDeck = new RandomEventCardDeck(currentState.get("RandomEventCardDeck"));
+		_activeRandomEventCardDeck = new RandomEventCardDeck(currentState.get("ActiveRandomEventCardDeck"));
+		_discardedRandomEventCardDeck = new RandomEventCardDeck(currentState.get("DiscardedRandomEventCardDeck"));
+		_activePersonalityCardDeck = new PersonalityCardDeck(currentState.get("ActivePersonalityCardDeck"));
+		_discardedPersonalityCardDeck = new PersonalityCardDeck(currentState.get("DiscardedPersonalityCardDeck"));
 		setMapState(currentState.get("CityAreas"));
 	}
 
@@ -184,9 +195,8 @@ public class GameManager implements IVisitor, IGameInstance
 		return _playerIterator.getPlayer(playerName);
 	}
 
-	// TODO
-	public PersonalityCard getPersonalityCard(String cardName) {
-		return null;
+	public PersonalityCardName getPersonalityCard(String cardName) {
+		return _activePersonalityCardDeck.drawCard();
 	}
 
 	public String getPersonalityCardExplanation(String cardName) {
@@ -197,17 +207,12 @@ public class GameManager implements IVisitor, IGameInstance
 	public IPlayerCard getPlayerCard(PlayerCardName cardName) {
 		return _playerCardDatabase.get(cardName);
 	}
-
-	public Player getPlayer(int i) {
-		return players.get(i);
+	
+	@Override
+	public IPlayer getPlayer(int i) {
+		return _playerIterator.getPlayer(i);
 	}
-
-	// DONE
-	public Player getNextPlayer() {
-		currentTurn = (currentTurn+1) % numberOfPlayers;
-		return players.get( (currentTurn-1+numberOfPlayers) % numberOfPlayers );
-	}
-
+	
 	public ICityArea getCityArea(CityAreaData cityAreaName) {
 		return _cityAreaDatabase.get(cityAreaName);
 	}
@@ -221,25 +226,6 @@ public class GameManager implements IVisitor, IGameInstance
                    ar[index] = ar[i];
                    ar[i] = tmp;
            }
-   }
-       
-   public void drawCardsToPlayers() throws InvalidOperationException
-   {
-           greenBrownDeck = PlayerCard.getGreenBorderedCardNames();
-           greenBrownDeckCurrentIndex = 0;
-           
-           shuffleArrayOfString(greenBrownDeck);
-           
-           for(int pid = 0; pid < numberOfPlayers; pid++)
-           {
-                   ArrayList <String> thisPlayerCards = new ArrayList<String>();
-                   for(int cnt = 0; cnt < 5; cnt ++)
-                   {
-                           thisPlayerCards.add( greenBrownDeck[ greenBrownDeckCurrentIndex ] );
-                           greenBrownDeckCurrentIndex ++;
-                   }
-                   players.get(pid).setPlayerCards(thisPlayerCards);
-           }        
    }
    
    public String drawOneCardFromDeck()
@@ -280,15 +266,7 @@ public class GameManager implements IVisitor, IGameInstance
 	
 	@Override
 	public IPlayer getCurrentPlayer() {
-		// TODO Auto-generated method stub
-		// More in-depth explanation: The game manager should be the one to know who the current player is.
-		// This could be a stack if we need to handle multiple interruptions, or simply two variables otherwise. 
-		return _playerIterator.getCurrentPlayer();
-	}
-	
-	public void setCurrentPlayer(Player currentPlayer) {
-		// TODO Auto-generated method stub
-		// See "getCurrentPlayer()"
+		return _playerStack.empty() ? _playerIterator.getCurrentPlayer() : _playerStack.peek();
 	}
 	
 	@Override
@@ -303,10 +281,13 @@ public class GameManager implements IVisitor, IGameInstance
 
 	@Override
 	public void setCurrentPlayer(IPlayer currentPlayer) {
-		// TODO Auto-generated method stub
-		
+		_playerStack.push(currentPlayer);
 	}
 	
+	@Override
+	public void clearCurrentPlayer() {
+		_playerStack.pop();
+	}
 	
 	public ICityArea[] getAllCityAreas() {
 		return _cityAreaDatabase.values().toArray(new ICityArea[12]);
@@ -314,56 +295,45 @@ public class GameManager implements IVisitor, IGameInstance
 
 	@Override
 	public PlayerCardName drawDiscardedPlayerCard() {
-		// TODO Auto-generated method stub
-		return null;
+		return _discardedPlayerCardDeck.drawCard();
 	}
 
 	@Override
 	public void discardPlayerCard(PlayerCardName discardedCard) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public IPlayerCard getPlayerCard(String cardName) {
-		// TODO Auto-generated method stub
-		return null;
+		_discardedPlayerCardDeck.add(discardedCard);
+		_discardedPlayerCardDeck.shuffle();
 	}
 
 	@Override
 	public CityAreaData[] getAllMapAreas() {
-		// TODO Auto-generated method stub
-		return null;
+		return _cityAreaDatabase.values().toArray(new CityAreaData[NUMBER_CITY_AREAS]);
 	}
 
 	@Override
 	public ICityArea getMapArea(CityAreaData selectedArea) {
-		// TODO Auto-generated method stub
-		return null;
+		return _cityAreaDatabase.get(selectedArea);
 	}
 
 	@Override
 	public PersonalityCardName drawPersonalityCard() {
-		// TODO Auto-generated method stub
-		return null;
+		return _activePersonalityCardDeck.drawCard();
 	}
 
 	@Override
 	public void discardPersonalityCard(PersonalityCardName discardedCard) {
-		// TODO Auto-generated method stub
-		
+		_discardedPersonalityCardDeck.add(discardedCard);
 	}
 
 	@Override
 	public IPersonalityCard getPersonalityCard(PersonalityCardName cardName) {
-		// TODO Auto-generated method stub
-		return null;
+		return _personalityCardDatabase.get(cardName);
 	}
 
 	@Override
 	public IRandomEventCard getRandomEvent() {
-		// TODO Auto-generated method stub
-		return null;
+		IRandomEventCard drawnCard = _randomEventDatabase.get(_activeRandomEventCardDeck.drawCard());
+		_discardedRandomEventCardDeck.add(drawnCard.getCardName());
+		return drawnCard;
 	}
 
 	@Override
@@ -381,5 +351,10 @@ public class GameManager implements IVisitor, IGameInstance
 	public int rollDie() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public IPlayer getNextPlayer() {
+		return _playerIterator.iterate();
 	}
 }

@@ -10,6 +10,6 @@ public class RandomEventCardDeck extends CardDeck<RandomEventCardName> {
 
 	@Override
 	public void add(String cardName) {
-		add(RandomEventCardName.valueOf(cardName));
+		super.add(RandomEventCardName.valueOf(cardName));
 	}
 }

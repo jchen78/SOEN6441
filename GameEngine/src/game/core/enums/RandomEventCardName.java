@@ -7,7 +7,7 @@ public enum RandomEventCardName implements ICardName {
 	Riots("Riots"),
 	Subsidence("Subsidence"),
 	Troll("Troll"),
-	BloodyStupidJhonson("BloodyStupidJhonson"),
+	BloodyStupidJohnson("BloodyStupidJohnson"),
 	DemonsFromDungeonDimensions("DemonsFromDungeonDimensions"),
 	TheDragon("TheDragon"),
 	Earthquake("Earthquake"),
@@ -41,7 +41,7 @@ public enum RandomEventCardName implements ICardName {
 		case "Troll":
 			return "Troll";
 		case "BloodyStupidJhonson":
-				return "Bloody Stupid Jhonson";
+				return "Bloody Stupid Johnson";
 		case "DemonsFromDungeonDimensions":
 				return "Demons From Dungeon Dimensions";
 		case "TheDragon":

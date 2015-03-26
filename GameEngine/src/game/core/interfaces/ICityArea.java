@@ -31,5 +31,5 @@ public interface ICityArea extends IVisitee {
 	 * @param serializedData String representing the saved state of a gameboard area instance.
 	 * @throws InvalidOperationException Thrown when the serialized data is in an invalid format or contains invalid data.
 	 */
-	void setCurrentState(String serializedData, GameManager gameManager) throws InvalidOperationException;
+	void setCurrentState(String serializedData) throws InvalidOperationException;
 }

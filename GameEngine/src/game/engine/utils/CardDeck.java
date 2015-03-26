@@ -9,9 +9,11 @@ public abstract class CardDeck<T extends ICardName> {
 	private LinkedList<T> _data;
 	
 	protected CardDeck(String nameOfCardsInDeck) {
+		_data = new LinkedList<T>();
 		String[] cardNames = nameOfCardsInDeck.split(PersistanceManager.ROW_SEPARATOR);
 		for (String cardName : cardNames) {
-			add(cardName);
+			if (cardName != null && cardName.length() > 0)
+				add(cardName);
 		}
 	}
 	

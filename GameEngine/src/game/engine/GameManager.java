@@ -35,7 +35,7 @@ public class GameManager implements IVisitor, IGameInstance
 	
 	private RandomEventCardDeck _activeRandomEventCardDeck;
 	private RandomEventCardDeck _discardedRandomEventCardDeck;
-	private HashMap<RandomEventCardName, IRandomEventCard> _randomEventDatabase;
+	private HashMap<RandomEventCardName, IRandomEventCard> _randomEventCardDatabase;
 	
 	private HashMap<CityAreaData, ICityArea> _cityAreaDatabase;
 	
@@ -88,17 +88,19 @@ public class GameManager implements IVisitor, IGameInstance
 
 	public GameManager()
 	{
-		this(new ConcreteCreator(), new PersistanceManager());
+		this(new ConcreteCreator(), new PersistanceManager(), new MenuSelector());
 	}
 	
-	public GameManager(ConcreteCreator creator, PersistanceManager persistanceManager) {
+	public GameManager(ConcreteCreator creator, PersistanceManager persistanceManager, MenuSelector menuSelector) {
 		//		cityArea = new MapArea[12];
 		//		for(int i = 0; i < 12; i ++)
 		//			cityArea[i] = new MapArea();
 		//cityArea = new Map().createMap();
 		gameBank = new Bank();
 		_playerStack = new Stack<IPlayer>();
+		_persistanceManager = persistanceManager;
 		_creator = creator;
+		_menuSelector = menuSelector;
 	}
 
 	public void initializeGame() throws Exception {
@@ -106,7 +108,7 @@ public class GameManager implements IVisitor, IGameInstance
 		
 		int selection = _menuSelector.getSelection("Start a new game.", "Load an existing game.");
 		HashMap<String, String> gameData = null;
-		if (selection == 1)
+		if (selection == 0)
 			gameData = retrieveNewGameData();
 		else
 			gameData = retrieveExistingGameData();
@@ -115,7 +117,19 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 	
 	private void initializeEntityDatabase() {
-		// TODO : Set the *Database (playerCardDatabase, cityAreaDatabase, etc.) variables
+		_personalityCardDatabase = new HashMap<PersonalityCardName, IPersonalityCard>();
+		for (PersonalityCardName name : PersonalityCardName.values())
+			_personalityCardDatabase.put(name, _creator.create(name));
+		
+		_playerCardDatabase = new HashMap<PlayerCardName, IPlayerCard>();
+		for (PlayerCardName name : PlayerCardName.values())
+			_playerCardDatabase.put(name, _creator.create(name));
+		
+		_randomEventCardDatabase = new HashMap<RandomEventCardName, IRandomEventCard>();
+		for (RandomEventCardName name : RandomEventCardName.values())
+			_randomEventCardDatabase.put(name, _creator.create(name));
+		
+		_cityAreaDatabase = new HashMap<CityAreaData, ICityArea>();
 	}
 	
 	private HashMap<String, String> retrieveNewGameData() {
@@ -140,10 +154,10 @@ public class GameManager implements IVisitor, IGameInstance
 			state.put(stateContents[i], stateContents[i + 1]);
 		}
 		
-		return null;
+		return state;
 	}
 	
-	private void setState(HashMap<String, String> currentState) {
+	private void setState(HashMap<String, String> currentState) throws IllegalArgumentException, InvalidOperationException {
 		_playerIterator = new PlayerIterator(currentState.get("Players"));
 		_activePlayerCardDeck = new PlayerCardDeck(currentState.get("ActivePlayerCardDeck"));
 		_discardedPlayerCardDeck = new PlayerCardDeck(currentState.get("DiscardedPlayerCardDeck"));
@@ -331,7 +345,7 @@ public class GameManager implements IVisitor, IGameInstance
 
 	@Override
 	public IRandomEventCard getRandomEvent() {
-		IRandomEventCard drawnCard = _randomEventDatabase.get(_activeRandomEventCardDeck.drawCard());
+		IRandomEventCard drawnCard = _randomEventCardDatabase.get(_activeRandomEventCardDeck.drawCard());
 		_discardedRandomEventCardDeck.add(drawnCard.getCardName());
 		return drawnCard;
 	}

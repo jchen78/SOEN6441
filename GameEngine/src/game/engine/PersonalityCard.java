@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.core.enums.PersonalityCardName;
 import game.core.interfaces.IPersonalityCard;
 import game.error.InvalidEntityNameException;
 
@@ -42,6 +43,10 @@ public class PersonalityCard extends Card implements IPersonalityCard {
 		PERSONALITY_CARD_EXPLANATION.put("Chrysoprase", "wins if that player’s net worth (cash plus building values) is $50 or more at the beginning of their turn");
 	}
 	
+	public PersonalityCard(PersonalityCardName name) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Gets all valid entity names for the Personality card deck.
 	 * @return An array of valid names in no particular order.

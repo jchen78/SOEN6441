@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import game.core.enums.PlayerCardName;
 import game.core.interfaces.IPlayerCard;
 import game.action.sequence.interfaces.ICardVisitee;
 import game.action.sequence.interfaces.IVisitee;
@@ -830,6 +831,10 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 			symbols.add("Place a building");
 			explanation = "Draw one card for each building you have on the board";
 		}
+	}
+
+	public PlayerCard(PlayerCardName name) {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**

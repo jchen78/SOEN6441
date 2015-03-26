@@ -4,6 +4,7 @@ import game.action.sequence.interfaces.IVisitor;
 import game.action.sequence.visitee.GameOverException;
 import game.core.enums.CityAreaData;
 import game.core.interfaces.ICityArea;
+import game.core.interfaces.IGameInstance;
 import game.core.interfaces.IPlayer;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
@@ -23,7 +24,7 @@ public class MapArea implements IEntity, ICityArea {
 	private int _numberDemons;
 	private int _numberTrolls;
 	private int[] _minions = new int[4]; //indicates how many minions each player has in that area
-	private List<MapArea> adjacentMapAreas = new ArrayList();
+	private List<MapArea> adjacentMapAreas = new ArrayList<MapArea>();
 	/**
 	 * Constructor: Initializes data structures for loading.
 	 */
@@ -31,6 +32,9 @@ public class MapArea implements IEntity, ICityArea {
 		this._buildingOwner = null;
 	}
     
+	public MapArea(String initialState) {
+	}
+
 	/**
 	 * Returns true if it should set the trouble marker
 	 * @return true if it should set the trouble marker
@@ -189,7 +193,7 @@ public class MapArea implements IEntity, ICityArea {
 	}
 	
 	@Override
-	public void setCurrentState(String serializedData, GameManager gameManager) throws InvalidOperationException {
+	public void setCurrentState(String serializedData) throws InvalidOperationException {
 		if (serializedData == null)
 			throw new InvalidOperationException("Serialized data must be valid.");
 		
@@ -208,10 +212,10 @@ public class MapArea implements IEntity, ICityArea {
 		_isTroubleMarkerSet = formattedDataParts[0] == 1;
 	
 		_minions = new int[4];
-		addMinions(gameManager.getPlayer(0), formattedDataParts[1]);
-		addMinions(gameManager.getPlayer(1), formattedDataParts[2]);
-		addMinions(gameManager.getPlayer(2), formattedDataParts[3]);
-		addMinions(gameManager.getPlayer(3), formattedDataParts[4]);
+		_minions[0] = formattedDataParts[1];
+		_minions[1] = formattedDataParts[2];
+		_minions[2] = formattedDataParts[3];
+		_minions[3] = formattedDataParts[4];
 		
 		setNumberDemons(formattedDataParts[5]);
 		setNumberTrolls(formattedDataParts[6]);
@@ -276,7 +280,11 @@ public class MapArea implements IEntity, ICityArea {
 		if (numberMinions < 0 || numberMinions > 12)
 			throw new InvalidOperationException("The number of minions must be valid.");
 		
-		_minions[currentPlayer.getIndex()] += numberMinions;
+		addMinions(currentPlayer.getIndex(), numberMinions);
+	}
+	
+	private void addMinions(int playerIndex, int numberMinions) {
+		_minions[playerIndex] += numberMinions;
 		_isTroubleMarkerSet = shouldSetTroubleMarker();
 	}
 }

@@ -9,6 +9,7 @@ import game.core.interfaces.IPlayerCard;
 import game.action.sequence.interfaces.ICardVisitee;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.DiscardCard;
 import game.action.sequence.visitee.DrawCardsFromDiscardPile;
 import game.action.sequence.visitee.DrawCardsFromDrawDeck;
 import game.action.sequence.visitee.GameOverException;
@@ -19,8 +20,10 @@ import game.action.sequence.visitee.PlaceMinionVisitee;
 import game.action.sequence.visitee.PlayCardVisitee;
 import game.action.sequence.visitee.RemoveMinionVisitee;
 import game.action.sequence.visitee.RemoveTroubleMarker;
+import game.action.sequence.visitee.TakeCardsFromDrawDeck;
 import game.action.sequence.visitee.TakeCardsFromOtherPlayer;
 import game.action.sequence.visitee.TakeLoanFromBankVisitee;
+import game.action.sequence.visitee.TakeMoneyForEachTroubleMarker;
 import game.action.sequence.visitee.TakeMoneyFromBank;
 import game.action.sequence.visitee.TakeMoneyFromOthersVisitee;
 import game.action.sequence.visitee.TakeMoneyOrCardFromEachPlayer;
@@ -376,12 +379,16 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("HargasHouseOfRibs") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HargasHouseOfRibs")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Take money $3");
 			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("MrGryle") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrGryle")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new RemoveMinionVisitee());
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Assassination");
 			symbols.add("Take money $1");
 		}
@@ -392,6 +399,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheOperaHouse") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheOperaHouse")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceBuilding());
+		//	allActions.add(new TakeMoneyForEachMinion());
 			symbols.add("Place a building");
 			symbols.add("Scroll");
 			explanation = "Earn $1 for each minion in The Isle of Gods";
@@ -399,6 +408,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("NorryNobbs") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("NorryNobbs")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Take $3 from the player of your choice";
@@ -406,6 +417,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("Modo") == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new DiscardCard());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Discard one card";
@@ -413,24 +426,30 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheMendedDrum") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheMendedDrum")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceBuilding());
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Place a building");
 			symbols.add("Take money $2");
 		}
 		if(cardName.compareTo("Librarian") == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeCardsFromDrawDeck());
 			symbols.add("Scroll");
 			explanation = "Take four cards from the draw deck";
 		}
 		if(cardName.compareTo("LeonardOfQuirm") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("LeonardOfQuirm")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeCardsFromDrawDeck());
 			symbols.add("Scroll");
 			explanation = "Take four cards from the draw deck";
 		}
 		if(cardName.compareTo("ShonkyShop") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ShonkyShop")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new DiscardCard());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a building");
 			explanation = "Discard as many card as you wish and take $1 for each one discarded";
@@ -438,6 +457,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("SacharissaCrisplock") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("SacharissaCrisplock")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyForEachTroubleMarker());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Earn $1 for each trouble marker on the board";
@@ -445,6 +466,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("RosiePalm") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("RosiePalm")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceMinionVisitee(null));
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
 			symbols.add("Place a minion");
 			symbols.add("Scroll");
 			explanation = "Choose one Player. Give them one of of your cards. Thwy must give you $2 in return";
@@ -452,6 +475,9 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("Rincewind") == 0)
 		{
 			cardName = _cardName;
+		//	allActions.add(new RandomEvent());
+		//	allActions.add(new MoveMinionToAdjacent());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Random Event");
 			symbols.add("Scroll");
 			symbols.add("Place another card");
@@ -460,12 +486,16 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheRoyalMint") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheRoyalMint")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceBuilding());
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Place a building");
 			symbols.add("Take money $5");
 		}
 		if(cardName.compareTo("QueenMolly") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("QueenMolly")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceMinionVisitee(null));
+		//	allActions.add(new SelectPlayerToGetCards());
 			symbols.add("Place a minion");
 			symbols.add("Scroll");
 			explanation = "Select one player. They must give you two cards of their choice";
@@ -473,12 +503,16 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("PinkPussycatClub") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("PinkPussycatClub")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Take money $3");
 			symbols.add("Play another card");
 		}
 		if(cardName.compareTo("ZorgoTheRetrophrenologist") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("ZorgoTheRetrophrenologist")) == 0)
 		{
 			cardName = _cardName;
+		//	allActions.add(new ExchangePensonality());
+			allActions.add(new PlaceBuilding());
 			symbols.add("Scroll");
 			symbols.add("Place a building");
 			explanation = "You may exchange your Personality card with one drawn randomly from those not in use";
@@ -486,6 +520,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("DrWhiteface") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("DrWhiteface")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Select another player. If they donot give you $5 then place this card infront of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
@@ -493,12 +529,15 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("WallaceSponky") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("WallaceSponky")) == 0)
 		{
 			cardName = _cardName;
+		//	allActions.add(new Interrupt());
 			symbols.add("Interrupt");
 			explanation = "You cannot be affected by the text on a card played by another player";
 		}
 		if(cardName.compareTo("TheSeamstressesGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheSeamstressesGuild")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Choose one player. Give them one of your cards. They must give you $2 in return";
@@ -506,6 +545,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("MrPinAndMrTulip") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MrPinAndMrTulip")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new RemoveMinionVisitee());
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Assassination");
 			symbols.add("Take money $1");
 			explanation = "The New Firm";
@@ -513,6 +554,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheThievesGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheThievesGuild")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Take $2, if possible from every other player";

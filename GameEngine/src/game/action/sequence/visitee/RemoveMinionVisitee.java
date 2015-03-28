@@ -20,6 +20,10 @@ public class RemoveMinionVisitee implements IVisitee {
 		_sourceOfAction = sourceOfAction;
 	}
 
+	public RemoveMinionVisitee() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		IPlayer currentPlayer = visitor.getCurrentPlayer();

@@ -9,12 +9,21 @@ import game.core.interfaces.IPlayerCard;
 import game.action.sequence.interfaces.ICardVisitee;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.DrawCardsFromDiscardPile;
+import game.action.sequence.visitee.DrawCardsFromDrawDeck;
 import game.action.sequence.visitee.GameOverException;
+import game.action.sequence.visitee.LookAtUnusedPersonalityCard;
 import game.action.sequence.visitee.OptionalActionVisitee;
+import game.action.sequence.visitee.PlaceBuilding;
 import game.action.sequence.visitee.PlaceMinionVisitee;
 import game.action.sequence.visitee.PlayCardVisitee;
+import game.action.sequence.visitee.RemoveMinionVisitee;
+import game.action.sequence.visitee.RemoveTroubleMarker;
+import game.action.sequence.visitee.TakeCardsFromOtherPlayer;
 import game.action.sequence.visitee.TakeLoanFromBankVisitee;
+import game.action.sequence.visitee.TakeMoneyFromBank;
 import game.action.sequence.visitee.TakeMoneyFromOthersVisitee;
+import game.action.sequence.visitee.TakeMoneyOrCardFromEachPlayer;
 import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
 
@@ -162,6 +171,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheBeggarsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBeggarsGuild")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeCardsFromOtherPlayer());
+			allActions.add(new PlaceMinionVisitee(ActionType.PlayerCardIcon));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Select one player, they must give you two cards of their choice";
@@ -169,6 +180,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheBankOfAnkhMorpork") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheBankOfAnkhMorpork")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeLoanFromBankVisitee());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Place this card infront of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";
@@ -176,6 +189,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheAnkhMorporkSynshineDragonSanctuary") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheAnkhMorporkSynshineDragonSanctuary")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyOrCardFromEachPlayer());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Each player must give you either $1 or one of their cards";
@@ -183,12 +198,17 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("SergeantAngua") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("SergeantAngua")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new RemoveTroubleMarker());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Remove one Trouble marker");
 			symbols.add("Play another card");
 		}
 		if(cardName.compareTo("TheAgonyAunts") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheAgonyAunts")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
+			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Assassination");
 			symbols.add("Take money $2");
 			symbols.add("Place a minion");
@@ -196,6 +216,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheDysk") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheDysk")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceBuilding());
+		//	allActions.add(new TakeMoneyForEachMinion());
 			symbols.add("Place a Building");
 			symbols.add("Scroll");
 			explanation = "Each $1 for each minion in The Isle of Gods";
@@ -203,18 +225,22 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheDuckman") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheDuckman")) == 0)
 		{
 			cardName = _cardName;
+		//	allActions.add(new MoveMinionToAdjacent());
 			symbols.add("Scroll");
 			explanation = "Move a minion belonging to another player from one area to adjacent area";
 		}
 		if(cardName.compareTo("Drumknott") == 0 || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("Drumknott")) == 0)
 		{
 			cardName = _cardName;
+			//allActions.add(new PlayAnyTwoCardVisitee());
 			symbols.add("Scroll");
 			explanation = "Play any two other cards from your hand";
 		}
 		if(cardName.compareTo("CMOTDibbler") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("CMOTDibbler")) == 0)
 		{
 			cardName = _cardName;
+			//allActions.add(new RollDice());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Roll a die. On a roll of '7' or more you take $4 from the band and On the roll of '1' give '$1' to the bank or remove one of your minion from the board. All other results have no effects";
@@ -222,12 +248,17 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("DrCruces") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("DrCruces")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Assassination");
 			symbols.add("Take money $3");
 		}
 		if(cardName.compareTo("CaptainCarrot") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("CaptainCarrot")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceMinionVisitee(null));
+			allActions.add(new RemoveTroubleMarker());
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Place a minion");
 			symbols.add("Remove one trouble marker");
 			symbols.add("Take money $1");
@@ -235,6 +266,9 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("MsCake") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("MsCake")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new LookAtUnusedPersonalityCard());
+			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new PlaceBuilding());
 			symbols.add("Scroll");
 			symbols.add("Take money $2");
 			symbols.add("Place a building");
@@ -243,29 +277,36 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("Groat") == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("GimletsDwarfDelicatessen") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("GimletsDwarfDelicatessen")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Take money $3");
 			symbols.add("Place a minion");
 		}
 		if(cardName.compareTo("Gaspode") == 0 )
 		{
 			cardName = _cardName;
+			//allActions.add(new Interrupt());
 			symbols.add("Interrupt");
 			explanation = "Stop a player from moving or removing one of your minion";
 		}
 		if(cardName.compareTo("FreshStartClub") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("FreshStartClub")) == 0)
 		{
 			cardName = _cardName;
+			//allActions.add(new Interrupt());
 			symbols.add("Interrupt");
 			explanation = "If you have a minion removed you can place him in a different area";
 		}
 		if(cardName.compareTo("FourOleRon") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("FourOleRon")) == 0)
 		{
 			cardName = _cardName;
+			//allActions.add(new MoveOtherMiniontoAdjacent());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Move a minion belonging to another player from one area to an adjacent area";
@@ -273,6 +314,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheFoolsGuild") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheFoolsGuild")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Select another player. If they donot give you $5 then place this card infront of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
@@ -280,6 +323,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("TheFireBrigade") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("TheFireBrigade")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Choose a player. If they donot give you $5 then you can remove one of his building from the board";
@@ -287,12 +332,16 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("InigoSkimmer") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("InigoSkimmer")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
+			allActions.add(new TakeMoneyFromBank());
 			symbols.add("Assassination");
 			symbols.add("Take money $2");
 		}
 		if(cardName.compareTo("HistoryMonks") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HistoryMonks")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new DrawCardsFromDiscardPile());
+			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Shuffle the discard pile and draw four cards randomly and place the remaining cards back as the discard pile";
@@ -300,6 +349,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("Hex") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("Hex")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceBuilding());
+			allActions.add(new DrawCardsFromDrawDeck());
 			symbols.add("Scroll");
 			symbols.add("Place a Building");
 			explanation = "Take 3 cards from the draw deck";
@@ -307,6 +358,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("HereNNow") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HereNNow")) == 0)
 		{
 			cardName = _cardName;
+		//	allActions.add(new RollDice());
+			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
 			explanation = "Roll a die. On a roll of '7' or more you take $3 from the band and On the roll of '1' remove one of your minion from the board. All other results have no effects";
@@ -314,6 +367,8 @@ public class PlayerCard extends Card implements IPlayerCard, ICardVisitee {
 		if(cardName.compareTo("HarryKing") == 0  || cardName.compareTo(GREENBORDERED_CARD_NAMES.get("HarryKing")) == 0)
 		{
 			cardName = _cardName;
+			allActions.add(new PlaceMinionVisitee(null));
+		//	allActions.add(new TakeMoneyFromDiscardCard());
 			symbols.add("Place a minion");
 			symbols.add("Scroll");
 			explanation = "Discard as many card as you wish and take $2 for each discarded";

@@ -1,9 +1,9 @@
 package game.engine;
 
 import game.action.sequence.interfaces.IVisitee;
+import game.action.sequence.visitee.RemoveAllMinionsFromRandomArea;
 import game.core.enums.RandomEventCardName;
 import game.core.interfaces.IRandomEventCard;
-import game.sequence.visitee.RemoveAllMinionsFromRandomArea;
 
 import java.util.LinkedList;
 

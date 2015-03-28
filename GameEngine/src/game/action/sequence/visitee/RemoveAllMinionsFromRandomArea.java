@@ -1,8 +1,7 @@
-package game.sequence.visitee;
+package game.action.sequence.visitee;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
-import game.action.sequence.visitee.GameOverException;
 
 public class RemoveAllMinionsFromRandomArea implements IVisitee {
 

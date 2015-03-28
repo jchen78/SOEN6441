@@ -227,11 +227,8 @@ public class GameManager implements IVisitor, IGameInstance
 		return _playerIterator.getPlayer(i);
 	}
 	
-	public ICityArea getCityArea(CityAreaData cityAreaName) {
-		return _cityAreaDatabase.get(cityAreaName);
-	}
 	public static void shuffleArrayOfString(String[] ar)
-   {
+	{
            Random rnd = new Random();
            for (int i = ar.length - 1; i > 0; i--)
            {
@@ -282,12 +279,6 @@ public class GameManager implements IVisitor, IGameInstance
 	public IPlayer getCurrentPlayer() {
 		return _playerStack.empty() ? _playerIterator.getCurrentPlayer() : _playerStack.peek();
 	}
-	
-	@Override
-	public GameManager getGameInstance() {
-		// To be removed. All the relevant methods from GameManager will be moved to IVisitor instead (intended for a later refactor).
-		return this;
-	}
 
 	public PlayerCardName drawPlayerCard() {
 		return _activePlayerCardDeck.drawCard();
@@ -302,10 +293,6 @@ public class GameManager implements IVisitor, IGameInstance
 	public void clearCurrentPlayer() {
 		_playerStack.pop();
 	}
-	
-	public ICityArea[] getAllCityAreas() {
-		return _cityAreaDatabase.values().toArray(new ICityArea[12]);
-	}
 
 	@Override
 	public PlayerCardName drawDiscardedPlayerCard() {
@@ -319,12 +306,12 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 
 	@Override
-	public CityAreaData[] getAllMapAreas() {
-		return _cityAreaDatabase.values().toArray(new CityAreaData[NUMBER_CITY_AREAS]);
+	public ICityArea[] getAllCityAreas() {
+		return _cityAreaDatabase.values().toArray(new ICityArea[NUMBER_CITY_AREAS]);
 	}
 
 	@Override
-	public ICityArea getMapArea(CityAreaData selectedArea) {
+	public ICityArea getCityArea(CityAreaData selectedArea) {
 		return _cityAreaDatabase.get(selectedArea);
 	}
 
@@ -368,7 +355,7 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 
 	@Override
-	public IPlayer getNextPlayer() {
+	public IPlayer iteratePlayer() {
 		return _playerIterator.iterate();
 	}
 }

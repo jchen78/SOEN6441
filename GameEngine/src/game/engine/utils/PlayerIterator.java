@@ -3,7 +3,6 @@ package game.engine.utils;
 import game.core.interfaces.IPlayer;
 import game.core.io.PersistanceManager;
 import game.engine.ConcreteCreator;
-import game.engine.Player;
 import game.error.InvalidOperationException;
 
 // TODO: This class SHOULD be tested; the tests are relevant to the proper implementation of the game.
@@ -16,9 +15,13 @@ public class PlayerIterator {
 	private int _currentIndex;
 	private IPlayer[] _allPlayers;
 	private ConcreteCreator _creator;
+
+	private static int getNumberOfPlayers(String initialState) {
+		return initialState.length() - initialState.replace(PersistanceManager.ROW_SEPARATOR, "").length() + 1;
+	}
 	
 	public PlayerIterator(String initialState) throws IllegalArgumentException, InvalidOperationException {
-		this(initialState.length() - initialState.replace(PersistanceManager.ROW_SEPARATOR, "").length() + 1);
+		this(getNumberOfPlayers(initialState));
 		setState(initialState);
 	}
 	
@@ -56,12 +59,24 @@ public class PlayerIterator {
 	}
 	
 	public IPlayer[] getNonCurrentPlayers() {
+		IPlayer[] nonCurrentPlayers = new IPlayer[_allPlayers.length - 1];
+		for (int i = 0; i < nonCurrentPlayers.length; i++) {
+			int nextIndex = (_currentIndex + i) % _allPlayers.length;
+			nonCurrentPlayers[i - 1] = _allPlayers[nextIndex];
+		}
 		
-		return null;
+		return nonCurrentPlayers;
 	}
 	
 	public String getCurrentState() {
-		return null;
+		String currentState = "";
+		for (IPlayer player : _allPlayers)
+			currentState += PersistanceManager.ROW_SEPARATOR + player.getCurrentState();
+		
+		if (currentState.length() > 0)
+			currentState = currentState.replaceFirst(PersistanceManager.ROW_SEPARATOR, "");
+		
+		return currentState;
 	}
 	
 	public void setState(String currentState) throws IllegalArgumentException, InvalidOperationException {

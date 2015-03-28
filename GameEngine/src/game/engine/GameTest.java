@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.action.sequence.visitee.TurnIterator;
 import game.core.io.MenuSelector;
 import game.core.io.PersistanceManager;
 import game.error.BankException;
@@ -15,6 +16,7 @@ public class GameTest
 		GameManager gm = new GameManager(new ConcreteCreator(), x.new TestPersistanceManager(), new MenuSelector());
 		try {
 			gm.initializeGame();
+			gm.visit(new TurnIterator());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

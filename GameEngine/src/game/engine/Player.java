@@ -1,5 +1,7 @@
 package game.engine;
 
+import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.GameOverException;
 import game.core.enums.CityAreaData;
 import game.core.enums.PersonalityCardName;
 import game.core.enums.PlayerCardName;
@@ -8,7 +10,6 @@ import game.core.interfaces.IGameInstance;
 import game.core.interfaces.IPlayer;
 import game.error.InvalidOperationException;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -203,7 +204,7 @@ public class Player implements IMoneyHolder, IPlayer {
 		int numberAreas = 0;
 		List<ICityArea> currentlyPopulatedAreas = new LinkedList<ICityArea>();
 		for (CityAreaData area : CityAreaData.values()) {
-			ICityArea currentArea = gameInstance.getMapArea(area);
+			ICityArea currentArea = gameInstance.getCityArea(area);
 			if (currentArea.getMinions()[_playerIndex] > 0) {
 				currentlyPopulatedAreas.add(currentArea);
 				numberAreas++;
@@ -219,5 +220,15 @@ public class Player implements IMoneyHolder, IPlayer {
 			throw new IllegalArgumentException();
 		
 		this._numOfPlayerMinions -= numberMinions;
+	}
+
+	@Override
+	public void accept(IVisitor visitor) throws GameOverException {
+		
+	}
+
+	@Override
+	public String getDescription() {
+		return "Choose one player card.";
 	}
 }

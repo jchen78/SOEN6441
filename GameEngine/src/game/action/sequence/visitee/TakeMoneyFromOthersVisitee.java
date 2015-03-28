@@ -19,7 +19,7 @@ public class TakeMoneyFromOthersVisitee implements IVisitee {
 	
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		for (IPlayer player : visitor.getGameInstance().getAllPlayers()) {
+		for (IPlayer player : visitor.getAllPlayers()) {
 			if (player == visitor.getCurrentPlayer())
 				continue;
 			

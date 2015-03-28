@@ -26,8 +26,7 @@ public class TurnVisitee implements IVisitee {
 		// TODO: Offer to save & exit the game
 		
 		// First update the visitor to indicate the current player.
-		GameManager gameInstance = visitor.getGameInstance();
-		IPlayer currentPlayer = gameInstance.getPlayer(_playerName);
+		IPlayer currentPlayer = visitor.getPlayer(_playerName);
 		visitor.setCurrentPlayer(currentPlayer);
 		
 		// Evaluate the player's winning conditions; no prerequisites are related to this action.
@@ -38,7 +37,7 @@ public class TurnVisitee implements IVisitee {
 		LinkedList<IVisitee> currentlyAvailableActions = new LinkedList<IVisitee>();
 		List<IVisitee> playableCards = new LinkedList<IVisitee>();
 		for (PlayerCardName cardName : currentPlayer.getPlayerCards()) {
-			IPlayerCard currentCard = gameInstance.getPlayerCard(cardName);
+			IPlayerCard currentCard = visitor.getPlayerCard(cardName);
 			try {
 				if (currentCard.getCardType().equals(CardType.Playable))
 					playableCards.add(currentCard);
@@ -50,7 +49,7 @@ public class TurnVisitee implements IVisitee {
 		
 		currentlyAvailableActions.add(new SingleActionSelector(playableCards, "player cards."));
 		for (CityAreaData cityAreaName : currentPlayer.getCityCards()) {
-			ICityArea cityCard = gameInstance.getCityArea(cityAreaName);
+			ICityArea cityCard = visitor.getCityArea(cityAreaName);
 			if (cityCard.getCardType().equals(CardType.Playable))
 				currentlyAvailableActions.add(cityCard);
 		}
@@ -59,7 +58,7 @@ public class TurnVisitee implements IVisitee {
 		
 		int numberCardsInHand = currentPlayer.getPlayerCards().length;
 		for (int i = numberCardsInHand; i < 5; i++) {
-			currentPlayer.addPlayerCard(gameInstance.drawPlayerCard());
+			currentPlayer.addPlayerCard(visitor.drawPlayerCard());
 		}
 	}
 

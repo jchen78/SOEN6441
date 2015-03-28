@@ -23,9 +23,8 @@ public class PlaceMinionVisitee implements IVisitee {
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		GameManager gameInstance = visitor.getGameInstance();
 		IPlayer currentPlayer = visitor.getCurrentPlayer();
-		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(currentPlayer.getPopulatedAreas((IGameInstance)gameInstance));
+		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(currentPlayer.getPopulatedAreas(visitor));
 		List<ICityArea> possibleChoices;
 		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
 		
@@ -50,7 +49,7 @@ public class PlaceMinionVisitee implements IVisitee {
 		}
 		
 		if (currentlyPopulatedAreas.size() == 0) {
-			possibleChoices = Arrays.asList(gameInstance.getAllCityAreas());
+			possibleChoices = Arrays.asList(visitor.getAllCityAreas());
 			for (ICityArea mapArea : possibleChoices)
 				translatedChoices.add(new SelectionVisitee(mapArea.getCityAreaName().getDescriptiveName()));
 		}
@@ -59,7 +58,7 @@ public class PlaceMinionVisitee implements IVisitee {
 			for (CityAreaData mapAreaName : CityAreaData.values()) {
 				for (ICityArea populatedArea : currentlyPopulatedAreas) {
 					if (populatedArea.isAdjacent(mapAreaName)) {
-						possibleChoices.add(gameInstance.getCityArea(mapAreaName));
+						possibleChoices.add(visitor.getCityArea(mapAreaName));
 						translatedChoices.add(new SelectionVisitee(mapAreaName.getDescriptiveName()));
 						break;
 					}

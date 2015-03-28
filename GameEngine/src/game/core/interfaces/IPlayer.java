@@ -1,11 +1,20 @@
 package game.core.interfaces;
 
+import game.action.sequence.interfaces.IVisitee;
 import game.core.enums.CityAreaData;
 import game.core.enums.PersonalityCardName;
 import game.core.enums.PlayerCardName;
 import game.error.InvalidOperationException;
 
-public interface IPlayer {
+/**
+ * The class represents a player. As such, it will contain
+ * the data relevant to the player. The <code>accept</code> method will initiate 
+ * the player's turn --i.e., the player will choose one
+ * player card, then perform all actions required (choose to
+ * play the next icon on the card if applicable, or play a city
+ * card if applicable).
+ */
+public interface IPlayer extends IVisitee {
 
 	/**
 	 * Gets the user-friendly player name.

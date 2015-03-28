@@ -1,5 +1,7 @@
 package game.engine;
 
+import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.visitee.GameOverException;
 import game.core.enums.PersonalityCardName;
 import game.core.interfaces.IPersonalityCard;
 import game.error.InvalidEntityNameException;
@@ -77,5 +79,15 @@ public class PersonalityCard extends Card implements IPersonalityCard {
 		if (!PERSONALITY_CARD_EXPLANATION.containsKey(cardName))
 			return null;
 		return PERSONALITY_CARD_EXPLANATION.get(cardName);
+	}
+
+	@Override
+	public void accept(IVisitor visitor) throws GameOverException {
+		
+	}
+
+	@Override
+	public String getDescription() {
+		return "Verifying whether the current player has won the game.";
 	}
 }

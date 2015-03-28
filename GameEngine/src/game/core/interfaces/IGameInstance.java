@@ -1,17 +1,18 @@
 package game.core.interfaces;
 
+import game.action.sequence.visitee.GameOverException;
 import game.core.enums.*;
 
 public interface IGameInstance {
 	// Player card management
-	public PlayerCardName drawPlayerCard();
+	public PlayerCardName drawPlayerCard() throws GameOverException;
 	public PlayerCardName drawDiscardedPlayerCard();
 	public void discardPlayerCard(PlayerCardName discardedCard);
 	public IPlayerCard getPlayerCard(PlayerCardName cardName);
 	
 	// Board management
-	public CityAreaData[] getAllMapAreas();
-	public ICityArea getMapArea(CityAreaData selectedArea);
+	public ICityArea[] getAllCityAreas();
+	public ICityArea getCityArea(CityAreaData selectedArea);
 	
 	// Personality card management
 	public PersonalityCardName drawPersonalityCard();
@@ -24,12 +25,13 @@ public interface IGameInstance {
 	// Player management
 	public void registerNewPlayer(String playerName);
 	public IPlayer getCurrentPlayer();
-	public IPlayer getNextPlayer();
+	public IPlayer iteratePlayer();
 	public IPlayer[] getAllPlayers();
+	IPlayer getPlayer(int playerIndex);
+	IPlayer getPlayer(String playerName);
 	
 	// Game utility functions
 	public void initializeGame() throws Exception;
 	public void persistGame() throws Exception;
 	public int rollDie();
-	IPlayer getPlayer(int playerIndex);
 }

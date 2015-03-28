@@ -23,7 +23,7 @@ public class RemoveMinionVisitee implements IVisitee {
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		IPlayer currentPlayer = visitor.getCurrentPlayer();
-		IPlayer targetPlayer = visitor.getGameInstance().getPlayer(_targetPlayerName);
+		IPlayer targetPlayer = visitor.getPlayer(_targetPlayerName);
 //		MapArea targetArea = visitor.getGameInstance().getMapArea(_targetAreaName);
 //		
 //		if (_targetPlayerName != currentPlayer.getName()) {

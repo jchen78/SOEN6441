@@ -21,7 +21,7 @@ public class RemoveMoneyVisitee implements IVisitee {
 	
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		IPlayer targetPlayer = visitor.getGameInstance().getPlayer(_targetName);
+		IPlayer targetPlayer = visitor.getPlayer(_targetName);
 		int availableFunds = targetPlayer.getMoney();
 		if (availableFunds == 0) {
 			_amount = 0;

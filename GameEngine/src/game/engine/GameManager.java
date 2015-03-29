@@ -251,13 +251,27 @@ public class GameManager implements IVisitor, IGameInstance
 	}
 	
 	@Override
-	public IVisitee selectAction(IVisitee[] choices) {
+	public ISelectable selectAction(ISelectable[] choices) {
 		String[] actionDescriptions = new String[choices.length];
 		for (int i = 0; i < choices.length; i++)
 			actionDescriptions[i] = choices[i].getDescription();
 		
 		int choiceIndex = _menuSelector.getSelection(actionDescriptions);
 		return choices[choiceIndex];
+	}
+
+	@Override
+	public ISelectable selectAction(ISelectable[] availableChoices, ISelectable[] unavailableChoices) {
+		String[] actionDescriptions = new String[availableChoices.length];
+		for (int i = 0; i < availableChoices.length; i++)
+			actionDescriptions[i] = availableChoices[i].getDescription();
+		
+		String[] nonActionDescriptions = new String[unavailableChoices.length];
+		for (int i = 0; i < unavailableChoices.length; i++)
+			nonActionDescriptions[i] = unavailableChoices[i].getDescription();
+		
+		int choiceIndex = _menuSelector.getSelection(actionDescriptions, nonActionDescriptions);
+		return availableChoices[choiceIndex];
 	}
 	
 	@Override

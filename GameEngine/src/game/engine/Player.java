@@ -1,5 +1,6 @@
 package game.engine;
 
+import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.action.sequence.visitee.GameOverException;
 import game.core.enums.CityAreaData;
@@ -8,8 +9,12 @@ import game.core.enums.PlayerCardName;
 import game.core.interfaces.ICityArea;
 import game.core.interfaces.IGameInstance;
 import game.core.interfaces.IPlayer;
+import game.core.interfaces.IPlayerCard;
+import game.core.interfaces.ISelectable;
+import game.error.EntityNotSetException;
 import game.error.InvalidOperationException;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -221,10 +226,57 @@ public class Player implements IMoneyHolder, IPlayer {
 		
 		this._numOfPlayerMinions -= numberMinions;
 	}
+	
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
+		// Choose card and remove it from the player's available cards
+		chooseCard(visitor);
 		
+		// Play card.
+		for (List<IVisitee> possibleActions = getActions(); possibleActions.size() > 0; possibleActions = getActions()) {
+			IVisitee currentAction = (IVisitee)visitor.selectAction(possibleActions.toArray(new IVisitee[possibleActions.size()])); // Arrays are covariant in Java
+			visitor.visit(currentAction);
+		}
+	}
+
+	private List<IVisitee> _cardActions;
+	private void chooseCard(IVisitor visitor) {
+		_cardActions = null;
+		LinkedList<ISelectable> activeCards = new LinkedList<ISelectable>();
+		LinkedList<ISelectable> inactiveCards = new LinkedList<ISelectable>();
+		
+		for (PlayerCardName cardName : _playerCards) {
+			IPlayerCard card = visitor.getPlayerCard(cardName);
+			CardType cardType;
+			try {
+				cardType = card.getCardType();
+			}
+			catch (EntityNotSetException e) {
+				throw new RuntimeException(e);
+			}
+			
+			if (cardType == CardType.Playable)
+				activeCards.add(card);
+			else
+				inactiveCards.add(card);
+		}
+		
+		if (activeCards.size() == 0)
+			return;
+		
+		ISelectable[] allActiveCards = activeCards.toArray(new ISelectable[activeCards.size()]);
+		ISelectable[] allInactiveCards = inactiveCards.toArray(new ISelectable[inactiveCards.size()]);
+		_cardActions = Arrays.asList(((IPlayerCard)visitor.selectAction(allActiveCards, allInactiveCards)).getActions());
+	}
+
+	private List<IVisitee> getActions() {
+		List<IVisitee> possibleActions = new LinkedList<IVisitee>();
+		if (_cardActions != null && _cardActions.size() > 0) {
+			possibleActions.addAll(_cardActions);
+		}
+		
+		return possibleActions;
 	}
 
 	@Override

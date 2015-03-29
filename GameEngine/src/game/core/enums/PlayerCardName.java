@@ -15,7 +15,7 @@ Drumknott("Drumknott"),
 CMOTDibbler("CMOTDibbler"),
 DrCruces("DrCruces"),
 CaptainCarrot("CaptainCarrot"),
-MsCake("MsCake"),
+MrsCake("MrsCake"),
 Groat("Groat"),
 GimletsDwarfDelicatessen("GimletsDwarfDelicatessen"),
 Gaspode("Gaspode"),
@@ -67,12 +67,12 @@ SirCharlesLavatory("SirCharlesLavatory"),
 Dorfl("Dorfl"),
 SergeantDetritus("SergeantDetritus"),
 DeepDwarves("DeepDwarves"),
-AdoraBelleheart("AdoraBelleheart"),
+AdoraBelleDearheart("AdoraBelleDearheart"),
 TheAlchemistsGuild("TheAlchemistsGuild"),
 TheAuditors("TheAuditors"),
 BaggySwipes("BaggySwipes"),
 Susan("Susan"),
-SybilVines("SybilVines"),
+SybilVimes("SybilVimes"),
 MrTeatime("MrTeatime"),
 TheWatch("TheWatch"),
 WeeMadArthur("WeeMadArthur"),
@@ -117,219 +117,178 @@ private final String _cardName;
 
 	@Override
 	public String getDescriptiveName() {
-switch (_cardName) {
-case "MrBoggis":
+		switch (_cardName) {
+		case "MrBoggis":
 				return "Mr Boggis";
-case "MrBent":
+		case "MrBent":
 				return "Mr Bent";
-case "TheBeggarsGuild":
+		case "TheBeggarsGuild":
 				return "The Beggar's Guild";
-case "TheBankOfAnkhMorpork":
+		case "TheBankOfAnkhMorpork":
 				return "The Bank of Ankh-Morpork";
-case "TheAnkhMorporkSunshineDragonSanctuary":
+		case "TheAnkhMorporkSunshineDragonSanctuary":
 				return "The Ankh-Morpork Synshine Dragon Sanctuary";
-case "SergeantAngua":
+		case "SergeantAngua":
 				return "Sergeant Angua";
-case "TheAgonyAunts":
+		case "TheAgonyAunts":
 				return "The Agony Aunts";
-case "TheDysk":
+		case "TheDysk":
 				return "The Dysk";
-case "TheDuckman":
+		case "TheDuckman":
 				return "The Duckman";
-case "Drumknott":
-				return "Drumknott";
-
-
-case "CMOTDibbler":
+		case "CMOTDibbler":
 				return "CMOT Dibbler";
-
-case "DrCruces":
+		case "DrCruces":
 				return "Dr Cruces";
-
-case "CaptainCarrot":
+		case "CaptainCarrot":
 				return "Captain Carrot";
-
-case "MsCake":
-				return "Ms Cake";
-
-case "Groat":
-				return "Groat";
-
-case "GimletsDwarfDelicatessen":
-				return "Gimlets Dwarf Delicatessen";
-
-case "Gaspode":
+		case "MrsCake":
+				return "Mrs Cake";
+		case "GimletsDwarfDelicatessen":
+				return "Gimlet's Dwarf Delicatessen";
+		case "Gaspode":
 				return "Gaspode";
-case "FreshStartClub":
+		case "FreshStartClub":
 				return "Fresh Start Club";
-case "FourOleRon":
+		case "FourOleRon":
 				return "Four Ole Ron";
-case "TheFoolsGuild":
+		case "TheFoolsGuild":
 				return "The Fools' Guild";
-case "TheFireBrigade":
+		case "TheFireBrigade":
 				return "The Fire Brigade";
-case "InigoSkimmer":
+		case "InigoSkimmer":
 				return "Inigo Skimmer";
-case "HistoryMonks":
+		case "HistoryMonks":
 				return "History Monks";
-case "Hex":
-				return "Hex";
-case "HereNNow":
+		case "HereNNow":
 				return "Here'n'Now";
-case "HarryKing":
+		case "HarryKing":
 				return "Harry King";
-case "HargasHouseOfRibs":
+		case "HargasHouseOfRibs":
 				return "Harga's House of Ribs";
-case "MrGryle":
+		case "MrGryle":
 				return "Mr Gryle";
-case "ThePeeledNuts":
+		case "ThePeeledNuts":
 				return "The Peeled Nuts";
-case "TheOperaHouse":
-	return "The Opera House";
-	
-case "NorryNobbs":
+		case "TheOperaHouse":
+			return "The Opera House";
+		case "NorryNobbs":
 				return "Norry Nobbs";
-case "Modo":
-				return "Modo";
-case "TheMendedDrum":
+		case "TheMendedDrum":
 				return "The Mended Drum";
-case "Librarian":
-				return "Librarian";
-case "LeonardOfQuirm":
+		case "LeonardOfQuirm":
 				return "Leonard of Quirm";
-case "ShonkyShop":
+		case "ShonkyShop":
 				return "Shonky Shop";
-case "SacharissaCrisplock":
+		case "SacharissaCrisplock":
 				return "Sacharissa Crisplock";
-case "RosiePalm":
+		case "RosiePalm":
 				return "Rosie Palm";
-case "Rincewind":
-				return "Rincewind";
-case "TheRoyalMint":
+		case "TheRoyalMint":
 				return "The Royal Mint";
-case "QueenMolly":
+		case "QueenMolly":
 				return "Queen Molly";
-case "PinkPussycatClub":
+		case "PinkPussycatClub":
 				return "Pink Pussycat Club";
-case "ZorgoTheRetrophrenologist":
+		case "ZorgoTheRetrophrenologist":
 				return "Zorgo the Retro-phrenologist";
-case "DrWhiteface":
+		case "DrWhiteface":
 				return "Dr Whiteface";
-case "WallaceSponky":
+		case "WallaceSponky":
 				return "Wallace Sponky";
-case "TheSeamstressesGuild":
+		case "TheSeamstressesGuild":
 				return "The Seamstresses' Guild";
-case "MrPinAndMrTulip":
+		case "MrPinAndMrTulip":
 				return "Mr Pin & Mr Tulip";
-case "TheThievesGuild":
+		case "TheThievesGuild":
 				return "The Thieves' Guild";
-case "SergeantCheeryLittlebottom":
+		case "SergeantCheeryLittlebottom":
 				return "Sergeant Cheery Littlebottom";
-case "OttoChriek":
+		case "OttoChriek":
 				return "Otto Chriek";
-case "TheClacks":
+		case "TheClacks":
 				return "The Clack";
-case "SergeantColon":
+		case "SergeantColon":
 				return "Sergeant Colon";
-case "CosmoLavish":
+		case "CosmoLavish":
 				return "Cosmo Lavish";
-case "TheDean":
+		case "TheDean":
 				return "The Dean";
-case "HELLO":
+		case "HELLO":
 				return "HELLO";
-case "BurleighAndStronginthearm":
+		case "BurleighAndStronginthearm":
 				return "Burleigh & Stronginthearm";
-case "TheBursar":
+		case "TheBursar":
 				return "The Bursar";
-case "CableStreetParticulars":
+		case "CableStreetParticulars":
 				return "Cable Street Particulars";
-case "CantingCrew":
+		case "CantingCrew":
 				return "Canting Crew";
-case "Carcer":
-				return "Carcer";
-case "TheChairOfIndefiniteStudies":
+		case "TheChairOfIndefiniteStudies":
 				return "The Chair of Indefinite Studies";
-case "SirCharlesLavatory":
+		case "SirCharlesLavatory":
 				return "Sir Charles Lavatory";
-case "Dorfl":
-				return "Dorfl";
-case "SergeantDetritus":
+		case "SergeantDetritus":
 				return "Sergeant Detritus";
-case "DeepDwarves":
+		case "DeepDwarves":
 				return "Deep Dwarves";
-case "AdoraBelleheart":
-				return "Adora Belleheart";
-case "TheAlchemistsGuild":
+		case "AdoraBelleDearheart":
+				return "Adora Belle Dearheart";
+		case "TheAlchemistsGuild":
 				return "The Alchemists' Guild";
-case "TheAuditors":
+		case "TheAuditors":
 				return "The Auditors";
-case "BaggySwipes":
+		case "BaggySwipes":
 				return "Baggy Swipes";
-case "Susan":
-				return "Susan";
-case "SybilVines":
-				return "Sybil Vines";
-case "MrTeatime":
+		case "SybilVimes":
+				return "Sybil Vimes";
+		case "MrTeatime":
 				return "Mr Teatime";
-case "TheWatch":
+		case "TheWatch":
 				return "The Watch";
-case "WeeMadArthur":
+		case "WeeMadArthur":
 				return "Wee Mad Arthur";
-case "WilliamDeWorde":
+		case "WilliamDeWorde":
 				return "William de Worde";
-case "Willikins":
-				return "Willikins";
-case "ArchchancellorRidcully":
+		case "ArchchancellorRidcully":
 				return "Archchancellor Ridcully";
-case "Ruby":
-				return "Ruby";
-case "TheSeniorWrangler":
+		case "TheSeniorWrangler":
 				return "The Senior Wrangler";
-case "MrShine":
+		case "MrShine":
 				return "Mr Shine";
-case "MrSlant":
+		case "MrSlant":
 				return "Mr Slant";
-case "TheSmokingGnu":
+		case "TheSmokingGnu":
 				return "The Smoking Gnu";
-case "Stanley":
+		case "Stanley":
 				return "Stanley";
-case "MoistVonLipwig":
+		case "MoistVonLipwig":
 				return "Moist von Lipwig";
-case "DoctorMossyLawn":
+		case "DoctorMossyLawn":
 				return "Doctor Mossy Lawn";
-case "PatriciansPalace":
+		case "PatriciansPalace":
 				return "Patrician's Palace";
-case "PonderStibbons":
+		case "PonderStibbons":
 				return "Ponder Stibbons";
-case "ThePostOffice":
+		case "ThePostOffice":
 				return "The Post Office";
-case "ReacherGilt":
+		case "ReacherGilt":
 				return "Reacher Gilt";
-case "ProfessorOfRecentRunes":
+		case "ProfessorOfRecentRunes":
 				return "Professor of Recent Runes";
-case "DoctorHix":
+		case "DoctorHix":
 				return "Doctor Hix";
-case "HobsonsLiveryStable":
-				return "Hobson's Livery Stable";
-case "Hubert":
-				return "Hubert";
-case "Igor":
-				return "Igor";
-case "TheLuggage":
+		case "HobsonsLiveryStable":
+				return "Hobsons' Livery Stable";
+		case "TheLuggage":
 				return "The Luggage";
-case "TheMob":
+		case "TheMob":
 				return "The Mob";
-case "LordDowney":
+		case "LordDowney":
 				return "Lord Downey";
-case "Dwarves":
-				return "Dwarves";
-case "EdwardDeath":
+		case "EdwardDeath":
 				return "Edward d'Eath";
-case "Errol":
-				return "Librarian";
-case "Gargoyles":
-				return "Gargoyles";
-default:
+		default:
 				return _cardName;
 		}
 	}

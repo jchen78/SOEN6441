@@ -15,7 +15,7 @@ public class SingleActionSelector implements IVisitee {
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		_selection = visitor.selectAction(_possibleActions);
+		_selection = (IVisitee)visitor.selectAction(_possibleActions);
 		visitor.visit(_selection);
 	}
 

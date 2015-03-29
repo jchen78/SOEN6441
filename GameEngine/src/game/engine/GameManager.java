@@ -244,35 +244,20 @@ public class GameManager implements IVisitor, IGameInstance
 	   return greenBrownDeck[greenBrownDeckCurrentIndex++];
    }
    
-	private GameManager _gameInstance;
-	private Player _currentPlayer;
-	
-	private Printer _printer;
-	private Selector _selector = new Selector();
-	
-	public void setMode(Printer currentMode) {
-		_printer = currentMode;
-	}
-
 	@Override
-	public void visit(IVisitee visitee) {
-		_printer.print(visitee);
+	public void visit(IVisitee visitee) throws GameOverException {
+		System.out.println(visitee.getDescription());
+		visitee.accept(this);
+	}
+	
+	@Override
+	public IVisitee selectAction(IVisitee[] choices) {
+		String[] actionDescriptions = new String[choices.length];
+		for (int i = 0; i < choices.length; i++)
+			actionDescriptions[i] = choices[i].getDescription();
 		
-		try {
-			visitee.accept(this);
-		} catch (GameOverException e) {
-			// TODO
-			// Choose winner according to personality card
-			// Display winner
-			// Clean up & exit.
-		}
-	}
-	
-	@Override
-	public IVisitee selectAction(List<IVisitee> choices) {
-		_printer.print(choices);
-		_selector.select(choices);
-		return choices.get(_selector.getSelectedIndex());
+		int choiceIndex = _menuSelector.getSelection(actionDescriptions);
+		return choices[choiceIndex];
 	}
 	
 	@Override

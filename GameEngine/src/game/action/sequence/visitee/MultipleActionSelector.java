@@ -15,7 +15,8 @@ public class MultipleActionSelector implements IVisitee {
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		while (_nonExclusiveActions.size() > 0) {
-			IVisitee selectedAction = visitor.selectAction(_nonExclusiveActions);
+			IVisitee[] currentChoices = _nonExclusiveActions.toArray(new IVisitee[_nonExclusiveActions.size()]);
+			IVisitee selectedAction = visitor.selectAction(currentChoices);
 			_nonExclusiveActions.remove(selectedAction);
 			visitor.visit(selectedAction);
 		}

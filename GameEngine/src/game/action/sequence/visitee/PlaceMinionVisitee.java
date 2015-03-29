@@ -24,7 +24,8 @@ public class PlaceMinionVisitee implements IVisitee {
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		IPlayer currentPlayer = visitor.getCurrentPlayer();
-		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(currentPlayer.getPopulatedAreas(visitor));
+		ICityArea[] originalPopulatedAreas = currentPlayer.getPopulatedAreas(visitor);
+		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(originalPopulatedAreas);
 		List<ICityArea> possibleChoices;
 		List<IVisitee> translatedChoices = new LinkedList<IVisitee>();
 		
@@ -33,7 +34,7 @@ public class PlaceMinionVisitee implements IVisitee {
 			for (ICityArea populatedArea : currentlyPopulatedAreas)
 				areasForRemoval.add(new SelectionVisitee(populatedArea.getCityAreaName().getDescriptiveName()));
 			
-			SingleActionSelector removalSelector = new SingleActionSelector(translatedChoices, "map areas");
+			SingleActionSelector removalSelector = new SingleActionSelector(originalPopulatedAreas, "map areas");
 			removalSelector.accept(visitor);
 			SelectionVisitee selection = (SelectionVisitee)removalSelector.getSelection();
 			
@@ -66,7 +67,8 @@ public class PlaceMinionVisitee implements IVisitee {
 			}
 		}
 		
-		SingleActionSelector selector = new SingleActionSelector(translatedChoices, "map areas");
+		IVisitee[] areasForPlacement = translatedChoices.toArray(new IVisitee[translatedChoices.size()]);
+		SingleActionSelector selector = new SingleActionSelector(areasForPlacement, "map areas");
 		selector.accept(visitor);
 		SelectionVisitee selection = (SelectionVisitee)selector.getSelection();
 		for (ICityArea mapArea : possibleChoices) {

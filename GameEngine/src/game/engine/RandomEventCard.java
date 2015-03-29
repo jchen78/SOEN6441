@@ -1,7 +1,11 @@
 package game.engine;
 
 import game.action.sequence.interfaces.IVisitee;
-import game.action.sequence.visitee.RemoveAllMinionsFromRandomArea;
+import game.action.sequence.visitee.GetRandomAreaVisitee;
+import game.action.sequence.visitee.RemoveAllBuildingsFromArea;
+import game.action.sequence.visitee.RemoveAllDemonsFromArea;
+import game.action.sequence.visitee.RemoveAllMinionsFromArea;
+import game.action.sequence.visitee.RemoveTroubleMarkerFromArea;
 import game.core.enums.RandomEventCardName;
 import game.core.interfaces.IRandomEventCard;
 
@@ -20,7 +24,11 @@ public class RandomEventCard implements IRandomEventCard {
 		
 		switch (_cardName) {
 			case TheDragon:
-				_actions.add(new RemoveAllMinionsFromRandomArea());
+				_actions.add(new GetRandomAreaVisitee());
+				_actions.add(new RemoveAllMinionsFromArea());
+				_actions.add(new RemoveAllDemonsFromArea());
+				_actions.add(new RemoveTroubleMarkerFromArea());
+				_actions.add(new RemoveAllBuildingsFromArea());
 				break;
 			default:
 				// TODO : fill in all other cards

@@ -62,7 +62,7 @@ public class PlayerIterator {
 		IPlayer[] nonCurrentPlayers = new IPlayer[_allPlayers.length - 1];
 		for (int i = 0; i < nonCurrentPlayers.length; i++) {
 			int nextIndex = (_currentIndex + i) % _allPlayers.length;
-			nonCurrentPlayers[i - 1] = _allPlayers[nextIndex];
+			nonCurrentPlayers[i] = _allPlayers[nextIndex];
 		}
 		
 		return nonCurrentPlayers;

@@ -34,4 +34,5 @@ public interface IGameInstance {
 	public void initializeGame() throws Exception;
 	public void persistGame() throws Exception;
 	public int rollDie();
+	void close();
 }

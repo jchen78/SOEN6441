@@ -19,15 +19,16 @@ public class TakeMoneyFromOthersVisitee implements IVisitee {
 	
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
-		for (IPlayer player : visitor.getAllPlayers()) {
-			if (player == visitor.getCurrentPlayer())
+		IPlayer activePlayer = visitor.getCurrentPlayer();
+		for (IPlayer targetPlayer : visitor.getAllPlayers()) {
+			if (targetPlayer == activePlayer)
 				continue;
 			
-			RemoveMoneyVisitee currentAction = new RemoveMoneyVisitee(player.getName(), _amount, _actionType, _actionName);
+			RemoveMoneyVisitee currentAction = new RemoveMoneyVisitee(targetPlayer.getName(), _amount, _actionType, _actionName);
 			visitor.visit(currentAction);
 			
 			try {
-				player.addMoney(currentAction.getAmountRemoved());
+				activePlayer.addMoney(currentAction.getAmountRemoved());
 			} catch (InvalidOperationException e) {
 				e.printStackTrace();
 			}

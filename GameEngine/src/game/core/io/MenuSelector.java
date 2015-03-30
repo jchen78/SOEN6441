@@ -3,6 +3,12 @@ package game.core.io;
 import java.util.Scanner;
 
 public class MenuSelector {
+	private Scanner _input;
+	
+	public MenuSelector() {
+		_input = new Scanner(System.in);
+	}
+
 	public String getValue() {
 		return null;
 	}
@@ -10,8 +16,6 @@ public class MenuSelector {
 	public int getSelection(String... choices) {
 		int selection = -1;
 		boolean isSelectionValid = true;
-		
-		Scanner input = new Scanner(System.in);
 		
 		do {
 			if (!isSelectionValid)
@@ -22,19 +26,15 @@ public class MenuSelector {
 				System.out.println("\t" + (i + 1) + " - " + choices[i]);
 			
 			System.out.print(System.lineSeparator() + "Please enter the number corresponding to your choice: ");
-			selection = input.nextInt();
+			selection = _input.nextInt();
 		} while (selection > choices.length || selection < 1);
 		
-		
-		input.close();
 		return selection - 1;
 	}
 	
 	public int getSelection(String[] choices, String[] nonSelectableChoices) {
 		int selection = -1;
 		boolean isSelectionValid = true;
-		
-		Scanner input = new Scanner(System.in);
 		
 		do {
 			if (!isSelectionValid)
@@ -47,11 +47,13 @@ public class MenuSelector {
 				System.out.println("\t (N/A) - " + choices[i]);
 			
 			System.out.print(System.lineSeparator() + "Please enter the number corresponding to your choice: ");
-			selection = input.nextInt();
+			selection = _input.nextInt();
 		} while (selection > choices.length || selection < 1);
 		
-		
-		input.close();
 		return selection - 1;
+	}
+	
+	public void close() {
+		_input.close();
 	}
 }

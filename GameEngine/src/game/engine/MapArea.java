@@ -32,7 +32,8 @@ public class MapArea implements IEntity, ICityArea {
 		this._buildingOwner = null;
 	}
     
-	public MapArea(String initialState) {
+	public MapArea(String initialState) throws InvalidOperationException {
+		setCurrentState(initialState);
 	}
 
 	/**
@@ -201,10 +202,12 @@ public class MapArea implements IEntity, ICityArea {
 		if (dataParts.length < 7 || dataParts.length > 8)
 			throw new InvalidOperationException("Serialized data must be valid.");
 		
+		_cardStats = CityAreaData.valueOf(dataParts[0]);
+		
 		int[] formattedDataParts = new int[7];
 		for (int i = 0; i < 7; i++)
 			try {
-				formattedDataParts[i] = Integer.parseInt(dataParts[i]);
+				formattedDataParts[i] = Integer.parseInt(dataParts[i + 1]);
 			} catch (Exception e) {
 				throw new InvalidOperationException("Serialized data must be valid.");
 			}

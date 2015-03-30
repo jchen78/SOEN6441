@@ -21,6 +21,9 @@ public class GameTest
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		finally {
+			gm.close();
+		}
 		//gm.printMenu();
 	}
 	
@@ -33,7 +36,7 @@ public class GameTest
 				"one;red;6;12;CommanderVimes;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "two;green;6;12;DragonKingOfArms;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "three;blue;6;12;LordDeWorde;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "four;yellow;6;12;LordRust;10;MrBoggis",
 				"",
 				"ActivePlayerCardDeck",
-				"MsCake",
+				"MrsCake",
 				"",
 				"DiscardedPlayerCardDeck",
 				"",
@@ -51,7 +54,18 @@ public class GameTest
 				"",
 				"",
 				"CityAreas",
-				"",
+				"DollySisters;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"UnrealEstate;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"DragonsLanding;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"SmallGod;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"TheScours;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"TheHippo;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"TheShades;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"Dimwell;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"LongWall;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"IsleOfGod;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"SevenSleepers;0;0;0;0;0;0;0" + PersistanceManager.ROW_SEPARATOR +
+				"NapHill;0;0;0;0;0;0;0",
 				""
 			};
 		}

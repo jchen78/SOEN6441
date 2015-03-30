@@ -2,7 +2,7 @@ package game.core.enums;
 
 public enum PlayerCardName implements ICardName {
 	
-MrBoggis("MrBoggis"),
+MrBoggis("MrBoggis", "Green"),
 MrBent("MrBent"),
 TheBeggarsGuild("TheBeggarsGuild"),
 TheBankOfAnkhMorpork("TheBankOfAnkhMorpork"),
@@ -105,9 +105,16 @@ Errol("Errol"),
 Gargoyles("Gargoyles");
 
 private final String _cardName;
+private final String _borderColor;
+	
+	private PlayerCardName(String cardName, String borderColor) {
+		_cardName = cardName;
+		_borderColor = borderColor;
+	}
 	
 	private PlayerCardName(String cardName) {
 		_cardName = cardName;
+		_borderColor = "Brown";
 	}
 	
 	@Override
@@ -127,7 +134,7 @@ private final String _cardName;
 		case "TheBankOfAnkhMorpork":
 				return "The Bank of Ankh-Morpork";
 		case "TheAnkhMorporkSunshineDragonSanctuary":
-				return "The Ankh-Morpork Synshine Dragon Sanctuary";
+				return "The Ankh-Morpork Sunshine Dragon Sanctuary";
 		case "SergeantAngua":
 				return "Sergeant Angua";
 		case "TheAgonyAunts":
@@ -215,7 +222,7 @@ private final String _cardName;
 		case "TheDean":
 				return "The Dean";
 		case "HELLO":
-				return "HELLO";
+				return "'HELLO'";
 		case "BurleighAndStronginthearm":
 				return "Burleigh & Stronginthearm";
 		case "TheBursar":
@@ -291,5 +298,9 @@ private final String _cardName;
 		default:
 				return _cardName;
 		}
+	}
+
+	public String getColor() {
+		return _borderColor;
 	}
 };

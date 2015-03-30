@@ -40,35 +40,4 @@ public class PlayerCardTests {
 		try { _playerCard.getBorderColor(); } catch (EntityNotSetException e) { expectedException = e; }
 		assertNotNull(expectedException);
 	}
-
-	public void WhenInitializingWithGreenBorderedCardNameShouldInitializeBorderColorToGreen() throws InvalidEntityNameException, EntityNotSetException {
-		List<PlayerCard> greenBorderedCards = new LinkedList<PlayerCard>();
-		PlayerCard currentCard;
-		
-		for (String cardName : PlayerCard.getGreenBorderedCardNames()) {
-			currentCard = new PlayerCard(cardName);
-			currentCard.setEntity(cardName);
-			greenBorderedCards.add(currentCard);
-		}
-		
-		for (PlayerCard verifiedCard : greenBorderedCards) {
-			assertEquals("Green", verifiedCard.getBorderColor());
-		}
-	}
-
-
-	public void WhenInitializingWithBrownBorderedCardNameShouldInitializeBorderColorToBrown() throws InvalidEntityNameException, EntityNotSetException {
-		List<PlayerCard> brownBorderedCards = new LinkedList<PlayerCard>();
-		PlayerCard currentCard;
-		
-		for (String cardName : PlayerCard.getBrownBorderedCardNames()) {
-			currentCard = new PlayerCard(cardName);
-			currentCard.setEntity(cardName);
-			brownBorderedCards.add(currentCard);
-		}
-		
-		for (PlayerCard verifiedCard : brownBorderedCards) {
-			assertEquals("Brown", verifiedCard.getBorderColor());
-		}
-	}
 }

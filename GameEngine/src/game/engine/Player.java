@@ -236,6 +236,7 @@ public class Player implements IMoneyHolder, IPlayer {
 		// Play card.
 		for (List<IVisitee> possibleActions = getActions(); possibleActions.size() > 0; possibleActions = getActions()) {
 			IVisitee currentAction = (IVisitee)visitor.selectAction(possibleActions.toArray(new IVisitee[possibleActions.size()])); // Arrays are covariant in Java
+			_cardActions.remove(currentAction);
 			visitor.visit(currentAction);
 		}
 	}
@@ -267,13 +268,14 @@ public class Player implements IMoneyHolder, IPlayer {
 		
 		ISelectable[] allActiveCards = activeCards.toArray(new ISelectable[activeCards.size()]);
 		ISelectable[] allInactiveCards = inactiveCards.toArray(new ISelectable[inactiveCards.size()]);
-		_cardActions = Arrays.asList(((IPlayerCard)visitor.selectAction(allActiveCards, allInactiveCards)).getActions());
+		IPlayerCard selectedAction = (IPlayerCard)visitor.selectAction(allActiveCards, allInactiveCards);
+		_cardActions = new LinkedList<IVisitee>(Arrays.asList(selectedAction.getActions()));
 	}
 
 	private List<IVisitee> getActions() {
 		List<IVisitee> possibleActions = new LinkedList<IVisitee>();
 		if (_cardActions != null && _cardActions.size() > 0) {
-			possibleActions.addAll(_cardActions);
+			possibleActions.add(_cardActions.get(0));
 		}
 		
 		return possibleActions;

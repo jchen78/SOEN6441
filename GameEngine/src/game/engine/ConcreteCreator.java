@@ -11,7 +11,7 @@ public class ConcreteCreator {
 		return player;
 	}
 	
-	public ICityArea createCity(String initialState) {
+	public ICityArea createCity(String initialState) throws InvalidOperationException {
 		return new MapArea(initialState);
 	}
 

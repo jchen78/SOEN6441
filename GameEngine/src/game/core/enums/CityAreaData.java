@@ -9,7 +9,7 @@ public enum CityAreaData implements ICardName {
 	TheHippo("TheHippo"),
 	TheShades("TheShades"),
 	Dimwell("Dimwell"),
-	LongWall("Longwall"),
+	LongWall("LongWall"),
 	IsleOfGod("IsleOfGod"),
 	SevenSleepers("SevenSleepers"),
 	NapHill("NapHill");

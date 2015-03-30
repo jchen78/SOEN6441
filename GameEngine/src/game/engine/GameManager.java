@@ -168,11 +168,11 @@ public class GameManager implements IVisitor, IGameInstance
 		setMapState(currentState.get("CityAreas"));
 	}
 
-	private void setMapState(String currentState) {
+	private void setMapState(String currentState) throws InvalidOperationException {
 		_cityAreaDatabase = new HashMap<CityAreaData, ICityArea>(12);
 		String[] cityStates = currentState.split(PersistanceManager.ROW_SEPARATOR);
 		for (String cityState : cityStates) {
-			ICityArea currentCity =  _creator.createCity(cityState);
+			ICityArea currentCity = _creator.createCity(cityState);
 			_cityAreaDatabase.put(currentCity.getCityAreaName(), currentCity);
 		}
 	}
@@ -356,5 +356,10 @@ public class GameManager implements IVisitor, IGameInstance
 	@Override
 	public IPlayer iteratePlayer() {
 		return _playerIterator.iterate();
+	}
+	
+	@Override
+	public void close() {
+		_menuSelector.close();
 	}
 }

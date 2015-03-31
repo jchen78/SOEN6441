@@ -296,19 +296,19 @@ public class MapArea implements IEntity, ICityArea {
 				throw new InvalidOperationException("Serialized data must be valid.");
 			}
 
-		_isTroubleMarkerSet = formattedDataParts[0] == 1;
-
 		_minions = new int[4];
 		_minions[0] = formattedDataParts[1];
 		_minions[1] = formattedDataParts[2];
 		_minions[2] = formattedDataParts[3];
 		_minions[3] = formattedDataParts[4];
 
+		if (dataParts.length == 8 && dataParts[7] != null && dataParts[7].length() > 0)
+			addBuilding(dataParts[7]);
+
 		setNumberDemons(formattedDataParts[5]);
 		setNumberTrolls(formattedDataParts[6]);
 
-		if (dataParts.length == 8 && dataParts[7] != null && dataParts[7].length() > 0)
-			addBuilding(dataParts[7]);
+		_isTroubleMarkerSet = formattedDataParts[0] == 1;
 	}
 
 	@Override

@@ -198,7 +198,7 @@ public class MapAreaTest {
 		
 		String s = ma.getCurrentState();
 		System.out.println(s);
-		String serializedData = "1;0;0;2;0;0;0;";
+		String serializedData = "LongWall;0;0;0;2;0;0;0;";
 		
 		ma.setCurrentState(serializedData);
 		assertEquals(2, ma.getMinions()[mockPlayerIndex]);

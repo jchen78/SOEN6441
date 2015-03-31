@@ -37,6 +37,7 @@ public class MapArea implements IEntity, ICityArea {
 	private int _number;
 	private String _buildingOwner;
 	private boolean _isTroubleMarkerSet;
+	private boolean _areActionsAvailable;
 	private int _numberDemons;
 	private int _numberTrolls;
 	private int[] _minions = new int[4]; //indicates how many minions each player has in that area
@@ -239,6 +240,7 @@ public class MapArea implements IEntity, ICityArea {
 	 * Gets the ID of the player owning the building, if any.
 	 * @return null if no building is constructed, or the index of the owning player otherwise.
 	 */
+	@Override
 	public String getBuildingOwner() {
 		return _buildingOwner;
 	}
@@ -371,5 +373,19 @@ public class MapArea implements IEntity, ICityArea {
 	private void addMinions(int playerIndex, int numberMinions) {
 		_minions[playerIndex] += numberMinions;
 		_isTroubleMarkerSet = shouldSetTroubleMarker();
+	}
+	
+	@Override
+	public boolean areActionsAvailable() {
+		// TODO Auto-generated method stub
+		return _areActionsAvailable;
+	}
+	@Override
+	public boolean isCardActive() {
+		return _numberDemons == 0;
+	}
+	@Override
+	public void setCardStatus(boolean areActionsAvailable) {
+		_areActionsAvailable = areActionsAvailable;
 	}
 }

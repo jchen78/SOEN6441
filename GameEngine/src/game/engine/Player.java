@@ -231,6 +231,8 @@ public class Player implements IMoneyHolder, IPlayer {
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException {
 		// Choose card and remove it from the player's available cards
+		_usedCards = new LinkedList<PlayerCardName>();
+		_availableCities = new LinkedList<ICityArea>();
 		chooseCard(visitor);
 		
 		// Play card.
@@ -239,8 +241,15 @@ public class Player implements IMoneyHolder, IPlayer {
 			_cardActions.remove(currentAction);
 			visitor.visit(currentAction);
 		}
+		
+		for (PlayerCardName usedCard : _usedCards) {
+			_playerCards.remove(usedCard);
+			visitor.discardPlayerCard(usedCard);
+		}
 	}
-
+	
+	private List<ICityArea> _availableCities;
+	private List<PlayerCardName> _usedCards;
 	private List<IVisitee> _cardActions;
 	private void chooseCard(IVisitor visitor) {
 		_cardActions = null;
@@ -270,6 +279,7 @@ public class Player implements IMoneyHolder, IPlayer {
 		ISelectable[] allInactiveCards = inactiveCards.toArray(new ISelectable[inactiveCards.size()]);
 		IPlayerCard selectedAction = (IPlayerCard)visitor.selectAction(allActiveCards, allInactiveCards);
 		_cardActions = new LinkedList<IVisitee>(Arrays.asList(selectedAction.getActions()));
+		_usedCards.add(selectedAction.getName());
 	}
 
 	private List<IVisitee> getActions() {

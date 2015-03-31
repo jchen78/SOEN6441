@@ -11,6 +11,9 @@ public interface ICityArea extends IVisitee {
 	public String getCurrentState();
 	public CardType getCardType();
 	public boolean isAdjacent(CityAreaData areaName);
+	public boolean areActionsAvailable();
+	public boolean isCardActive();
+	public void setCardStatus(boolean areActionsAvailable);
 	
 	/**
 	 * This method completes the action of depositing minions on the city area instance. All
@@ -32,4 +35,5 @@ public interface ICityArea extends IVisitee {
 	 * @throws InvalidOperationException Thrown when the serialized data is in an invalid format or contains invalid data.
 	 */
 	void setCurrentState(String serializedData) throws InvalidOperationException;
+	public String getBuildingOwner();
 }

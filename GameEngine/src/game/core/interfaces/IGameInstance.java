@@ -13,6 +13,7 @@ public interface IGameInstance {
 	// Board management
 	public ICityArea[] getAllCityAreas();
 	public ICityArea getCityArea(CityAreaData selectedArea);
+	ICityArea[] getActiveCityCardsForPlayer(IPlayer player);
 	
 	// Personality card management
 	public PersonalityCardName drawPersonalityCard();

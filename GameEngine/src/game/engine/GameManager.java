@@ -308,6 +308,23 @@ public class GameManager implements IVisitor, IGameInstance
 	public ICityArea[] getAllCityAreas() {
 		return _cityAreaDatabase.values().toArray(new ICityArea[NUMBER_CITY_AREAS]);
 	}
+	
+	@Override
+	public ICityArea[] getActiveCityCardsForPlayer(IPlayer player) {
+		int numberAreas = 0;
+		LinkedList<ICityArea> relevantAreas = new LinkedList<ICityArea>();
+		for (CityAreaData cityKey : CityAreaData.values()) {
+			ICityArea currentArea = _cityAreaDatabase.get(cityKey);
+			if (currentArea.getBuildingOwner().equals(player.getName())
+				&& currentArea.areActionsAvailable()
+				&& currentArea.isCardActive()) {
+				relevantAreas.add(currentArea);
+				numberAreas++;
+			}
+		}
+		
+		return relevantAreas.toArray(new ICityArea[numberAreas]);
+	}
 
 	@Override
 	public ICityArea getCityArea(CityAreaData selectedArea) {

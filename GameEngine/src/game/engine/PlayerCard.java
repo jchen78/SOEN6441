@@ -657,4 +657,9 @@ public class PlayerCard extends Card implements IPlayerCard {
 	public IVisitee[] getActions() {
 		return allActions.toArray(new IVisitee[allActions.size()]);
 	}
+
+	@Override
+	public PlayerCardName getName() {
+		return _playerCardName;
+	}
 }

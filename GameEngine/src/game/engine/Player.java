@@ -232,13 +232,17 @@ public class Player implements IMoneyHolder, IPlayer {
 	public void accept(IVisitor visitor) throws GameOverException {
 		// Choose card and remove it from the player's available cards
 		_usedCards = new LinkedList<PlayerCardName>();
-		_availableCities = new LinkedList<ICityArea>();
+		_availableCities = new LinkedList<IVisitee>();
 		chooseCard(visitor);
+		for (ICityArea currentArea : visitor.getAllCityAreas())
+			if (currentArea.getBuildingOwner().equals(_playerName))
+				_availableCities.add(currentArea);
 		
 		// Play card.
 		for (List<IVisitee> possibleActions = getActions(); possibleActions.size() > 0; possibleActions = getActions()) {
 			IVisitee currentAction = (IVisitee)visitor.selectAction(possibleActions.toArray(new IVisitee[possibleActions.size()])); // Arrays are covariant in Java
 			_cardActions.remove(currentAction);
+			_availableCities.remove(currentAction);
 			visitor.visit(currentAction);
 		}
 		
@@ -248,7 +252,7 @@ public class Player implements IMoneyHolder, IPlayer {
 		}
 	}
 	
-	private List<ICityArea> _availableCities;
+	private List<IVisitee> _availableCities;
 	private List<PlayerCardName> _usedCards;
 	private List<IVisitee> _cardActions;
 	private void chooseCard(IVisitor visitor) {
@@ -286,6 +290,11 @@ public class Player implements IMoneyHolder, IPlayer {
 		List<IVisitee> possibleActions = new LinkedList<IVisitee>();
 		if (_cardActions != null && _cardActions.size() > 0) {
 			possibleActions.add(_cardActions.get(0));
+			for (IVisitee cityVisitee : _availableCities) {
+				ICityArea currentCity = (ICityArea)cityVisitee;
+				if (currentCity.areActionsAvailable())
+					possibleActions.add(currentCity);
+			}
 		}
 		
 		return possibleActions;

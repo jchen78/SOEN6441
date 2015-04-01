@@ -26,8 +26,8 @@ public class RemoveAllDemonsFromArea implements IVisitee {
 	 */
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+	
+			return "Remove all demons from the area affected";
 	}
 
 }

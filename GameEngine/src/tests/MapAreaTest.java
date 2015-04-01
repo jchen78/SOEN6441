@@ -190,8 +190,6 @@ public class MapAreaTest {
 		assertEquals(minionsToAdd, valueAfter - valueBefore);
 		
 	}
-
-	
 	
 	@Test
 	public void testSetCurrentState() throws InvalidOperationException {
@@ -202,6 +200,22 @@ public class MapAreaTest {
 		
 		ma.setCurrentState(serializedData);
 		assertEquals(2, ma.getMinions()[mockPlayerIndex]);
+		
+	}
+	
+	@Test
+	public void testSetCurrentStateForException() {
+		
+		String s = ma.getCurrentState();
+		System.out.println(s);
+		String serializedData = "LongWall;0;0;0;5;0;2;1;";
+		
+		try {
+			ma.setCurrentState(serializedData);
+			assertNotEquals(2, ma.getMinions()[mockPlayerIndex]);
+		} catch (InvalidOperationException e) {
+			System.out.println("Serialzed Data is not valid");		}
+		
 		
 	}
 	

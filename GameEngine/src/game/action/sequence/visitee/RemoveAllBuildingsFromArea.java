@@ -13,8 +13,8 @@ public class RemoveAllBuildingsFromArea implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	   return "Remove any building from the area affected";
 	}
 
 }

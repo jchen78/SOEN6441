@@ -19,7 +19,7 @@ public class OptionalActionVisitee implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		return _action[0].getDescription();
+		return _action[0].getDescription() + " (Optional action: further choose whether to skip.)";
 	}
 
 }

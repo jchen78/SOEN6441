@@ -11,6 +11,7 @@ import game.action.sequence.visitee.DiscardCard;
 import game.action.sequence.visitee.DrawCardsFromDiscardPile;
 import game.action.sequence.visitee.DrawCardsFromDrawDeck;
 import game.action.sequence.visitee.LookAtUnusedPersonalityCard;
+import game.action.sequence.visitee.OptionalActionVisitee;
 import game.action.sequence.visitee.PlaceBuilding;
 import game.action.sequence.visitee.PlaceMinionVisitee;
 import game.action.sequence.visitee.PlayCardVisitee;
@@ -48,8 +49,8 @@ public class PlayerCard extends Card implements IPlayerCard {
 		switch (name) {
 		case MrBoggis:
 			_cardType = CardType.Playable;
-			allActions.add(new TakeMoneyFromOthersVisitee(2, ActionType.PlayerCardText, ActionName.TakeMoney));
-			allActions.add(new PlaceMinionVisitee(ActionType.PlayerCardIcon));
+			allActions.add(new OptionalActionVisitee(new TakeMoneyFromOthersVisitee(2, ActionType.PlayerCardText, ActionName.TakeMoney)));
+			allActions.add(new OptionalActionVisitee(new PlaceMinionVisitee(ActionType.PlayerCardIcon)));
 			break;
 		case MrBent:
 			allActions.add(new TakeLoanFromBankVisitee());

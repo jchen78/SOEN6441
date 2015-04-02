@@ -13,8 +13,8 @@ public class DrawCardsFromDiscardPile implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "Draw card from Discard pile";
 	}
 
 }

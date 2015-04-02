@@ -31,6 +31,9 @@ public interface IGameInstance {
 	IPlayer getPlayer(int playerIndex);
 	IPlayer getPlayer(String playerName);
 	
+	// --------------------- added
+	public int getNumberOfPlayers();
+	
 	// Game utility functions
 	public void initializeGame() throws Exception;
 	public void persistGame() throws Exception;

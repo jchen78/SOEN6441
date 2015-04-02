@@ -13,8 +13,8 @@ public class TakeLoanFromBankVisitee implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "Take loan from the bank";
 	}
 
 }

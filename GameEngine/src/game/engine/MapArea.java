@@ -68,7 +68,7 @@ public class MapArea implements IEntity, ICityArea {
 			break;
 			
 		case DragonsLanding:
-			_actions.add(new TakeMoneyFromBank());
+			_actions.add(new TakeMoneyFromBank(2));
 			break;
 
 		case IsleOfGod:
@@ -77,15 +77,15 @@ public class MapArea implements IEntity, ICityArea {
 			break;
 
 		case LongWall:
-			_actions.add(new TakeMoneyFromBank());
+			_actions.add(new TakeMoneyFromBank(1));
 			break;
 
 		case NapHill:
-			_actions.add(new TakeMoneyFromBank());
+			_actions.add(new TakeMoneyFromBank(1));
 			break;
 
 		case SevenSleepers:
-			_actions.add(new TakeMoneyFromBank());
+			_actions.add(new TakeMoneyFromBank(3));
 			break;
 
 		case SmallGod:
@@ -94,12 +94,12 @@ public class MapArea implements IEntity, ICityArea {
 			break;
 
 		case TheHippo:
-			_actions.add(new TakeMoneyFromBank());
+			_actions.add(new TakeMoneyFromBank(2));
 			break;
 
 		case TheScours:
-			_actions.add(new TakeMoneyFromBank());
 			_actions.add(new DiscardCard());
+			_actions.add(new TakeMoneyFromBank(2));
 			break;
 
 		case TheShades:

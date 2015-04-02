@@ -147,9 +147,11 @@ public class GameManager implements IVisitor, IGameInstance
 		return null;
 	}
 	
-	private HashMap<String, String> retrieveExistingGameData() {
+	private HashMap<String, String> retrieveExistingGameData() throws IllegalArgumentException, IOException {
 		// TODO Get the filename
 		String filename = "";
+		System.out.println("Please enter the filename: ");
+		filename = _menuSelector.getValue();
 		return getState(_persistanceManager.retrieve(filename));
 	}
 	
@@ -187,7 +189,7 @@ public class GameManager implements IVisitor, IGameInstance
 		}
 	}
 	
-	public void persistGame() throws Exception {
+	public void persistGame(String identifier) throws Exception {
 		LinkedList<String> currentState = new LinkedList<String>();
 		addStateData(currentState, "Players", _playerIterator.getCurrentState());
 		addStateData(currentState, "ActivePlayerCardDeck", _activePlayerCardDeck.getCurrentState());
@@ -195,7 +197,7 @@ public class GameManager implements IVisitor, IGameInstance
 		addStateData(currentState, "RandomEventCardDeck", _activeRandomEventCardDeck.getCurrentState());
 		addStateData(currentState, "CityAreas", getMapState());
 		
-		_persistanceManager.persist(currentState.toArray(new String[currentState.size()]));
+		_persistanceManager.persist(identifier, currentState.toArray(new String[currentState.size()]));
 	}
 	
 	private String getMapState() {
@@ -289,8 +291,12 @@ public class GameManager implements IVisitor, IGameInstance
 		return _playerStack.empty() ? _playerIterator.getCurrentPlayer() : _playerStack.peek();
 	}
 
-	public PlayerCardName drawPlayerCard() {
-		return _activePlayerCardDeck.drawCard();
+	public PlayerCardName drawPlayerCard() throws GameOverException {
+		PlayerCardName drawnCard = _activePlayerCardDeck.drawCard();
+		if (drawnCard == null)
+			throw new GameOverException();
+		
+		return drawnCard;
 	}
 
 	@Override

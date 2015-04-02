@@ -5,6 +5,7 @@ import game.action.sequence.interfaces.IVisitor;
 import game.core.enums.PlayerCardName;
 import game.core.interfaces.IPersonalityCard;
 import game.core.interfaces.IPlayer;
+import game.core.interfaces.IPlayerCard;
 import game.error.EntityNotSetException;
 import game.error.InvalidOperationException;
 
@@ -34,8 +35,10 @@ public class TurnIterator implements IVisitee {
 		
 		IPersonalityCard currentPersonality = _visitor.getPersonalityCard(_currentPlayer.getPersonality());
 		currentPersonality.accept(_visitor); // This verifies whether the card has met the winning conditions.
-		if (++i == 2)
-			throw new GameOverException();
+		System.out.println("Current player: " + _currentPlayer.getName() + " (" + _currentPlayer.getplayercolor() + ")");
+		System.out.println("\t" + "Number of minions in hand: " + _currentPlayer.getNumberOfMinionsInHand());
+		System.out.println("\t" + "Number of buildings in hand: " + _currentPlayer.getNumberOfBuildingsInHand());
+		System.out.println("\t" + "Personality card: " + _currentPlayer.getPersonality().getDescriptiveName());
 	}
 
 	private void iterateTurn() throws GameOverException, EntityNotSetException, InvalidOperationException {
@@ -52,7 +55,14 @@ public class TurnIterator implements IVisitee {
 	}
 
 	private int getNumberOfCards() {
-		return _currentPlayer.getPlayerCards().length;
+		int numberOfCards = _currentPlayer.getPlayerCards().length;
+		for (PlayerCardName nameOfCardInDisplay : _currentPlayer.getPlayerCardsInDisplay()) {
+			IPlayerCard cardInDisplay = _visitor.getPlayerCard(nameOfCardInDisplay);
+			if (cardInDisplay.countsInHandSize())
+				numberOfCards++;
+		}
+		
+		return numberOfCards;
 	}
 
 	@Override

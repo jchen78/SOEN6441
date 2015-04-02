@@ -10,7 +10,8 @@ public class MenuSelector {
 	}
 
 	public String getValue() {
-		return null;
+		_input.nextLine();
+		return _input.nextLine();
 	}
 	
 	public int getSelection(String... choices) {
@@ -27,6 +28,7 @@ public class MenuSelector {
 			
 			System.out.print(System.lineSeparator() + "Please enter the number corresponding to your choice: ");
 			selection = _input.nextInt();
+			isSelectionValid = false;
 		} while (selection > choices.length || selection < 1);
 		
 		return selection - 1;

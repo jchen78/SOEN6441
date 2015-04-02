@@ -101,4 +101,6 @@ public interface IPlayer extends IVisitee {
 	void setplayercolor(String playercolor) throws InvalidOperationException;
 
 	void discardPlayerCard(PlayerCardName iPlayerCard);
+	
+	int getLoanAmount();
 }

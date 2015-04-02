@@ -13,8 +13,8 @@ public class PayMoneyToBank implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "Pay money to bank";
 	}
 
 }

@@ -388,4 +388,12 @@ public class MapArea implements IEntity, ICityArea {
 	public void setCardStatus(boolean areActionsAvailable) {
 		_areActionsAvailable = areActionsAvailable;
 	}
+	
+	@Override
+	public int getNumberOfMinions(int playerIndex) {
+		return _minions[playerIndex];
+	}
+
+	
+	
 }

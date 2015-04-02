@@ -87,6 +87,15 @@ public class GameManager implements IVisitor, IGameInstance
 	private Random randNum = new Random();
 	private String tmpStr;
 
+	// --------------------- added
+	public int getNumberOfPlayers()
+	{
+		return numberOfPlayers;
+	}
+	
+	
+	
+	
 	public GameManager()
 	{
 		this(new ConcreteCreator(), new PersistanceManager(), new MenuSelector());

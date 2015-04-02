@@ -26,7 +26,6 @@ public class TakeLoanFromBankVisitee implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return "Take $10 from Bank. At the end of the game, pay $12, or lose 15 points.";
 	}
 

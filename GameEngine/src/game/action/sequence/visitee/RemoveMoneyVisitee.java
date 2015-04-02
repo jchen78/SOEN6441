@@ -4,23 +4,20 @@ import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.core.interfaces.IPlayer;
 import game.engine.*;
+import game.error.EntityNotSetException;
 import game.error.InvalidOperationException;
 
 public class RemoveMoneyVisitee implements IVisitee {
 	private String _targetName;
 	private int _amount;
-	private ActionType _actionSource;
-	private ActionName _actionName;
 	
-	public RemoveMoneyVisitee(String targetName, int amount, ActionType actionSource, ActionName actionName) {
+	public RemoveMoneyVisitee(String targetName, int amount) {
 		_targetName = targetName;
 		_amount = amount;
-		_actionSource = actionSource;
-		_actionName = actionName;
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
 		IPlayer targetPlayer = visitor.getPlayer(_targetName);
 		int availableFunds = targetPlayer.getMoney();
 		if (availableFunds == 0) {
@@ -28,15 +25,6 @@ public class RemoveMoneyVisitee implements IVisitee {
 			return;
 		} else if (availableFunds < _amount)
 			_amount = availableFunds;
-		
-		if (!_targetName.equals(visitor.getCurrentPlayer().getName()) || _actionName != ActionName.BuyBuilding) {
-			EvaluateEscapeActionVisitee interrupt = new EvaluateEscapeActionVisitee(targetPlayer, _actionSource, _actionName);
-			visitor.visit(interrupt);
-			if (interrupt.isActionInterrupted()) {
-				_amount = 0;
-				return;
-			}
-		}
 		
 		try {
 			targetPlayer.removeMoney(_amount);

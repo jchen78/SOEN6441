@@ -99,4 +99,6 @@ public interface IPlayer extends IVisitee {
 	 * @throws InvalidOperationException Thrown when the color contains a semicolon character.
 	 */
 	void setplayercolor(String playercolor) throws InvalidOperationException;
+
+	void discardPlayerCard(PlayerCardName iPlayerCard);
 }

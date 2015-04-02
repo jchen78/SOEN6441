@@ -35,6 +35,8 @@ public class PlayerCard extends Card implements IPlayerCard {
 	private String explanation;
 	private PlayerCardName _playerCardName;
 	private CardType _cardType;
+	private LinkedList<ActionName> _interruptibleActionNames;
+	private ActionType _interruptibleActionType;
 	
 	
 	public PlayerCard(String cardName) {
@@ -46,10 +48,14 @@ public class PlayerCard extends Card implements IPlayerCard {
 		allActions = new LinkedList<IVisitee>();
 		_playerCardName = name;
 		_cardName = name.getValue();
+		_interruptibleActionNames = new LinkedList<ActionName>();
+		_interruptibleActionType = null;
+		_cardType = CardType.Playable;
+		
 		switch (name) {
 		case MrBoggis:
 			_cardType = CardType.Playable;
-			allActions.add(new OptionalActionVisitee(new TakeMoneyFromOthersVisitee(2, ActionType.PlayerCardText, ActionName.TakeMoney)));
+			allActions.add(new OptionalActionVisitee(new TakeMoneyFromOthersVisitee(2)));
 			allActions.add(new OptionalActionVisitee(new PlaceMinionVisitee(ActionType.PlayerCardIcon)));
 			break;
 		case MrBent:
@@ -154,6 +160,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case Gaspode:
 			//allActions.add(new Interrupt());
+			_cardType = CardType.Interrupt;
 			symbols.add("Interrupt");
 			explanation = "Stop a player from moving or removing one of your minion";
 			break;
@@ -170,18 +177,18 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "Move a minion belonging to another player from one area to an adjacent area";
 			break;
 		case TheFoolsGuild:
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(5));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
-			explanation = "Select another player. If they donot give you $5 then place this card infront of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
+			explanation = "Select another player. If they do not give you $5 then place this card in front of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
 			break;
 		case TheFireBrigade:
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(5));
 			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
-			explanation = "Choose a player. If they donot give you $5 then you can remove one of his building from the board";
+			explanation = "Choose a player. If they do not give you $5 then you can remove one of his building from the board";
 			break;
 		case InigoSkimmer:
 			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
@@ -240,7 +247,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "Earn $1 for each minion in The Isle of Gods";
 			break;
 		case NorryNobbs:
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(3));
 			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
@@ -285,10 +292,10 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case RosiePalm:
 			allActions.add(new PlaceMinionVisitee(null));
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(2));
 			symbols.add("Place a minion");
 			symbols.add("Scroll");
-			explanation = "Choose one Player. Give them one of of your cards. Thwy must give you $2 in return";
+			explanation = "Choose one Player. Give them one of your cards. Thwy must give you $2 in return";
 			break;
 		case Rincewind:
 		//	allActions.add(new RandomEvent());
@@ -326,19 +333,20 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "You may exchange your Personality card with one drawn randomly from those not in use";
 			break;
 		case DrWhiteface:
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(5));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
-			explanation = "Select another player. If they donot give you $5 then place this card infront of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
+			explanation = "Select another player. If they do not give you $5 then place this card in front of them. This card now counts towards their hand size of five cards when they come to refill their hand. They cannot get rid of this card";
 			break;
 		case WallaceSponky:
 		//	allActions.add(new Interrupt());
-			symbols.add("Interrupt");
+			_cardType = CardType.Interrupt;
+			_interruptibleActionType = ActionType.PlayerCardText;
 			explanation = "You cannot be affected by the text on a card played by another player";
 			break;
 		case TheSeamstressesGuild:
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(2));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
@@ -352,12 +360,13 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "The New Firm";
 			break;
 		case TheThievesGuild:
-			allActions.add(new TakeMoneyFromOthersVisitee(0, null, null));
+			allActions.add(new TakeMoneyFromOthersVisitee(2));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Scroll");
 			symbols.add("Place a minion");
 			explanation = "Take $2, if possible from every other player";
 			break;
+		
 		case SergeantCheeryLittlebottom:
 			symbols.add("Scroll");
 			symbols.add("Remove one trouble marker");
@@ -662,5 +671,22 @@ public class PlayerCard extends Card implements IPlayerCard {
 	@Override
 	public PlayerCardName getName() {
 		return _playerCardName;
+	}
+
+	@Override
+	public boolean canInterrupt(ActionName actionName, ActionType actionType) {
+		if (_cardType != CardType.Interrupt)
+			return false;
+		
+		if (_interruptibleActionType != null && actionType != null && _interruptibleActionType.equals(actionType))
+			return true;
+		if (actionName == null)
+			return false;
+		
+		for (ActionName interruptibleName : _interruptibleActionNames)
+			if (interruptibleName.equals(actionName))
+				return true;
+		
+		return false;
 	}
 }

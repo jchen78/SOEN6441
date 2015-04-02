@@ -2,9 +2,11 @@ package game.action.sequence.visitee;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.error.EntityNotSetException;
 
 public class SingleActionSelector implements IVisitee {
 	private IVisitee[] _possibleActions;
+	private int _selectedIndex = -1;
 	private IVisitee _selection;
 	private String _visiteeType;
 	
@@ -14,8 +16,14 @@ public class SingleActionSelector implements IVisitee {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
 		_selection = (IVisitee)visitor.selectAction(_possibleActions);
+		for (int i = 0; i < _possibleActions.length; i++)
+			if (_selection == _possibleActions[i]) {
+				_selectedIndex = i;
+				break;
+			}
+		
 		visitor.visit(_selection);
 	}
 
@@ -26,5 +34,9 @@ public class SingleActionSelector implements IVisitee {
 	
 	public IVisitee getSelection() {
 		return _selection;
+	}
+	
+	public int getSelectedIndex() {
+		return _selectedIndex;
 	}
 }

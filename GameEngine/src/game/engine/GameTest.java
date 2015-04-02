@@ -33,7 +33,7 @@ public class GameTest
 		public String[] retrieve(String identifier) {
 			return new String[] {
 				"Players",
-				"one;red;6;12;CommanderVimes;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "two;green;6;12;DragonKingOfArms;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "three;blue;6;12;LordDeWorde;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "four;yellow;6;12;LordRust;10;MrBoggis",
+				"one;red;6;12;CommanderVimes;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "two;green;6;12;DragonKingOfArms;10;MrBoggis" + PersistanceManager.ROW_SEPARATOR + "three;blue;6;12;LordDeWorde;10;WallaceSponky" + PersistanceManager.ROW_SEPARATOR + "four;yellow;6;12;LordRust;10;MrBoggis",
 				"",
 				"ActivePlayerCardDeck",
 				"MrsCake",

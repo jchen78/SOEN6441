@@ -4,28 +4,29 @@ import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.core.interfaces.IPlayer;
 import game.engine.*;
+import game.error.EntityNotSetException;
 import game.error.InvalidOperationException;
 
 public class TakeMoneyFromOthersVisitee implements IVisitee {
 	private int _amount;
-	private ActionType _actionType;
-	private ActionName _actionName;
 	
-	public TakeMoneyFromOthersVisitee(int amount, ActionType actionSource, ActionName actionName) {
+	public TakeMoneyFromOthersVisitee(int amount) {
 		_amount = amount;
-		_actionType = actionSource;
-		_actionName = actionName;
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
 		IPlayer activePlayer = visitor.getCurrentPlayer();
 		for (IPlayer targetPlayer : visitor.getAllPlayers()) {
 			if (targetPlayer == activePlayer)
 				continue;
 			
-			RemoveMoneyVisitee currentAction = new RemoveMoneyVisitee(targetPlayer.getName(), _amount, _actionType, _actionName);
-			visitor.visit(currentAction);
+			RemoveMoneyVisitee currentAction = new RemoveMoneyVisitee(targetPlayer.getName(), _amount);
+			InterruptibleVisitee interruptHandler = new InterruptibleVisitee(currentAction, targetPlayer.getName(), ActionType.PlayerCardText, ActionName.TakeMoney);
+			visitor.visit(interruptHandler);
+			
+			if (interruptHandler.isActionInterrupted())
+				continue;
 			
 			try {
 				activePlayer.addMoney(currentAction.getAmountRemoved());

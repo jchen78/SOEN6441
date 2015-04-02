@@ -158,6 +158,12 @@ public class MapAreaTest {
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void discardPlayerCard(PlayerCardName iPlayerCard) {
+			// TODO Auto-generated method stub
+			
+		}
 	};
 
 	@Test

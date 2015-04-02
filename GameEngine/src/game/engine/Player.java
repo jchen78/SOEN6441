@@ -229,7 +229,7 @@ public class Player implements IMoneyHolder, IPlayer {
 	
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
 		// Choose card and remove it from the player's available cards
 		_usedCards = new LinkedList<PlayerCardName>();
 		_availableCities = new LinkedList<IVisitee>();
@@ -303,5 +303,10 @@ public class Player implements IMoneyHolder, IPlayer {
 	@Override
 	public String getDescription() {
 		return "Choose one player card.";
+	}
+
+	@Override
+	public void discardPlayerCard(PlayerCardName playerCard) {
+		_playerCards.remove(playerCard);
 	}
 }

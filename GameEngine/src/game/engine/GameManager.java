@@ -10,6 +10,7 @@ import game.core.interfaces.*;
 import game.core.io.*;
 import game.engine.utils.*;
 import game.error.BankException;
+import game.error.EntityNotSetException;
 import game.error.InvalidOperationException;
 
 import java.util.*;
@@ -245,7 +246,7 @@ public class GameManager implements IVisitor, IGameInstance
    }
    
 	@Override
-	public void visit(IVisitee visitee) throws GameOverException {
+	public void visit(IVisitee visitee) throws GameOverException, EntityNotSetException {
 		System.out.println(visitee.getDescription());
 		visitee.accept(this);
 	}
@@ -285,12 +286,15 @@ public class GameManager implements IVisitor, IGameInstance
 
 	@Override
 	public void setCurrentPlayer(IPlayer currentPlayer) {
+		System.out.println("Please pass the game to: " + currentPlayer.getName());
 		_playerStack.push(currentPlayer);
 	}
 	
 	@Override
 	public void clearCurrentPlayer() {
 		_playerStack.pop();
+		IPlayer currentPlayer = getCurrentPlayer();
+		System.out.println("Please return the game to: " + currentPlayer.getName());
 	}
 
 	@Override

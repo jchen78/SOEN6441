@@ -2,6 +2,7 @@ package game.action.sequence.visitee;
 
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.error.EntityNotSetException;
 
 public class OptionalActionVisitee implements IVisitee {
 	private IVisitee[] _action;
@@ -13,7 +14,7 @@ public class OptionalActionVisitee implements IVisitee {
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
 		visitor.visit(new SingleActionSelector(_action, "actions"));
 	}
 

@@ -11,6 +11,7 @@ import game.core.interfaces.ICityArea;
 import game.core.interfaces.IGameInstance;
 import game.core.interfaces.IPlayer;
 import game.engine.*;
+import game.error.EntityNotSetException;
 import game.error.InvalidOperationException;
 
 public class PlaceMinionVisitee implements IVisitee {
@@ -22,7 +23,7 @@ public class PlaceMinionVisitee implements IVisitee {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
 		IPlayer currentPlayer = visitor.getCurrentPlayer();
 		ICityArea[] originalPopulatedAreas = currentPlayer.getPopulatedAreas(visitor);
 		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(originalPopulatedAreas);

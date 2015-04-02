@@ -155,6 +155,10 @@ public class Player implements IMoneyHolder, IPlayer {
 
 		for (PlayerCardName name : _playerCards)
 			currentState += ";" + valueOrEmpty(name.getValue());
+		
+		currentState += "|";
+		for (PlayerCardName name : _playerCardsInDisplay)
+			currentState += ";" + valueOrEmpty(name.getValue());
 
 		return currentState;
 	}
@@ -179,8 +183,18 @@ public class Player implements IMoneyHolder, IPlayer {
 		setPersonality(serializedParts[4]);
 		_playerMoney = Integer.parseInt(serializedParts[5]);
 		_playerCards = new LinkedList<PlayerCardName>();
+		int indexSeparator = serializedParts.length;
 		for (int i = 6; i < serializedParts.length; i++)
-			_playerCards.add(PlayerCardName.valueOf(serializedParts[i]));
+			if (serializedParts[i] == "|" && serializedParts.length > i + 1) {
+				indexSeparator = i + 1;
+				break;
+			}
+			else
+				_playerCards.add(PlayerCardName.valueOf(serializedParts[i]));
+		
+		_playerCardsInDisplay = new LinkedList<PlayerCardName>();
+		for (int i = indexSeparator; i < serializedParts.length; i++)
+			_playerCardsInDisplay.add(PlayerCardName.valueOf(serializedParts[i]));
 	}
 
 	public int getIndex() {
@@ -320,5 +334,10 @@ public class Player implements IMoneyHolder, IPlayer {
 	@Override
 	public void putPlayerCardInDisplay(IPlayerCard playerCard) {
 		_playerCardsInDisplay.add(playerCard.getName());
+	}
+	
+	@Override
+	public PlayerCardName[] getPlayerCardsInDisplay() {
+		return _playerCardsInDisplay.toArray(new PlayerCardName[_playerCardsInDisplay.size()]);
 	}
 }

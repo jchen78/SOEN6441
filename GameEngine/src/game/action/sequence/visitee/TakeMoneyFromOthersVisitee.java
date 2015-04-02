@@ -15,7 +15,7 @@ public class TakeMoneyFromOthersVisitee implements IVisitee {
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		IPlayer activePlayer = visitor.getCurrentPlayer();
 		for (IPlayer targetPlayer : visitor.getAllPlayers()) {
 			if (targetPlayer == activePlayer)

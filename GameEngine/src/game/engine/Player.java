@@ -31,6 +31,7 @@ public class Player implements IMoneyHolder, IPlayer {
 	private int _playerMoney;
 	private LinkedList<PlayerCardName> _playerCards;
 	private HashSet<CityAreaData> _cityCards;
+	private LinkedList<PlayerCardName> _playerCardsInDisplay;
 	
 	public Player(int index) {
 		_playerIndex = index;
@@ -229,7 +230,7 @@ public class Player implements IMoneyHolder, IPlayer {
 	
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		// Choose card and remove it from the player's available cards
 		_usedCards = new LinkedList<PlayerCardName>();
 		_availableCities = new LinkedList<IVisitee>();
@@ -308,5 +309,16 @@ public class Player implements IMoneyHolder, IPlayer {
 	@Override
 	public void discardPlayerCard(PlayerCardName playerCard) {
 		_playerCards.remove(playerCard);
+	}
+
+	@Override
+	public int getLoanAmount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void putPlayerCardInDisplay(IPlayerCard playerCard) {
+		_playerCardsInDisplay.add(playerCard.getName());
 	}
 }

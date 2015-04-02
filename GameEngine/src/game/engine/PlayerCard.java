@@ -37,6 +37,9 @@ public class PlayerCard extends Card implements IPlayerCard {
 	private CardType _cardType;
 	private LinkedList<ActionName> _interruptibleActionNames;
 	private ActionType _interruptibleActionType;
+	private int _repaymentAmount;
+	private int _pointDeduction;
+	private boolean _countsInHandSize;
 	
 	
 	public PlayerCard(String cardName) {
@@ -48,6 +51,9 @@ public class PlayerCard extends Card implements IPlayerCard {
 		allActions = new LinkedList<IVisitee>();
 		_playerCardName = name;
 		_cardName = name.getValue();
+		_repaymentAmount = 0;
+		_pointDeduction = 0;
+		_countsInHandSize = false;
 		_interruptibleActionNames = new LinkedList<ActionName>();
 		_interruptibleActionType = null;
 		_cardType = CardType.Playable;
@@ -59,13 +65,13 @@ public class PlayerCard extends Card implements IPlayerCard {
 			allActions.add(new OptionalActionVisitee(new PlaceMinionVisitee(ActionType.PlayerCardIcon)));
 			break;
 		case MrBent:
-			allActions.add(new TakeLoanFromBankVisitee());
+			_repaymentAmount = 12;
+			_pointDeduction = 15;
+			
+			allActions.add(new OptionalActionVisitee(new TakeLoanFromBankVisitee(this)));
 			allActions.add(new PlayCardVisitee());
-		//	this.allActions.add(new Scroll(ActionType.PlayerCardIcon));
-			symbols.add("Scroll");
-			symbols.add("Play another card");
-			explanation = "Place this card in front of you and take a loan of $10 from the bank and at the end of the game you must payback $12 or lose 15 points";
 			break;
+			
 		case TheBeggarsGuild:
 			allActions.add(new TakeCardsFromOtherPlayer());
 			allActions.add(new PlaceMinionVisitee(ActionType.PlayerCardIcon));
@@ -74,7 +80,10 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "Select one player, they must give you two cards of their choice";
 			break;
 		case TheBankOfAnkhMorpork:
-			allActions.add(new TakeLoanFromBankVisitee());
+			_repaymentAmount = 12;
+			_pointDeduction = 15;
+			
+			allActions.add(new TakeLoanFromBankVisitee(this));
 			allActions.add(new PlayCardVisitee());
 			symbols.add("Scroll");
 			symbols.add("Play another card");
@@ -688,5 +697,23 @@ public class PlayerCard extends Card implements IPlayerCard {
 				return true;
 		
 		return false;
+	}
+
+	@Override
+	public int getRepaymentAmount() {
+		// TODO Auto-generated method stub
+		return _repaymentAmount;
+	}
+
+	@Override
+	public int getPointDeductions() {
+		// TODO Auto-generated method stub
+		return _pointDeduction;
+	}
+
+	@Override
+	public boolean countsInHandSize() {
+		// TODO Auto-generated method stub
+		return _countsInHandSize;
 	}
 }

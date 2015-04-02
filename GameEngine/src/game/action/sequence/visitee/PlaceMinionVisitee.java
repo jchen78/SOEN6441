@@ -23,7 +23,7 @@ public class PlaceMinionVisitee implements IVisitee {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		IPlayer currentPlayer = visitor.getCurrentPlayer();
 		ICityArea[] originalPopulatedAreas = currentPlayer.getPopulatedAreas(visitor);
 		List<ICityArea> currentlyPopulatedAreas = Arrays.asList(originalPopulatedAreas);

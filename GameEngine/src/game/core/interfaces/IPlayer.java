@@ -103,4 +103,6 @@ public interface IPlayer extends IVisitee {
 	void discardPlayerCard(PlayerCardName iPlayerCard);
 	
 	int getLoanAmount();
+	
+	void putPlayerCardInDisplay(IPlayerCard playerCard);
 }

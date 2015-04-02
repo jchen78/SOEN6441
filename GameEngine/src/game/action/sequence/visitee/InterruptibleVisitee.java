@@ -11,6 +11,7 @@ import game.engine.ActionName;
 import game.engine.ActionType;
 import game.engine.CardType;
 import game.error.EntityNotSetException;
+import game.error.InvalidOperationException;
 
 public class InterruptibleVisitee implements IVisitee {
 	private IVisitee _interruptibleAction;
@@ -34,7 +35,7 @@ public class InterruptibleVisitee implements IVisitee {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		IPlayer targetPlayer = visitor.getPlayer(_interruptorName);
 		_interruptorCards = new LinkedList<IPlayerCard>();
 		

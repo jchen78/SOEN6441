@@ -49,6 +49,10 @@ public class Bank {
 		_currentBalance -= amount;
 	}
 	
+	public void deposit(int amount) {
+		_currentBalance += amount;
+	}
+	
 	/**
 	 * This method is used to query the current state of the bank.
 	 * @return The funds currently held by the bank.

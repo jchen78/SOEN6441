@@ -6,6 +6,7 @@ import game.core.enums.PlayerCardName;
 import game.core.interfaces.IPersonalityCard;
 import game.core.interfaces.IPlayer;
 import game.error.EntityNotSetException;
+import game.error.InvalidOperationException;
 
 /**
  * This visitee will keep on iterating until winning conditions are met
@@ -21,13 +22,13 @@ public class TurnIterator implements IVisitee {
 	int i = 0;
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		initializeVisit(visitor);
 		visitor.visit(_currentPlayer);
 		iterateTurn();
 	}
 
-	private void initializeVisit(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	private void initializeVisit(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		_currentPlayer = visitor.getCurrentPlayer();
 		_visitor = visitor;
 		
@@ -37,7 +38,7 @@ public class TurnIterator implements IVisitee {
 			throw new GameOverException();
 	}
 
-	private void iterateTurn() throws GameOverException, EntityNotSetException {
+	private void iterateTurn() throws GameOverException, EntityNotSetException, InvalidOperationException {
 		cleanUpCurrentPlayer();
 		_visitor.iteratePlayer();
 		accept(_visitor);

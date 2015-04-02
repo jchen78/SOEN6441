@@ -10,6 +10,7 @@ import game.core.enums.PlayerCardName;
 import game.core.interfaces.ICityArea;
 import game.core.interfaces.IGameInstance;
 import game.core.interfaces.IPlayer;
+import game.core.interfaces.IPlayerCard;
 import game.engine.CityAreaCard;
 import game.engine.MapArea;
 import game.error.InvalidOperationException;
@@ -161,6 +162,18 @@ public class MapAreaTest {
 
 		@Override
 		public void discardPlayerCard(PlayerCardName iPlayerCard) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public int getLoanAmount() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void putPlayerCardInDisplay(IPlayerCard playerCard) {
 			// TODO Auto-generated method stub
 			
 		}

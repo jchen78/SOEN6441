@@ -75,7 +75,7 @@ public class GameManager implements IVisitor, IGameInstance
 	
 	private int greenBrownDeckCurrentIndex;	
 	
-	Bank gameBank;
+	Bank _gameBank;
 
 	//private Bank gameBank;
 	//private Area[] cityArea;
@@ -106,7 +106,7 @@ public class GameManager implements IVisitor, IGameInstance
 		//		for(int i = 0; i < 12; i ++)
 		//			cityArea[i] = new MapArea();
 		//cityArea = new Map().createMap();
-		gameBank = new Bank();
+		_gameBank = new Bank();
 		_playerStack = new Stack<IPlayer>();
 		_persistanceManager = persistanceManager;
 		_creator = creator;
@@ -255,7 +255,7 @@ public class GameManager implements IVisitor, IGameInstance
    }
    
 	@Override
-	public void visit(IVisitee visitee) throws GameOverException, EntityNotSetException {
+	public void visit(IVisitee visitee) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		System.out.println(visitee.getDescription());
 		visitee.accept(this);
 	}
@@ -391,5 +391,30 @@ public class GameManager implements IVisitor, IGameInstance
 	@Override
 	public void close() {
 		_menuSelector.close();
+	}
+
+
+
+
+	@Override
+	public int withdrawMoneyFromBank(int amount) throws InvalidOperationException {
+		int currentBalance = _gameBank.getBalance();
+		if (amount> currentBalance)
+			amount = currentBalance;
+		try {
+			_gameBank.withdraw(amount);
+		} catch (BankException e) {
+			throw new InvalidOperationException("Withdrawal not successful.");
+		}
+		
+		return amount;
+	}
+
+
+
+
+	@Override
+	public void depositMoneyToBank(int amount) {
+		_gameBank.deposit(amount);
 	}
 }

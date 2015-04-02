@@ -36,8 +36,8 @@ public class RemoveMoneyVisitee implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "Remove Money";
 	}
 	
 	public int getAmountRemoved() {

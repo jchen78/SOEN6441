@@ -31,47 +31,47 @@ public class Player implements IMoneyHolder, IPlayer {
 	private int _playerMoney;
 	private LinkedList<PlayerCardName> _playerCards;
 	private HashSet<CityAreaData> _cityCards;
-	
+
 	public Player(int index) {
 		_playerIndex = index;
 	}
-	
+
 	@Override
-    public String getName() {
+	public String getName() {
 		return _playerName;
 	}
-	
-    @Override
-    public void setName(String name) throws InvalidOperationException {
-    	if (name.contains(";"))
-    		throw new InvalidOperationException("Player name cannot contain the semicolon character.");
-    	
+
+	@Override
+	public void setName(String name) throws InvalidOperationException {
+		if (name.contains(";"))
+			throw new InvalidOperationException("Player name cannot contain the semicolon character.");
+
 		this._playerName = name;
 	}
-	
+
 	@Override
 	public String getplayercolor() {
 		return _playerColor;
 	}
-	
+
 	@Override
 	public void setplayercolor(String playercolor) throws InvalidOperationException {
 		if (_playerColor.contains(";"))
 			throw new InvalidOperationException("The player color cannot contain the semicolon character.");
-		
+
 		this._playerColor = playercolor;
 	}
-	
+
 	@Override
 	public int getNumberOfMinionsInHand() {
 		return _numOfPlayerMinions;
 	}
-	
+
 	@Override
 	public int getNumberOfBuildingsInHand() {
 		return _numOfPlayerBuildings;
 	}
-   
+
 	/**
 	 * Initializes the number of buildings in the player's hand.
 	 * @param buildingCount Number of buildings in the player' hand after initialization.
@@ -80,33 +80,33 @@ public class Player implements IMoneyHolder, IPlayer {
 	public void setNumberBuildings(int buildingCount) throws InvalidOperationException {
 		if (buildingCount < 0 || buildingCount > MAX_NUMBER_BUILDING_PIECES)
 			throw new InvalidOperationException("Number of buildings must be valid.");
-	   
+
 		this._numOfPlayerBuildings = buildingCount;
 	}
-	
+
 	@Override
 	public PersonalityCardName getPersonality() {
 		return _playerPersonality;
 	}
-	
+
 	private void setPersonality(String personality) throws InvalidOperationException {
 		if (personality.contains(";"))
 			throw new InvalidOperationException("The personality card name cannot contain the semicolon character.");
-		
+
 		_playerPersonality = PersonalityCardName.valueOf(personality);
 	}
-	
+
 	@Override
 	public void setPersonality(PersonalityCardName personality) {
 		_playerPersonality = personality;
 	}
-	
+
 	@Override
 	public String getAccountHolderName()
 	{
 		return _playerName;
 	}
-	
+
 	/**
 	 * Gets the money currently in the player's hand.
 	 */
@@ -114,7 +114,7 @@ public class Player implements IMoneyHolder, IPlayer {
 	public int getMoney() {
 		return _playerMoney;
 	}
-	
+
 	/**
 	 * Initializes the money in the player's hand.
 	 * @param money Amount in the player's hand after initialization.
@@ -123,20 +123,20 @@ public class Player implements IMoneyHolder, IPlayer {
 	private void setPlayerMoney(int money) throws InvalidOperationException {
 		if (money < 0 || money > 120)
 			throw new InvalidOperationException("Amount of money must be valid.");
-	   
+
 		_playerMoney = money;
 	}
-	
+
 	@Override
 	public void addMoney(int amount) throws InvalidOperationException {
 		setPlayerMoney(_playerMoney + amount);
 	}
-	
+
 	@Override
 	public void removeMoney(int amount) throws InvalidOperationException {
 		setPlayerMoney(_playerMoney - amount);
 	}
-	
+
 	@Override
 	public PlayerCardName[] getPlayerCards() {
 		return _playerCards.toArray(new PlayerCardName[_playerCards.size()]);
@@ -145,32 +145,32 @@ public class Player implements IMoneyHolder, IPlayer {
 	@Override
 	public String getCurrentState() {
 		String currentState =
-			valueOrEmpty(_playerName) + ";"
-			+ valueOrEmpty(_playerColor) + ";"
-			+ _numOfPlayerBuildings + ";"
-			+ _numOfPlayerMinions + ";"
-			+ valueOrEmpty(_playerPersonality.getValue()) + ";"
-			+ _playerMoney;
-		
+				valueOrEmpty(_playerName) + ";"
+						+ valueOrEmpty(_playerColor) + ";"
+						+ _numOfPlayerBuildings + ";"
+						+ _numOfPlayerMinions + ";"
+						+ valueOrEmpty(_playerPersonality.getValue()) + ";"
+						+ _playerMoney;
+
 		for (PlayerCardName name : _playerCards)
 			currentState += ";" + valueOrEmpty(name.getValue());
-		
+
 		return currentState;
 	}
-	
+
 	private String valueOrEmpty(String value) {
 		return value == null ? "" : value;
 	}
-	
+
 	@Override
 	public void setCurrentState(String serializedData) throws NumberFormatException, InvalidOperationException {
 		if (serializedData == null)
 			throw new InvalidOperationException("Serialized data cannot be null.");
-		
+
 		String[] serializedParts = serializedData.split(";");
 		if (serializedParts.length < 6 || serializedParts.length > 106)
 			throw new InvalidOperationException("Invalid serialized data.");
-		
+
 		_playerName = serializedParts[0];
 		_playerColor = serializedParts[1];
 		_numOfPlayerBuildings = Integer.parseInt(serializedParts[2]);
@@ -200,7 +200,7 @@ public class Player implements IMoneyHolder, IPlayer {
 	public void returnMinionsToHand(int numberMinions) throws IllegalArgumentException {
 		if (numberMinions < 0 || (numberMinions + _numOfPlayerMinions) > MAX_NUMBER_MINION_PIECES)
 			throw new IllegalArgumentException();
-		
+
 		this._numOfPlayerMinions += numberMinions;
 	}
 
@@ -215,7 +215,7 @@ public class Player implements IMoneyHolder, IPlayer {
 				numberAreas++;
 			}
 		}
-		
+
 		return currentlyPopulatedAreas.toArray(new ICityArea[numberAreas]);
 	}
 
@@ -223,10 +223,10 @@ public class Player implements IMoneyHolder, IPlayer {
 	public void removeMinionsFromHand(int numberMinions) throws IllegalArgumentException {
 		if (numberMinions < 0 || numberMinions > _numOfPlayerMinions)
 			throw new IllegalArgumentException();
-		
+
 		this._numOfPlayerMinions -= numberMinions;
 	}
-	
+
 
 	@Override
 	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
@@ -237,7 +237,7 @@ public class Player implements IMoneyHolder, IPlayer {
 		for (ICityArea currentArea : visitor.getAllCityAreas())
 			if (currentArea.getBuildingOwner().equals(_playerName))
 				_availableCities.add(currentArea);
-		
+
 		// Play card.
 		for (List<IVisitee> possibleActions = getActions(); possibleActions.size() > 0; possibleActions = getActions()) {
 			IVisitee currentAction = (IVisitee)visitor.selectAction(possibleActions.toArray(new IVisitee[possibleActions.size()])); // Arrays are covariant in Java
@@ -245,13 +245,13 @@ public class Player implements IMoneyHolder, IPlayer {
 			_availableCities.remove(currentAction);
 			visitor.visit(currentAction);
 		}
-		
+
 		for (PlayerCardName usedCard : _usedCards) {
 			_playerCards.remove(usedCard);
 			visitor.discardPlayerCard(usedCard);
 		}
 	}
-	
+
 	private List<IVisitee> _availableCities;
 	private List<PlayerCardName> _usedCards;
 	private List<IVisitee> _cardActions;
@@ -259,7 +259,7 @@ public class Player implements IMoneyHolder, IPlayer {
 		_cardActions = null;
 		LinkedList<ISelectable> activeCards = new LinkedList<ISelectable>();
 		LinkedList<ISelectable> inactiveCards = new LinkedList<ISelectable>();
-		
+
 		for (PlayerCardName cardName : _playerCards) {
 			IPlayerCard card = visitor.getPlayerCard(cardName);
 			CardType cardType;
@@ -269,16 +269,16 @@ public class Player implements IMoneyHolder, IPlayer {
 			catch (EntityNotSetException e) {
 				throw new RuntimeException(e);
 			}
-			
+
 			if (cardType == CardType.Playable)
 				activeCards.add(card);
 			else
 				inactiveCards.add(card);
 		}
-		
+
 		if (activeCards.size() == 0)
 			return;
-		
+
 		ISelectable[] allActiveCards = activeCards.toArray(new ISelectable[activeCards.size()]);
 		ISelectable[] allInactiveCards = inactiveCards.toArray(new ISelectable[inactiveCards.size()]);
 		IPlayerCard selectedAction = (IPlayerCard)visitor.selectAction(allActiveCards, allInactiveCards);
@@ -296,7 +296,7 @@ public class Player implements IMoneyHolder, IPlayer {
 					possibleActions.add(currentCity);
 			}
 		}
-		
+
 		return possibleActions;
 	}
 
@@ -309,4 +309,11 @@ public class Player implements IMoneyHolder, IPlayer {
 	public void discardPlayerCard(PlayerCardName playerCard) {
 		_playerCards.remove(playerCard);
 	}
+
+	public int getLoanAmount()
+	{
+		// TODO 
+		return 0;
+	}
+
 }

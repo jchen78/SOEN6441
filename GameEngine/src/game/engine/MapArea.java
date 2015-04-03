@@ -1,7 +1,9 @@
 package game.engine;
 
+import game.action.sequence.interfaces.IPrecondition;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
+import game.action.sequence.precondition.HasEnoughMoney;
 import game.action.sequence.visitee.DiscardCard;
 import game.action.sequence.visitee.GameOverException;
 import game.action.sequence.visitee.IgnoreRandomEvent;
@@ -21,6 +23,7 @@ import game.core.enums.RandomEventCardName;
 import game.core.interfaces.ICityArea;
 import game.core.interfaces.IGameInstance;
 import game.core.interfaces.IPlayer;
+import game.error.EntityNotSetException;
 import game.error.InvalidEntityNameException;
 import game.error.InvalidOperationException;
 
@@ -33,6 +36,7 @@ import java.util.List;
  * This class represents the entity of a game board area.
  */
 public class MapArea implements IEntity, ICityArea {
+	private CardType _cardType;
 	private CityAreaData _cardStats;
 	private int _number;
 	private String _buildingOwner;
@@ -52,19 +56,25 @@ public class MapArea implements IEntity, ICityArea {
 	 * Constructor: decides the actions based on the name of the card
 	 */
 	private CityAreaData _cardName;
+	private LinkedList<IPrecondition> _preRequisites;
 	private LinkedList<IVisitee> _actions;
 	public MapArea(CityAreaData name){
+		_cardType = CardType.Playable;
 		_cardName = name;
-
+		_preRequisites = new LinkedList<IPrecondition>();
+		_actions = new LinkedList<IVisitee>();
+		
 		switch(name){
 		case Dimwell:
-			_actions.add(new PayMoneyToBank());
-			_actions.add(new PlaceMinionVisitee(null)); // ----- null
+			_preRequisites.add(new HasEnoughMoney(3));
+			_actions.add(new PayMoneyToBank(3));
+			_actions.add(new PlaceMinionVisitee(ActionType.CityAreaCard)); // ----- null
 			break;
 
 		case DollySisters:
-			_actions.add(new PayMoneyToBank());
-			_actions.add(new PlaceMinionVisitee(null)); // ----- null
+			_preRequisites.add(new HasEnoughMoney(3));
+			_actions.add(new PayMoneyToBank(3));
+			_actions.add(new PlaceMinionVisitee(ActionType.CityAreaCard)); // ----- null
 			break;
 			
 		case DragonsLanding:
@@ -72,7 +82,8 @@ public class MapArea implements IEntity, ICityArea {
 			break;
 
 		case IsleOfGod:
-			_actions.add(new PayMoneyToBank());
+			_preRequisites.add(new HasEnoughMoney(2));
+			_actions.add(new PayMoneyToBank(2));
 			_actions.add(new RemoveTroubleMarker());
 			break;
 
@@ -89,7 +100,9 @@ public class MapArea implements IEntity, ICityArea {
 			break;
 
 		case SmallGod:
-			_actions.add(new PayMoneyToBank());
+			_cardType = CardType.Interrupt;
+			_preRequisites.add(new HasEnoughMoney(3));
+			_actions.add(new PayMoneyToBank(2));
 			_actions.add(new IgnoreRandomEvent());
 			break;
 
@@ -335,9 +348,15 @@ public class MapArea implements IEntity, ICityArea {
 	}
 
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException {
-		// TODO Auto-generated method stub
-
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
+		for (IPrecondition prerequisite : _preRequisites)
+			if (!prerequisite.isActionPossible(visitor)) {
+				System.out.println("This city card cannot be played at this moment.");
+				return;
+			}
+		
+		for (IVisitee action : _actions)
+			visitor.visit(action);
 	}
 
 	@Override
@@ -393,7 +412,9 @@ public class MapArea implements IEntity, ICityArea {
 	public int getNumberOfMinions(int playerIndex) {
 		return _minions[playerIndex];
 	}
-
 	
-	
+	@Override
+	public void removeTroubleMarker() {
+		_isTroubleMarkerSet = false;
+	}
 }

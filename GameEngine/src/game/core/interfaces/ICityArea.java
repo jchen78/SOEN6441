@@ -10,6 +10,7 @@ public interface ICityArea extends IVisitee {
 	
 	// --------------------- added
 	public boolean hasTroubleMarker();
+	public void removeTroubleMarker();
 	public int getNumberOfMinions(int playerIndex);
 	public int getNumberTrolls();
 	public int getNumberDemons();

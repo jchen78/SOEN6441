@@ -664,7 +664,11 @@ public class PlayerCard extends Card implements IPlayerCard {
 
 	@Override
 	public String getDescription() {
-		return _playerCardName.getDescriptiveName();
+		String cardDescription = _playerCardName.getDescriptiveName();
+		for (IVisitee action : allActions)
+			cardDescription += "\r\n" + action.getDescription();
+		
+		return cardDescription;
 	}
 
 	@Override

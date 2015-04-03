@@ -3,7 +3,7 @@ package game.core.enums;
 public enum PlayerCardName implements ICardName {
 	
 MrBoggis("MrBoggis", "Green"),
-MrBent("MrBent"),
+MrBent("MrBent", "Green"),
 TheBeggarsGuild("TheBeggarsGuild"),
 TheBankOfAnkhMorpork("TheBankOfAnkhMorpork"),
 TheAnkhMorporkSunshineDragonSanctuary("TheAnkhMorporkSunshineDragonSanctuary"),

@@ -7,6 +7,15 @@ import game.engine.GameManager;
 import game.error.InvalidOperationException;
 
 public interface ICityArea extends IVisitee {
+	
+	// --------------------- added
+	public boolean hasTroubleMarker();
+	public int getNumberOfMinions(int playerIndex);
+	public int getNumberTrolls();
+	public int getNumberDemons();
+	public int getBuildingCost();
+	
+	
 	public CityAreaData getCityAreaName();
 	public String getCurrentState();
 	public CardType getCardType();

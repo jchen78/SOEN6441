@@ -5,6 +5,7 @@ import java.util.List;
 import game.action.sequence.interfaces.IVisitee;
 import game.action.sequence.interfaces.IVisitor;
 import game.error.EntityNotSetException;
+import game.error.InvalidOperationException;
 
 public class MultipleActionSelector implements IVisitee {
 	private List<IVisitee> _nonExclusiveActions;
@@ -14,7 +15,7 @@ public class MultipleActionSelector implements IVisitee {
 	}
 	
 	@Override
-	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException {
+	public void accept(IVisitor visitor) throws GameOverException, EntityNotSetException, InvalidOperationException {
 		while (_nonExclusiveActions.size() > 0) {
 			IVisitee[] currentChoices = _nonExclusiveActions.toArray(new IVisitee[_nonExclusiveActions.size()]);
 			IVisitee selectedAction = (IVisitee)visitor.selectAction(currentChoices);

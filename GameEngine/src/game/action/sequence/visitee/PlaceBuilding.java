@@ -13,8 +13,8 @@ public class PlaceBuilding implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		
+			return "Place a building";
 	}
 
 }

@@ -21,7 +21,7 @@ public void accept(IVisitor visitor) throws GameOverException {
 */
 @Override
 public String getDescription() {
-// TODO Auto-generated method stub
-return null;
+
+return "Place a Troll in the area affected";
 }
 }

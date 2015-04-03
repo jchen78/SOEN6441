@@ -13,8 +13,8 @@ public class PlaceTroubleMarker implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return "Place a trouble marker inthe area affected";
 	}
 
 }

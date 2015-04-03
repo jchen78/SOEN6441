@@ -2,6 +2,8 @@ package game.core.interfaces;
 
 import game.action.sequence.visitee.GameOverException;
 import game.core.enums.*;
+import game.error.BankException;
+import game.error.InvalidOperationException;
 
 public interface IGameInstance {
 	// Player card management
@@ -9,6 +11,10 @@ public interface IGameInstance {
 	public PlayerCardName drawDiscardedPlayerCard();
 	public void discardPlayerCard(PlayerCardName discardedCard);
 	public IPlayerCard getPlayerCard(PlayerCardName cardName);
+	
+	// Bank management
+	public int withdrawMoneyFromBank(int amount) throws InvalidOperationException;
+	public void depositMoneyToBank(int amount);
 	
 	// Board management
 	public ICityArea[] getAllCityAreas();
@@ -30,6 +36,9 @@ public interface IGameInstance {
 	public IPlayer[] getAllPlayers();
 	IPlayer getPlayer(int playerIndex);
 	IPlayer getPlayer(String playerName);
+	
+	// --------------------- added
+	public int getNumberOfPlayers();
 	
 	// Game utility functions
 	public void initializeGame() throws Exception;

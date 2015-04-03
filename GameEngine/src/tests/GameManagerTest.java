@@ -4,17 +4,20 @@
 package tests;
 
 import static org.junit.Assert.*;
+import game.action.sequence.interfaces.IVisitor;
 import game.core.enums.CityAreaData;
 import game.core.interfaces.ICityArea;
+import game.core.interfaces.IGameInstance;
 import game.engine.GameManager;
+
+
 
 
 import org.junit.Test;
 
 
 public class GameManagerTest {
-	GameManager gm = new GameManager();
-
+	IGameInstance GI;
 	/**
 	 * Test method for {@link game.engine.GameManager#getActiveCityCardsForPlayer(game.core.interfaces.IPlayer)}.
 	 */
@@ -29,11 +32,15 @@ public class GameManagerTest {
 	 */
 	@Test
 	public void testGetCityArea() throws NullPointerException {
+		GameManager gm= new GameManager();
 		CityAreaData selectedArea1 = CityAreaData.Dimwell;
 		CityAreaData selectedArea2 = CityAreaData.DollySisters;
-		ICityArea value1 = gm.getCityArea(selectedArea1);
+		ICityArea value1 = gm.getCityArea();
+
 		ICityArea value2 = gm.getCityArea(selectedArea2);
 		assertNotEquals(value1, value2);
+		
+		
 	}
 
 	/**

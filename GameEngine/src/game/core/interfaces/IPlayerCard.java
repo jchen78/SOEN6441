@@ -12,4 +12,8 @@ public interface IPlayerCard extends ISelectable {
 	public IVisitee[] getActions();
 	public PlayerCardName getName();
 	public boolean canInterrupt(ActionName actionName, ActionType actionType);
+	
+	public int getRepaymentAmount();
+	public int getPointDeductions();
+	public boolean countsInHandSize();
 }

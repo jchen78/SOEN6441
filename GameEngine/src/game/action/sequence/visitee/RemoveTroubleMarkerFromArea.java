@@ -13,8 +13,8 @@ public class RemoveTroubleMarkerFromArea implements IVisitee {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return "Remove trouble marker";
 	}
 
 }

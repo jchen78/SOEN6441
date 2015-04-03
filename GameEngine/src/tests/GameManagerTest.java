@@ -30,6 +30,7 @@ public class GameManagerTest {
 	/**
 	 * Test method for {@link game.engine.GameManager#getCityArea(game.core.enums.CityAreaData)}.
 	 */
+<<<<<<< HEAD
 	@Test
 	public void testGetCityArea() throws NullPointerException {
 		GameManager gm= new GameManager();
@@ -42,6 +43,17 @@ public class GameManagerTest {
 		
 		
 	}
+=======
+//	@Test
+//	public void testGetCityArea() throws NullPointerException {
+//		
+//		CityAreaData selectedArea1 = CityAreaData.Dimwell;
+//		CityAreaData selectedArea2 = CityAreaData.DollySisters;
+//		ICityArea value1 = GI.getCityArea(selectedArea1);
+//		ICityArea value2 = GI.getCityArea(selectedArea2);
+//		assertNotEquals(value1, value2);
+//	}
+>>>>>>> 251b19f80ddb9a8ad8713f1b97db0dce37eba0fc
 
 	/**
 	 * Test method for {@link game.engine.GameManager#discardPersonalityCard(game.core.enums.PersonalityCardName)}.

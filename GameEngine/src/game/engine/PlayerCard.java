@@ -104,7 +104,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case TheAgonyAunts:
 			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(2));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Assassination");
 			symbols.add("Take money $2");
@@ -136,21 +136,21 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case DrCruces:
 			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(3));
 			symbols.add("Assassination");
 			symbols.add("Take money $3");
 			break;
 		case CaptainCarrot:
 			allActions.add(new PlaceMinionVisitee(null));
 			allActions.add(new RemoveTroubleMarker());
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(1));
 			symbols.add("Place a minion");
 			symbols.add("Remove one trouble marker");
 			symbols.add("Take money $1");
 			break;
 		case MrsCake:
 			allActions.add(new LookAtUnusedPersonalityCard());
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(2));
 			allActions.add(new PlaceBuilding());
 			symbols.add("Scroll");
 			symbols.add("Take money $2");
@@ -162,7 +162,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			symbols.add("Place a minion");
 			break;
 		case GimletsDwarfDelicatessen:
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(3));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Take money $3");
 			symbols.add("Place a minion");
@@ -201,7 +201,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case InigoSkimmer:
 			allActions.add(new RemoveMinionVisitee(_cardName, _cardName, null));
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(2));
 			symbols.add("Assassination");
 			symbols.add("Take money $2");
 			break;
@@ -234,14 +234,14 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "Discard as many card as you wish and take $2 for each discarded";
 			break;
 		case HargasHouseOfRibs:
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(3));
 			allActions.add(new PlaceMinionVisitee(null));
 			symbols.add("Take money $3");
 			symbols.add("Place a minion");
 			break;
 		case MrGryle:
 			allActions.add(new RemoveMinionVisitee());
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(1));
 			symbols.add("Assassination");
 			symbols.add("Take money $1");
 			break;
@@ -271,7 +271,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case TheMendedDrum:
 			allActions.add(new PlaceBuilding());
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(2));
 			symbols.add("Place a building");
 			symbols.add("Take money $2");
 			break;
@@ -317,7 +317,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case TheRoyalMint:
 			allActions.add(new PlaceBuilding());
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(5));
 			symbols.add("Place a building");
 			symbols.add("Take money $5");
 			break;
@@ -329,7 +329,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			explanation = "Select one player. They must give you two cards of their choice";
 			break;
 		case PinkPussycatClub:
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(3));
 			allActions.add(new PlayCardVisitee());
 			symbols.add("Take money $3");
 			symbols.add("Play another card");
@@ -363,7 +363,7 @@ public class PlayerCard extends Card implements IPlayerCard {
 			break;
 		case MrPinAndMrTulip:
 			allActions.add(new RemoveMinionVisitee());
-			allActions.add(new TakeMoneyFromBank());
+			allActions.add(new TakeMoneyFromBank(1));
 			symbols.add("Assassination");
 			symbols.add("Take money $1");
 			explanation = "The New Firm";
@@ -664,7 +664,11 @@ public class PlayerCard extends Card implements IPlayerCard {
 
 	@Override
 	public String getDescription() {
-		return _playerCardName.getDescriptiveName();
+		String cardDescription = _playerCardName.getDescriptiveName();
+		for (IVisitee action : allActions)
+			cardDescription += "\r\n" + action.getDescription();
+		
+		return cardDescription;
 	}
 
 	@Override

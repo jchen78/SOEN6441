@@ -42,7 +42,7 @@ public interface IGameInstance {
 	
 	// Game utility functions
 	public void initializeGame() throws Exception;
-	public void persistGame() throws Exception;
+	public void persistGame(String fileName) throws Exception;
 	public int rollDie();
 	void close();
 }

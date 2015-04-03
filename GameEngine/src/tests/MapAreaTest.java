@@ -177,6 +177,12 @@ public class MapAreaTest {
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public PlayerCardName[] getPlayerCardsInDisplay() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	};
 
 	@Test

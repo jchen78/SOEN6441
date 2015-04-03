@@ -12,8 +12,7 @@ public class GameTest
 {
 	public static void main(String[] args) throws IOException, InvalidOperationException, NumberFormatException, BankException
 	{
-		GameTest x = new GameTest();
-		GameManager gm = new GameManager(new ConcreteCreator(), x.new TestPersistanceManager(), new MenuSelector());
+		GameManager gm = new GameManager(new ConcreteCreator(), new PersistanceManager(), new MenuSelector());
 		try {
 			gm.initializeGame();
 			gm.visit(new TurnIterator());
